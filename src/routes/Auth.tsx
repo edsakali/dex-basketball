@@ -1,7 +1,5 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { ThemeProvider } from "styled-components";
-import { theme } from "../assets/styles/styledTheming";
 import { LayoutAuth } from "../components/layouts/LayoutAuth";
 import { Button } from "../components/ui/Button";
 import { FormInput } from "../components/ui/Input";
@@ -15,34 +13,32 @@ export const Auth = () => {
     setShowPassword((prev) => !prev);
   };
   return (
-    <ThemeProvider theme={theme}>
-      <LayoutAuth titleText="Sign In" img={<Img src={layer} alt="basket1" />}>
-        <FormWrapper>
-          <FormInput
-            placeholder="Enter Login"
-            // value=""
-            type="text"
-            label="Login"
-          />
+    <LayoutAuth titleText="Sign In" img={<Img src={layer} alt="basket1" />}>
+      <FormWrapper>
+        <FormInput
+          placeholder="Enter Login"
+          // value=""
+          type="text"
+          label="Login"
+        />
 
-          <FormInput
-            placeholder="Enter Password"
-            // value=""
-            type={showPassword ? "text" : "password"}
-            label="Password"
-            icon={
-              showPassword ? (
-                <img src={iconVis} alt="visibility" />
-              ) : (
-                <img src={iconVisOff} alt="visibility" />
-              )
-            }
-            onClickIcon={onClickIcon}
-          />
-          <Button>Sign in</Button>
-        </FormWrapper>
-      </LayoutAuth>
-    </ThemeProvider>
+        <FormInput
+          placeholder="Enter Password"
+          // value=""
+          type={showPassword ? "text" : "password"}
+          label="Password"
+          icon={
+            showPassword ? (
+              <img src={iconVis} alt="visibility" />
+            ) : (
+              <img src={iconVisOff} alt="visibility" />
+            )
+          }
+          onClickIcon={onClickIcon}
+        />
+        <Button>Sign in</Button>
+      </FormWrapper>
+    </LayoutAuth>
   );
 };
 
