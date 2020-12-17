@@ -49,7 +49,7 @@ const InputWrapper = styled.div`
     transition: all 0.2s ease-in-out;
   }
 
-  &:focus {
+  &:focus-within {
     box-shadow: 0px 0px 5px #d9d9d9;
   }
 
@@ -82,6 +82,8 @@ const InputContainer = styled.div`
   }
 `;
 const IconWrapper = styled.div`
+  display: flex;
+  align-items: center;
   z-index: 1;
   cursor: pointer;
 `;

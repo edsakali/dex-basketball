@@ -1,7 +1,7 @@
 import { FC } from "react";
 import styled from "styled-components";
 
-export const FormLogin: FC = () => {
+export const LoginForm: FC = () => {
   return <Form></Form>;
 };
 

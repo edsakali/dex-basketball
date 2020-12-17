@@ -6,6 +6,7 @@ import { FormInput } from "../components/ui/Input";
 import iconVis from "../assets/images/icon/visibility_24px.png";
 import iconVisOff from "../assets/images/icon/visibility_off_24px.svg";
 import layer from "../assets/images/icon/Layer 1.png";
+import { AuthNavigation } from "../components/navigation/AuthNavigation";
 
 export const Auth = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -38,6 +39,11 @@ export const Auth = () => {
         />
         <Button>Sign in</Button>
       </FormWrapper>
+      <AuthNavigation
+        text="Not a member yet?"
+        actionText="Sign Up"
+        path="/registration"
+      />
     </LayoutAuth>
   );
 };

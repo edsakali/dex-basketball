@@ -1,5 +1,5 @@
 import { FC } from "react";
 
-export const FormRegistration: FC = () => {
+export const RegistrationForm: FC = () => {
   return <div></div>;
 };
