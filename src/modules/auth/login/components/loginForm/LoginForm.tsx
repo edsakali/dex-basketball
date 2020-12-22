@@ -7,32 +7,51 @@ import { AuthNavigation } from "../../../../../components/navigation/AuthNavigat
 import iconVis from "../../../../../assets/images/icon/visibility_24px.png";
 import iconVisOff from "../../../../../assets/images/icon/visibility_off_24px.svg";
 import layer1 from "../../../../../assets/images/icon/Layer 1.png";
+import { UseFormMethods } from "react-hook-form";
 
 interface propsForm {
   onClickIcon?: () => void;
   showPassword: boolean;
+  onSubmit: () => void;
 }
 
-export const LoginForm: FC<propsForm> = ({ showPassword, onClickIcon }) => {
+interface FormProps
+  extends Partial<Pick<UseFormMethods, "register" | "errors">> {
+  onClickIcon?: () => void;
+  showPassword: boolean;
+  onSubmit: () => void;
+}
+
+export const LoginForm: FC<FormProps> = ({
+  showPassword,
+  onClickIcon,
+  onSubmit,
+  register,
+}) => {
   return (
     <LayoutAuth titleText="Sign In" img={layer1}>
-      <Form>
+      <FormLogin onSubmit={onSubmit}>
         <FormInput
+          register={register}
           placeholder="Enter Login"
           // value=""
           type="text"
           label="Login"
+          name="login"
         />
+
         <FormInput
           placeholder="Enter Password"
           // value=""
+          register={register}
+          name="password"
           type={showPassword ? "text" : "password"}
           label="Password"
           icon={showPassword ? iconVis : iconVisOff}
           onClickIcon={onClickIcon}
         />
         <Button>Sign in</Button>
-      </Form>
+      </FormLogin>
       <AuthNavigation
         text="Not a member yet?"
         actionText="Sign Up"
@@ -42,7 +61,7 @@ export const LoginForm: FC<propsForm> = ({ showPassword, onClickIcon }) => {
   );
 };
 
-const Form = styled.form`
+const FormLogin = styled.form`
   max-width: 366px;
   width: 100%;
 `;

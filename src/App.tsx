@@ -10,8 +10,8 @@ export const App: React.FC = () => {
       <Router>
         <GlobalStyle />
         <Switch>
-          <Route path="/Auth" exact component={LoginPage} />
-          <Route path="/" exact component={Content} />
+          <Route path="/" exact component={LoginPage} />
+          <Route path="/content" exact component={Content} />
         </Switch>
       </Router>
     </ThemeProvider>
