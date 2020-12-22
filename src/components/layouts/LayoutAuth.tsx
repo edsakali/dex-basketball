@@ -1,9 +1,9 @@
-import { FC, ReactNode } from "react";
+import { FC } from "react";
 import styled from "styled-components";
 
 type Props = {
   titleText: string;
-  img: ReactNode;
+  img: string;
 };
 
 export const LayoutAuth: FC<Props> = ({ titleText, img, children }) => {
@@ -15,7 +15,9 @@ export const LayoutAuth: FC<Props> = ({ titleText, img, children }) => {
         </WrapperTitle>
         {children}
       </AuthContentLeft>
-      <AuthContentRight>{img}</AuthContentRight>
+      <AuthContentRight>
+        <Img src={img} alt="basket1" />
+      </AuthContentRight>
     </LayoutWrapper>
   );
 };
@@ -71,4 +73,11 @@ const Title = styled.h1`
   @media screen and (min-width: 768px) {
     justify-content: flex-start;
   }
+`;
+const Img = styled.img`
+  display: inline-block;
+  max-width: 100%;
+  max-height: 100%;
+  vertical-align: middle;
+  display: inline-block;
 `;

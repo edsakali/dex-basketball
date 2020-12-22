@@ -1,5 +1,14 @@
-import { FC } from "react";
+import { FC, useState } from "react";
+import { LoginForm } from "./components/loginForm/LoginForm";
 
 export const LoginPage: FC = () => {
-  return <div></div>;
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const onClickIcon = () => {
+    setShowPassword((prev) => !prev);
+  };
+  return (
+    <div>
+      <LoginForm showPassword={showPassword} onClickIcon={onClickIcon} />
+    </div>
+  );
 };

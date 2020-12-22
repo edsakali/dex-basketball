@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { Auth } from "./routes/Auth";
+import { LoginPage } from "./modules/auth/login/LoginPage";
 import { Content } from "./routes/Content";
 import { GlobalStyle } from "./assets/styles/globalStyles";
 import { ThemeProvider } from "styled-components";
@@ -10,7 +10,7 @@ export const App: React.FC = () => {
       <Router>
         <GlobalStyle />
         <Switch>
-          <Route path="/Auth" exact component={Auth} />
+          <Route path="/Auth" exact component={LoginPage} />
           <Route path="/" exact component={Content} />
         </Switch>
       </Router>
