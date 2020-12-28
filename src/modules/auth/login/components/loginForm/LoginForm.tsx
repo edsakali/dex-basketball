@@ -25,8 +25,6 @@ export const LoginForm: FC<FormProps> = ({
   register,
   errors,
 }) => {
-  console.log(errors);
-
   return (
     <LayoutAuth titleText="Sign In" img={layer1}>
       <Form onSubmit={onSubmit}>
@@ -36,28 +34,32 @@ export const LoginForm: FC<FormProps> = ({
           name="login"
           register={register}
           error={errors.login}
-          placeholder="Enter Login"
           registerOptions={{
-            required: "Required",
+            required: "Login is required.",
             pattern: {
               value: /^[a-z0-9_-]{3,16}$/,
-              message: "Required", // JS only: <p>error message</p> TS only support string
+              message: "Invalid login.",
             },
           }}
         />
 
         <InputFormAuth
-          placeholder="Enter Password"
-          // value=""
           register={register}
-          errors={errors}
+          error={errors.password}
           name="password"
           type={showPassword ? "text" : "password"}
           label="Password"
           icon={showPassword ? iconVis : iconVisOff}
           onClickIcon={onClickIcon}
+          registerOptions={{
+            required: "Password is required.",
+            minLength: {
+              value: 6,
+              message: "Password must be at least 6 characters.",
+            },
+          }}
         />
-        <Button>Sign in</Button>
+        <Button>Sign In</Button>
       </Form>
       <AuthNavigation
         text="Not a member yet?"

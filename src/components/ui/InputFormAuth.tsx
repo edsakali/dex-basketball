@@ -7,7 +7,6 @@ interface InputProps
   name: string;
   label: string;
   type: "text" | "password";
-  placeholder: string;
   registerOptions?: RegisterOptions;
   value?: string;
   disabled?: boolean;
@@ -22,7 +21,6 @@ export const InputFormAuth: FC<InputProps> = ({
   label,
   name,
   register,
-  placeholder,
   icon,
   onClickIcon,
   error,
@@ -33,7 +31,6 @@ export const InputFormAuth: FC<InputProps> = ({
       <InputWrapper error={!!error}>
         <Input
           ref={register && register(registerOptions)}
-          placeholder={placeholder}
           type={type}
           id={name}
           name={name}
@@ -44,7 +41,11 @@ export const InputFormAuth: FC<InputProps> = ({
           </IconWrapper>
         )}
       </InputWrapper>
-      {error && <p style={{ color: "#FF768E" }}>{error.message}</p>}
+      {error && (
+        <ErrorMessage style={{ color: "#FF768E" }}>
+          {error.message}
+        </ErrorMessage>
+      )}
     </InputContainer>
   );
 };
@@ -111,4 +112,9 @@ const Input = styled.input`
   &:focus {
     outline: none;
   }
+`;
+const ErrorMessage = styled.p`
+  color: ${({ theme }) => theme.colors.lightRed};
+  font-size: 12px;
+  line-height: 18px;
 `;
