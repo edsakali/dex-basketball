@@ -1,29 +1,30 @@
 import { FC, useState } from "react";
 import { useForm } from "react-hook-form";
 import { LoginForm } from "./components/loginForm/LoginForm";
-
-export type FormFields = {
-  login: string;
-  password: string;
-};
+import { useAppDispatch } from "../../../redux/store";
+import { signInAction } from "../authActions";
+import { LoginParams } from "../../../api/auth/AuthDto";
+// import { useHistory } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../redux/rootReducer";
+// import { selectAuth } from "../authReducers";
 
 export const LoginPage: FC = () => {
+  const dispatch = useAppDispatch();
   const [showPassword, setShowPassword] = useState<boolean>(false);
-
-  const { register, handleSubmit, errors } = useForm<FormFields>({
+  // const history = useHistory();
+  const user = useSelector((state: RootState) => state);
+  console.log(user);
+  const { register, handleSubmit, errors } = useForm<LoginParams>({
     mode: "onBlur",
-    defaultValues: {
-      login: "",
-      password: "",
-    },
   });
 
   const onClickIcon = () => {
     setShowPassword((prev) => !prev);
   };
 
-  const onSubmit = handleSubmit((data) => {
-    console.log(data);
+  const onSubmit = handleSubmit((loginValues) => {
+    dispatch(signInAction(loginValues));
   });
 
   return (

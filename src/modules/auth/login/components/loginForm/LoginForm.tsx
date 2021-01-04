@@ -1,6 +1,6 @@
 import { FC } from "react";
 import styled from "styled-components";
-import { LayoutAuth } from "../../../../../components/layouts/LayoutAuth";
+import { AuthLayout } from "../../../../../components/layouts/AuthLayout";
 import { Button } from "../../../../../components/ui/Button";
 import { InputFormAuth } from "../../../../../components/ui/InputFormAuth";
 import { AuthNavigation } from "../../../../../components/navigation/AuthNavigation";
@@ -8,14 +8,14 @@ import iconVis from "../../../../../assets/images/icon/visibility_24px.png";
 import iconVisOff from "../../../../../assets/images/icon/visibility_off_24px.svg";
 import layer1 from "../../../../../assets/images/icon/Layer 1.png";
 import { FieldErrors, UseFormMethods } from "react-hook-form";
-import { FormFields } from "../../LoginPage";
+import { LoginParams } from "../../../../../api/auth/AuthDto";
 
 interface FormProps
   extends Partial<Pick<UseFormMethods, "register" | "errors">> {
   onClickIcon?: () => void;
   showPassword: boolean;
   onSubmit: () => void;
-  errors: FieldErrors<FormFields>;
+  errors: FieldErrors<LoginParams>;
 }
 
 export const LoginForm: FC<FormProps> = ({
@@ -26,7 +26,7 @@ export const LoginForm: FC<FormProps> = ({
   errors,
 }) => {
   return (
-    <LayoutAuth titleText="Sign In" img={layer1}>
+    <AuthLayout titleText="Sign In" img={layer1}>
       <Form onSubmit={onSubmit}>
         <InputFormAuth
           type="text"
@@ -66,7 +66,7 @@ export const LoginForm: FC<FormProps> = ({
         actionText="Sign Up"
         path="/registration"
       />
-    </LayoutAuth>
+    </AuthLayout>
   );
 };
 

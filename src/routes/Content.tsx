@@ -1,5 +1,5 @@
-import { LayoutContent } from "../components/layouts/LayoutContent";
+import { ContentLayout } from "../components/layouts/ContentLayout";
 
 export const Content = () => {
-  return <LayoutContent></LayoutContent>;
+  return <ContentLayout></ContentLayout>;
 };

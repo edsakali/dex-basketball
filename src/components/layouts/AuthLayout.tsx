@@ -6,7 +6,7 @@ type Props = {
   img: string;
 };
 
-export const LayoutAuth: FC<Props> = ({ titleText, img, children }) => {
+export const AuthLayout: FC<Props> = ({ titleText, img, children }) => {
   return (
     <LayoutWrapper>
       <AuthContentLeft>
