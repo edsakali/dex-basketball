@@ -1,37 +1,56 @@
-import { FC, ReactNode } from "react";
+import { FC } from "react";
 import styled from "styled-components";
+import { FieldError, RegisterOptions, UseFormMethods } from "react-hook-form";
 
-interface propsInput {
-  placeholder: string;
+interface InputProps
+  extends Partial<Pick<UseFormMethods, "register" | "errors">> {
+  name: string;
+  label: string;
+  type: "text" | "password";
+  registerOptions?: RegisterOptions;
   value?: string;
-  type: string;
   disabled?: boolean;
-  error?: boolean;
-  label?: string;
-  icon?: ReactNode;
+  icon?: string;
   onClickIcon?: () => void;
+  error?: FieldError;
 }
 
-export const FormInput: FC<propsInput> = ({
-  value,
+export const InputFormAuth: FC<InputProps> = ({
+  registerOptions,
   type,
   label,
-  placeholder,
+  name,
+  register,
   icon,
   onClickIcon,
-}) => {
+  error,
+}): JSX.Element => {
   return (
     <InputContainer>
       {label && <label>{label}</label>}
-      <InputWrapper>
-        <Input placeholder={placeholder} type={type} value={value} />
-        {icon && <IconWrapper onClick={onClickIcon}>{icon}</IconWrapper>}
+      <InputWrapper error={!!error}>
+        <Input
+          ref={register && register(registerOptions)}
+          type={type}
+          id={name}
+          name={name}
+        />
+        {icon && (
+          <IconWrapper onClick={onClickIcon}>
+            <img src={icon} alt="visibility" />
+          </IconWrapper>
+        )}
       </InputWrapper>
+      {error && (
+        <ErrorMessage style={{ color: "#FF768E" }}>
+          {error.message}
+        </ErrorMessage>
+      )}
     </InputContainer>
   );
 };
 
-const InputWrapper = styled.div`
+const InputWrapper = styled.div<{ error: boolean }>`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -40,7 +59,7 @@ const InputWrapper = styled.div`
   height: 40px;
   width: 100%;
   padding: 0 12px;
-  border: none;
+  border: ${({ error }) => (error ? "1px solid #FF768E" : "none")};
   border-radius: 4px;
   cursor: pointer;
 
@@ -49,7 +68,7 @@ const InputWrapper = styled.div`
     transition: all 0.2s ease-in-out;
   }
 
-  &:focus {
+  &:focus-within {
     box-shadow: 0px 0px 5px #d9d9d9;
   }
 
@@ -61,9 +80,6 @@ const InputWrapper = styled.div`
     &:hover {
       background: ${({ theme }) => theme.colors.lightestGrey1};
     }
-  }
-
-  &error {
   }
 `;
 
@@ -82,6 +98,8 @@ const InputContainer = styled.div`
   }
 `;
 const IconWrapper = styled.div`
+  display: flex;
+  align-items: center;
   z-index: 1;
   cursor: pointer;
 `;
@@ -94,4 +112,9 @@ const Input = styled.input`
   &:focus {
     outline: none;
   }
+`;
+const ErrorMessage = styled.p`
+  color: ${({ theme }) => theme.colors.lightRed};
+  font-size: 12px;
+  line-height: 18px;
 `;

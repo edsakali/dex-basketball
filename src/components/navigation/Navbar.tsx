@@ -42,11 +42,10 @@ const NavbarContainer = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
-  background: red;
+  background: #000;
   height: 62px;
 
   @media screen and (min-width: 960px) {
-    max-width: 1440px;
     width: 100%;
     margin: 0 auto;
     padding-left: 50px;
