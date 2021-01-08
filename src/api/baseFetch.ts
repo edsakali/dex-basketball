@@ -12,7 +12,5 @@ export const baseFetch = async (
     body: JSON.stringify(data),
   };
 
-  const response = await fetch(requestUrl, requestOptions);
-
-  return response.json();
+  return await fetch(requestUrl, requestOptions);
 };

@@ -10,6 +10,7 @@ import layer2 from "../../../../../assets/images/icon/Layer 2.png";
 import { FieldErrors, UseFormMethods } from "react-hook-form";
 import { RegisterValues } from "../../RegistrationPage";
 import { CheckBox } from "../checkBox/CheckBox";
+import { pathList } from "../../../../../core/router/pathList";
 
 interface FormProps
   extends Partial<Pick<UseFormMethods, "register" | "errors">> {
@@ -96,7 +97,11 @@ export const RegistrationForm: FC<FormProps> = ({
         />
         <Button>Sign Up</Button>
       </Form>
-      <AuthNavigation text="Not a member yet?" actionText="Sign In" path="/" />
+      <AuthNavigation
+        text="Not a member yet?"
+        actionText="Sign In"
+        path={pathList.auth.login}
+      />
     </AuthLayout>
   );
 };

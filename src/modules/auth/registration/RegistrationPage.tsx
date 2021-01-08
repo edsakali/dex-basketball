@@ -4,7 +4,8 @@ import { RegistrationForm } from "./components/registrationForm/RegistrationForm
 import { useAppDispatch } from "../../../redux/store";
 import { signUpAction } from "../authActions";
 import { RegisterParams } from "../../../api/auth/AuthDto";
-// import { useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+// import { pathList } from "../../../core/router/pathList";
 
 export interface RegisterValues extends RegisterParams {
   password_repeat: string;
@@ -13,7 +14,7 @@ export interface RegisterValues extends RegisterParams {
 
 export const RegistrationPage: FC = () => {
   const dispatch = useAppDispatch();
-  // const history = useHistory();
+  const history = useHistory();
 
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
@@ -28,9 +29,15 @@ export const RegistrationPage: FC = () => {
   };
 
   const handleFormSubmit = handleSubmit(async (registerValues) => {
-    // history.push("/");
     const { userName, login, password } = registerValues;
-    dispatch(signUpAction({ userName, login, password }));
+    dispatch(
+      signUpAction({
+        registerParams: { userName, login, password },
+        callback: () => {
+          history.push("/");
+        },
+      })
+    );
   });
 
   return (

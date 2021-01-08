@@ -1,7 +1,7 @@
 export interface RegisterParams {
   login: string;
   password: string;
-  userName?: string;
+  userName: string;
 }
 
 export interface LoginParams

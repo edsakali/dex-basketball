@@ -4,17 +4,16 @@ import { LoginForm } from "./components/loginForm/LoginForm";
 import { useAppDispatch } from "../../../redux/store";
 import { signInAction } from "../authActions";
 import { LoginParams } from "../../../api/auth/AuthDto";
-// import { useHistory } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { RootState } from "../../../redux/rootReducer";
-// import { selectAuth } from "../authReducers";
+import { useHistory } from "react-router-dom";
+// import { useSelector } from "react-redux";
+//
+// import { authSelector } from "../authReducers";
 
 export const LoginPage: FC = () => {
   const dispatch = useAppDispatch();
   const [showPassword, setShowPassword] = useState<boolean>(false);
-  // const history = useHistory();
-  const user = useSelector((state: RootState) => state);
-  console.log(user);
+  const history = useHistory();
+
   const { register, handleSubmit, errors } = useForm<LoginParams>({
     mode: "onBlur",
   });
@@ -24,7 +23,14 @@ export const LoginPage: FC = () => {
   };
 
   const onSubmit = handleSubmit((loginValues) => {
-    dispatch(signInAction(loginValues));
+    dispatch(
+      signInAction({
+        loginParams: loginValues,
+        callback: () => {
+          history.push("/");
+        },
+      })
+    );
   });
 
   return (

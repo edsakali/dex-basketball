@@ -9,6 +9,7 @@ import iconVisOff from "../../../../../assets/images/icon/visibility_off_24px.sv
 import layer1 from "../../../../../assets/images/icon/Layer 1.png";
 import { FieldErrors, UseFormMethods } from "react-hook-form";
 import { LoginParams } from "../../../../../api/auth/AuthDto";
+import { pathList } from "../../../../../core/router/pathList";
 
 interface FormProps
   extends Partial<Pick<UseFormMethods, "register" | "errors">> {
@@ -64,7 +65,7 @@ export const LoginForm: FC<FormProps> = ({
       <AuthNavigation
         text="Not a member yet?"
         actionText="Sign Up"
-        path="/registration"
+        path={pathList.auth.register}
       />
     </AuthLayout>
   );

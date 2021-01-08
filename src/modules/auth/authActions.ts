@@ -2,21 +2,32 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { LoginParams, RegisterParams } from "../../api/auth/AuthDto";
 import { authServices } from "../../api/auth/services";
 import { notification } from "../../core/helpers/notification";
+import { CustomError } from "../../core/helpers/errorHelper";
 
 export const signUpAction = createAsyncThunk<
   any,
-  RegisterParams,
+  {
+    registerParams: RegisterParams;
+    callback?: () => void;
+  },
   { rejectValue: string }
 >(
   "auth/signUp",
 
-  async (params, thunkAPI) => {
+  async ({ registerParams, callback }, thunkAPI) => {
     const { rejectWithValue } = thunkAPI;
+
     try {
-      const response = await authServices.register(params);
-      console.log(response);
+      const registerData = await authServices.register(registerParams);
+      localStorage.setItem("token", JSON.stringify(registerData.token));
+      callback && callback();
+      return registerData;
     } catch (err) {
-      notification("error", "Пользователь с таким логином уже существует!");
+      if (err instanceof CustomError) {
+        notification("error", err.text);
+      } else {
+        notification("error", "Неизвестная ошибка!");
+      }
       return rejectWithValue("Register Error: " + err);
     }
   }
@@ -24,19 +35,27 @@ export const signUpAction = createAsyncThunk<
 
 export const signInAction = createAsyncThunk<
   any,
-  LoginParams,
+  {
+    loginParams: LoginParams;
+    callback?: () => void;
+  },
   { rejectValue: string }
 >(
   "auth/signIn",
 
-  async (params, thunkAPI) => {
+  async ({ loginParams, callback }, thunkAPI) => {
     const { rejectWithValue } = thunkAPI;
     try {
-      const user = await authServices.login(params);
-      localStorage.setItem("token", JSON.stringify(user.token));
-      return user;
+      const loginData = await authServices.login(loginParams);
+      localStorage.setItem("token", JSON.stringify(loginData.token));
+      callback && callback();
+      return loginData;
     } catch (err) {
-      notification("error", "Пользователь с таким логином/паролем не найден!");
+      if (err instanceof CustomError) {
+        notification("error", err.text);
+      } else {
+        notification("error", "Неизвестная ошибка!");
+      }
       return rejectWithValue("Register Error: " + err);
     }
   }
