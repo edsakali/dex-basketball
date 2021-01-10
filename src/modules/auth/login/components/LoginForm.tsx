@@ -1,15 +1,15 @@
 import { FC } from "react";
 import styled from "styled-components";
-import { AuthLayout } from "../../../../../components/layouts/AuthLayout";
-import { Button } from "../../../../../components/ui/Button";
-import { InputFormAuth } from "../../../../../components/ui/InputFormAuth";
-import { AuthNavigation } from "../../../../../components/navigation/AuthNavigation";
-import iconVis from "../../../../../assets/images/icon/visibility_24px.png";
-import iconVisOff from "../../../../../assets/images/icon/visibility_off_24px.svg";
-import layer1 from "../../../../../assets/images/icon/Layer 1.png";
+import { AuthLayout } from "../../../../components/layouts/AuthLayout";
+import { Button } from "../../../../components/ui/Button";
+import { InputFormAuth } from "../../../../components/ui/InputFormAuth";
+import { AuthNavigation } from "../../../../components/navigation/AuthNavigation";
+import iconVis from "../../../../assets/images/icons/visibility.svg";
+import iconVisOff from "../../../../assets/images/icons/visibility_off.svg";
+import layer1 from "../../../../assets/images/login-bg.png";
 import { FieldErrors, UseFormMethods } from "react-hook-form";
-import { LoginParams } from "../../../../../api/auth/AuthDto";
-import { pathList } from "../../../../../core/router/pathList";
+import { LoginParams } from "../../../../api/auth/AuthDto";
+import { pathList } from "../../../../core/router/pathList";
 
 interface FormProps
   extends Partial<Pick<UseFormMethods, "register" | "errors">> {

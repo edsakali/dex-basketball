@@ -1,48 +1,40 @@
 import { FC, useState } from "react";
 import { FaTimes, FaBars } from "react-icons/fa";
 import styled from "styled-components";
+import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import Logo from "../../assets/images/icon/logo (1).png";
+import Logo from "../../assets/images/logo.png";
+import { authSelector } from "../../modules/auth/authSlice";
 
 export const Navbar: FC = () => {
   const [click, setClick] = useState<boolean>(false);
+  const { user } = useSelector(authSelector);
   const handleClick = () => setClick(!click);
 
   return (
-    // <Nav>
     <NavbarContainer>
       <NavLogo to="/">
-        <img src={Logo} alt="logo" />
+        <ImgNavLink src={Logo} alt="logo" />
       </NavLogo>
+      <UserAccount>
+        {user && <UserName>{user.name}</UserName>}
+        <UserImg />
+      </UserAccount>
       <MobileIcon onClick={handleClick}>
         {click ? <FaTimes /> : <FaBars />}
       </MobileIcon>
-      {/* <UserAccount>
-          <UserName>John Smith</UserName>
-          <UserImg />
-        </UserAccount> */}
     </NavbarContainer>
-    // </Nav>
   );
 };
-
-// const Nav = styled.nav`
-//   background: green;
-//   height: 62px;
-//   /* display: flex;
-//   justify-content: center;
-//   align-items: center; */
-//   position: sticky;
-//   top: 0;
-//   z-index: 999;
-// `;
 
 const NavbarContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 1000;
   width: 100%;
-  background: #000;
+  background: #ffffff;
+  box-shadow: 0 1px 10px rgba(209, 209, 209, 0.5);
   height: 62px;
 
   @media screen and (min-width: 960px) {
@@ -56,18 +48,29 @@ const NavbarContainer = styled.div`
 `;
 
 const NavLogo = styled(NavLink)`
-  justify-self: center;
-  cursor: pointer;
-  text-decoration: none;
   display: flex;
   align-items: center;
+  justify-self: center;
+  width: 137px;
+  height: 34px;
+  cursor: pointer;
+  text-decoration: none;
+
+  @media screen and (min-width: 960px) {
+    width: 191px;
+    height: 48px;
+  }
+`;
+const ImgNavLink = styled.img`
+  width: 100%;
+  height: 100%;
 `;
 
 const MobileIcon = styled.div`
   color: #dadada;
   display: block;
   position: absolute;
-  top: 0px;
+  top: 0;
   left: 45px;
   transform: translate(-100%, 60%);
   font-size: 1.8rem;
@@ -77,3 +80,9 @@ const MobileIcon = styled.div`
     display: none;
   }
 `;
+
+const UserAccount = styled.div``;
+
+const UserName = styled.p``;
+
+const UserImg = styled.img``;

@@ -1,36 +1,23 @@
-import React, { FC } from "react";
-import {
-  BrowserRouter as Router,
-  Redirect,
-  Route,
-  Switch,
-} from "react-router-dom";
-import { LoginPage } from "./modules/auth/login/LoginPage";
-import { Content } from "./routes/Content";
+import React, { FC, useEffect } from "react";
 import { GlobalStyle } from "./assets/styles/globalStyles";
 import { ThemeProvider } from "styled-components";
 import { theme } from "./assets/styles/styledTheming";
-import { RegistrationPage } from "./modules/auth/registration/RegistrationPage";
 import { ToastContainer } from "react-toastify";
-import { pathList } from "./core/router/pathList";
+import { useAppDispatch } from "./redux/store";
+import { getUser } from "./modules/auth/authSlice";
+import { AppRouter } from "./routers/Router";
 
 export const App: FC = () => {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(getUser());
+  }, [dispatch]);
   return (
     <ThemeProvider theme={theme}>
       <ToastContainer />
-      <Router>
-        <GlobalStyle />
-        <Switch>
-          <Route path={pathList.auth.login} exact component={LoginPage} />
-          <Route
-            path={pathList.auth.register}
-            exact
-            component={RegistrationPage}
-          />
-          <Route path="/" exact component={Content} />
-          <Redirect from={"*"} to={pathList.auth.login} />
-        </Switch>
-      </Router>
+      <GlobalStyle />
+      <AppRouter />
     </ThemeProvider>
   );
 };

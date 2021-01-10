@@ -1,10 +1,12 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { RegistrationForm } from "./components/registrationForm/RegistrationForm";
+import { RegistrationForm } from "./components/RegistrationForm";
 import { useAppDispatch } from "../../../redux/store";
 import { signUpAction } from "../authActions";
 import { RegisterParams } from "../../../api/auth/AuthDto";
 import { useHistory } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { authSelector } from "../authSlice";
 // import { pathList } from "../../../core/router/pathList";
 
 export interface RegisterValues extends RegisterParams {
@@ -14,9 +16,13 @@ export interface RegisterValues extends RegisterParams {
 
 export const RegistrationPage: FC = () => {
   const dispatch = useAppDispatch();
-  const history = useHistory();
-
+  const { push } = useHistory();
+  const { user } = useSelector(authSelector);
   const [showPassword, setShowPassword] = useState<boolean>(false);
+
+  useEffect(() => {
+    user && push("/");
+  }, [user, push]);
 
   const { register, handleSubmit, errors, watch } = useForm<RegisterValues>({
     mode: "onBlur",
@@ -33,9 +39,9 @@ export const RegistrationPage: FC = () => {
     dispatch(
       signUpAction({
         registerParams: { userName, login, password },
-        callback: () => {
-          history.push("/");
-        },
+        // callback: () => {
+        //   history.push("/");
+        // },
       })
     );
   });

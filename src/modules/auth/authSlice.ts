@@ -5,13 +5,16 @@ import { RootState } from "../../redux/store";
 
 interface AuthState {
   loading: "idle" | "pending";
-  user: null | {};
   error: string | undefined;
+  user?: {
+    name: string;
+    token: string;
+    avatarUrl: string;
+  } | null;
 }
 
 const initialState: AuthState = {
   loading: "idle",
-  user: null,
   error: undefined,
 };
 
@@ -20,8 +23,14 @@ export const authSlice = createSlice({
   initialState: initialState,
   reducers: {
     logout(state) {
-      localStorage.removeItem("token");
+      localStorage.removeItem("user");
       state.user = null;
+    },
+    getUser(state) {
+      const user = localStorage.getItem("user");
+      if (user) {
+        state.user = JSON.parse(user);
+      }
     },
   },
   extraReducers: (builder) => {
@@ -52,7 +61,7 @@ export const authSlice = createSlice({
   },
 });
 
-export const { logout } = authSlice.actions;
+export const { logout, getUser } = authSlice.actions;
 
 export const authSelector = (state: RootState) => state.auth;
 

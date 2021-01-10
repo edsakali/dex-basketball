@@ -11,7 +11,6 @@ ReactDOM.render(
     <ReduxProvider store={store}>
       <App />
     </ReduxProvider>
-    ,
   </StrictMode>,
   document.getElementById("root")
 );
