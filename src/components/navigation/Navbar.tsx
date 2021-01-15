@@ -1,18 +1,23 @@
-import { FC, useState } from "react";
-import { FaTimes, FaBars } from "react-icons/fa";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import Logo from "../../assets/images/logo.png";
 import { authSelector } from "../../modules/auth/authSlice";
+import { ReactComponent as AccountIcon } from "../../assets/images/icons/accountIcon.svg";
+import { ReactComponent as MenuIcon } from "../../assets/images/icons/menu.svg";
 
-export const Navbar: FC = () => {
-  const [click, setClick] = useState<boolean>(false);
+interface Props {
+  toggleSidebar: boolean;
+  onToggleSidebar: () => void;
+}
+export const Navbar = ({ toggleSidebar, onToggleSidebar }: Props) => {
   const { user } = useSelector(authSelector);
-  const handleClick = () => setClick(!click);
 
   return (
     <NavbarContainer>
+      <MobileIcon onClick={onToggleSidebar}>
+        {toggleSidebar ? <MenuIcon /> : <MenuIcon />}
+      </MobileIcon>
       <NavLogo to="/">
         <ImgNavLink src={Logo} alt="logo" />
       </NavLogo>
@@ -20,9 +25,6 @@ export const Navbar: FC = () => {
         {user && <UserName>{user.name}</UserName>}
         <UserImg />
       </UserAccount>
-      <MobileIcon onClick={handleClick}>
-        {click ? <FaTimes /> : <FaBars />}
-      </MobileIcon>
     </NavbarContainer>
   );
 };
@@ -31,13 +33,15 @@ const NavbarContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
+  position: sticky;
+  top: 0;
+  z-index: 99;
   width: 100%;
   background: #ffffff;
   box-shadow: 0 1px 10px rgba(209, 209, 209, 0.5);
   height: 62px;
 
-  @media screen and (min-width: 960px) {
+  @media screen and ${({ theme }) => theme.deviceSize.tablet} {
     width: 100%;
     margin: 0 auto;
     padding-left: 50px;
@@ -56,7 +60,7 @@ const NavLogo = styled(NavLink)`
   cursor: pointer;
   text-decoration: none;
 
-  @media screen and (min-width: 960px) {
+  @media screen and ${({ theme }) => theme.deviceSize.tablet} {
     width: 191px;
     height: 48px;
   }
@@ -66,23 +70,33 @@ const ImgNavLink = styled.img`
   height: 100%;
 `;
 
-const MobileIcon = styled.div`
-  color: #dadada;
-  display: block;
-  position: absolute;
-  top: 0;
-  left: 45px;
-  transform: translate(-100%, 60%);
-  font-size: 1.8rem;
-  cursor: pointer;
-
-  @media screen and (min-width: 960px) {
-    display: none;
+const UserAccount = styled.div`
+  display: none;
+  @media screen and ${({ theme }) => theme.deviceSize.tablet} {
+    display: flex;
+    align-items: center;
   }
 `;
 
-const UserAccount = styled.div``;
+const UserName = styled.p`
+  margin-right: 19px;
+  color: ${({ theme }) => theme.colors.darkGrey};
+`;
 
-const UserName = styled.p``;
+const UserImg = styled(AccountIcon)`
+  width: 36px;
+  height: 36px;
+`;
 
-const UserImg = styled.img``;
+const MobileIcon = styled.div`
+  position: absolute;
+  top: 0;
+  left: 45px;
+  z-index: 199;
+  transform: translate(-100%, 60%);
+  cursor: pointer;
+
+  @media screen and ${({ theme }) => theme.deviceSize.tablet} {
+    display: none;
+  }
+`;

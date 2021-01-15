@@ -3,4 +3,8 @@ export const pathList = {
     login: "/login",
     register: "/register",
   },
+  content: {
+    teams: "/teams",
+    players: "/players",
+  },
 };

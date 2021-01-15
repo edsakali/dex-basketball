@@ -10,7 +10,7 @@ import layer2 from "../../../../assets/images/register-bg.png";
 import { FieldErrors, UseFormMethods } from "react-hook-form";
 import { RegisterValues } from "../RegistrationPage";
 import { CheckBox } from "../../../../components/ui/CheckBox";
-import { pathList } from "../../../../core/router/pathList";
+import { pathList } from "../../../../routers/pathList";
 
 interface FormProps
   extends Partial<Pick<UseFormMethods, "register" | "errors">> {

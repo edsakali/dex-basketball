@@ -87,12 +87,9 @@ const InputContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin-bottom: 24px;
-  /* position: relative; */
 
   & > label {
     color: ${({ theme }) => theme.colors.grey};
-    /* position: absolute; */
-    /* top: -25px; */
     transition: all 0.2s ease;
     z-index: 500;
   }

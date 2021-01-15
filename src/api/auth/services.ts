@@ -2,8 +2,12 @@ import { baseFetch } from "../baseFetch";
 import { RegisterParams, LoginParams } from "./AuthDto";
 import { CustomError } from "../../core/helpers/errorHelper";
 
-const register = async (params: RegisterParams) => {
-  const response = await baseFetch("api/Auth/SignUp", "POST", params);
+const register = async ({ userName, login, password }: RegisterParams) => {
+  const response = await baseFetch("api/Auth/SignUp", "POST", {
+    userName,
+    login,
+    password,
+  });
   if (!response.ok) {
     switch (response.status) {
       case 409:

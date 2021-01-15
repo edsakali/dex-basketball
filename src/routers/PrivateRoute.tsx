@@ -1,33 +1,15 @@
-import { FC } from "react";
 import { Route, Redirect } from "react-router-dom";
-import { pathList } from "../core/router/pathList";
+import { pathList } from "./pathList";
 import { useSelector } from "react-redux";
 import { authSelector } from "../modules/auth/authSlice";
+import { RouteProps } from "react-router";
 
-interface PrivateRouteProps {
-  component: any;
-  path: string;
-  exact: boolean;
-}
-
-export const PrivateRoute: FC<PrivateRouteProps> = ({
-  component: Component,
-  path,
-  exact,
-}) => {
+export const PrivateRoute = ({ children, ...rest }: RouteProps) => {
   const { user } = useSelector(authSelector);
 
-  return (
-    <Route
-      path={path}
-      exact={exact}
-      render={(routeProps) =>
-        !!user ? (
-          <Component {...routeProps} />
-        ) : (
-          <Redirect to={pathList.auth.login} />
-        )
-      }
-    />
+  return !!user ? (
+    <Route {...rest}>{children}</Route>
+  ) : (
+    <Redirect to={pathList.auth.login} />
   );
 };
