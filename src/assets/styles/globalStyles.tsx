@@ -1,4 +1,4 @@
-import styled, { createGlobalStyle } from "styled-components";
+import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyle = createGlobalStyle`
 * {
@@ -10,10 +10,4 @@ export const GlobalStyle = createGlobalStyle`
     font-weight: 500;
     line-height: 24px;
 }
-`;
-
-export const Container = styled.div`
-  z-index: 1;
-  margin-right: auto;
-  margin-left: auto;
 `;

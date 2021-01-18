@@ -69,7 +69,7 @@ const InputWrapper = styled.div<{ error: boolean }>`
   }
 
   &:focus-within {
-    box-shadow: 0px 0px 5px #d9d9d9;
+    box-shadow: 0 0 5px #d9d9d9;
   }
 
   &:disabled {

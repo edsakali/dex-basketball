@@ -8,7 +8,7 @@ export const Button = styled.button<{ cancelBtn?: boolean }>`
   color: ${({ cancelBtn, theme }) =>
     cancelBtn ? theme.colors.lightGrey : "#ffffff"};
   width: 100%;
-  height: 32px;
+  padding: 4px 0;
   margin: 24px 0;
   outline: none;
   border: ${({ cancelBtn, theme }) =>
@@ -42,6 +42,6 @@ export const Button = styled.button<{ cancelBtn?: boolean }>`
     transition: all 0.2s ease-in-out;
   }
   @media screen and ${({ theme }) => theme.deviceSize.tablet} {
-    height: 40px;
+    padding: 10px 0;
   }
 `;

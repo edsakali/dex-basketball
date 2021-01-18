@@ -1,35 +1,35 @@
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import Logo from "../../assets/images/logo.png";
-import { authSelector } from "../../modules/auth/authSlice";
-import { ReactComponent as AccountIcon } from "../../assets/images/icons/accountIcon.svg";
-import { ReactComponent as MenuIcon } from "../../assets/images/icons/menu.svg";
+import Logo from "../assets/images/logo.png";
+import { authSelector } from "../modules/auth/authSlice";
+import { ReactComponent as AccountIcon } from "../assets/images/icons/accountIcon.svg";
+import { ReactComponent as MenuIcon } from "../assets/images/icons/menu.svg";
 
 interface Props {
   toggleSidebar: boolean;
   onToggleSidebar: () => void;
 }
-export const Navbar = ({ toggleSidebar, onToggleSidebar }: Props) => {
+export const Header = ({ toggleSidebar, onToggleSidebar }: Props) => {
   const { user } = useSelector(authSelector);
 
   return (
-    <NavbarContainer>
+    <HeaderContainer>
       <MobileIcon onClick={onToggleSidebar}>
         {toggleSidebar ? <MenuIcon /> : <MenuIcon />}
       </MobileIcon>
-      <NavLogo to="/">
-        <ImgNavLink src={Logo} alt="logo" />
-      </NavLogo>
+      <HeaderLogo to="/">
+        <ImgLink src={Logo} alt="logo" />
+      </HeaderLogo>
       <UserAccount>
         {user && <UserName>{user.name}</UserName>}
         <UserImg />
       </UserAccount>
-    </NavbarContainer>
+    </HeaderContainer>
   );
 };
 
-const NavbarContainer = styled.div`
+const HeaderContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -51,7 +51,7 @@ const NavbarContainer = styled.div`
   }
 `;
 
-const NavLogo = styled(NavLink)`
+const HeaderLogo = styled(NavLink)`
   display: flex;
   align-items: center;
   justify-self: center;
@@ -65,7 +65,7 @@ const NavLogo = styled(NavLink)`
     height: 48px;
   }
 `;
-const ImgNavLink = styled.img`
+const ImgLink = styled.img`
   width: 100%;
   height: 100%;
 `;

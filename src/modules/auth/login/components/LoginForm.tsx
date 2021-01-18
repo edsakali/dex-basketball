@@ -60,7 +60,7 @@ export const LoginForm: FC<FormProps> = ({
             },
           }}
         />
-        <Button cancelBtn>Sign In</Button>
+        <Button>Sign In</Button>
       </Form>
       <AuthNavigation
         text="Not a member yet?"

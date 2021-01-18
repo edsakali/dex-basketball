@@ -68,7 +68,8 @@ const SidebarContainer = styled.div<{ visible: boolean }>`
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    top: 80px;
+    position: relative;
+    top: 0;
     left: 0;
     transition: none;
     max-width: 140px;

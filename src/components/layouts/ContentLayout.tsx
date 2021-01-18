@@ -1,29 +1,30 @@
-import { FC, useState } from "react";
-import { Navbar } from "../navigation/Navbar";
-import { Sidebar } from "../navigation/Sidebar";
 import styled from "styled-components";
+import { FC } from "react";
 
-export const ContentLayout: FC = ({ children }) => {
-  const [toggleSidebar, setToggleSidebar] = useState(false);
+export const ContentLayout: FC = ({ children }) => (
+  <CardsSection>
+    <CardsHead></CardsHead>
+    <CardsContainer>{children}</CardsContainer>
+    <CardsFooter></CardsFooter>
+  </CardsSection>
+);
 
-  const handleToggleSidebar = () => {
-    setToggleSidebar((prevState) => !prevState);
-  };
-
-  return (
-    <Layout>
-      <Navbar
-        toggleSidebar={toggleSidebar}
-        onToggleSidebar={handleToggleSidebar}
-      />
-      <Sidebar toggleSidebar={toggleSidebar} />
-      {children}
-    </Layout>
-  );
-};
-
-const Layout = styled.div`
-  background: ${({ theme }) => theme.colors.lightestGrey1};
-  height: 100vh;
-  position: relative;
+const CardsSection = styled.section`
+  @media screen and ${({ theme }) => theme.deviceSize.tablet} {
+  }
+`;
+const CardsHead = styled.header`
+  background: aqua;
+`;
+const CardsContainer = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  @media screen and ${({ theme }) => theme.deviceSize.tablet} {
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 24px;
+  } ;
+`;
+const CardsFooter = styled.footer`
+  background: bisque;
 `;

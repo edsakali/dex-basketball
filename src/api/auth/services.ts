@@ -3,10 +3,14 @@ import { RegisterParams, LoginParams } from "./AuthDto";
 import { CustomError } from "../../core/helpers/errorHelper";
 
 const register = async ({ userName, login, password }: RegisterParams) => {
-  const response = await baseFetch("api/Auth/SignUp", "POST", {
-    userName,
-    login,
-    password,
+  const response = await baseFetch({
+    url: "api/Auth/SignUp",
+    method: "POST",
+    data: {
+      userName,
+      login,
+      password,
+    },
   });
   if (!response.ok) {
     switch (response.status) {
@@ -26,7 +30,11 @@ const register = async ({ userName, login, password }: RegisterParams) => {
   return response.json();
 };
 const login = async (params: LoginParams) => {
-  const response = await baseFetch("api/Auth/SignIn", "POST", params);
+  const response = await baseFetch({
+    url: "api/Auth/SignIn",
+    data: params,
+    method: "POST",
+  });
 
   if (!response.ok) {
     switch (response.status) {

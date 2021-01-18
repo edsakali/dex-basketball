@@ -3,14 +3,16 @@ import { createSlice } from "@reduxjs/toolkit";
 import { signInAction, signUpAction } from "./authActions";
 import { RootState } from "../../redux/store";
 
+export interface User {
+  name: string;
+  token: string;
+  avatarUrl: string;
+}
+
 interface AuthState {
   loading: "idle" | "pending";
   error: string | undefined;
-  user?: {
-    name: string;
-    token: string;
-    avatarUrl: string;
-  } | null;
+  user?: User | null;
 }
 
 const initialState: AuthState = {
