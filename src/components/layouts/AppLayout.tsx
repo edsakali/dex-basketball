@@ -1,5 +1,5 @@
 import { FC, useState } from "react";
-import { Header } from "../Header";
+import { AppHeader } from "../AppHeader";
 import { Sidebar } from "../navigation/Sidebar";
 import styled from "styled-components";
 
@@ -12,7 +12,7 @@ export const AppLayout: FC = ({ children }) => {
 
   return (
     <Layout>
-      <Header
+      <AppHeader
         toggleSidebar={toggleSidebar}
         onToggleSidebar={handleToggleSidebar}
       />

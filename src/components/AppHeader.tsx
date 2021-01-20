@@ -10,7 +10,7 @@ interface Props {
   toggleSidebar: boolean;
   onToggleSidebar: () => void;
 }
-export const Header = ({ toggleSidebar, onToggleSidebar }: Props) => {
+export const AppHeader = ({ toggleSidebar, onToggleSidebar }: Props) => {
   const { user } = useSelector(authSelector);
 
   return (

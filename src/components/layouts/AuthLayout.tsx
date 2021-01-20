@@ -79,5 +79,4 @@ const Img = styled.img`
   max-width: 100%;
   max-height: 100%;
   vertical-align: middle;
-  display: inline-block;
 `;

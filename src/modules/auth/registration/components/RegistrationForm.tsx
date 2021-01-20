@@ -2,7 +2,7 @@ import { FC } from "react";
 import styled from "styled-components";
 import { AuthLayout } from "../../../../components/layouts/AuthLayout";
 import { Button } from "../../../../components/ui/Button";
-import { InputFormAuth } from "../../../../components/ui/InputFormAuth";
+import { InputAuth } from "../../../../components/ui/InputAuth";
 import { AuthNavigation } from "../../../../components/navigation/AuthNavigation";
 import iconVis from "../../../../assets/images/icons/visibility.svg";
 import iconVisOff from "../../../../assets/images/icons/visibility_off.svg";
@@ -32,7 +32,7 @@ export const RegistrationForm: FC<FormProps> = ({
   return (
     <AuthLayout titleText="Sign Up" img={layer2}>
       <Form onSubmit={onSubmit}>
-        <InputFormAuth
+        <InputAuth
           type="text"
           label="Name"
           name="userName"
@@ -42,7 +42,7 @@ export const RegistrationForm: FC<FormProps> = ({
             required: "Name is required.",
           }}
         />
-        <InputFormAuth
+        <InputAuth
           type="text"
           label="Login"
           name="login"
@@ -56,7 +56,7 @@ export const RegistrationForm: FC<FormProps> = ({
             },
           }}
         />
-        <InputFormAuth
+        <InputAuth
           register={register}
           error={errors.password}
           name="password"
@@ -72,7 +72,7 @@ export const RegistrationForm: FC<FormProps> = ({
             },
           }}
         />
-        <InputFormAuth
+        <InputAuth
           register={register}
           error={errors.password_repeat}
           name="password_repeat"

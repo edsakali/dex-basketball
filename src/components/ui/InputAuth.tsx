@@ -15,7 +15,7 @@ interface InputProps
   error?: FieldError;
 }
 
-export const InputFormAuth: FC<InputProps> = ({
+export const InputAuth: FC<InputProps> = ({
   registerOptions,
   type,
   label,
@@ -103,6 +103,7 @@ const IconWrapper = styled.div`
 
 const Input = styled.input`
   width: 100%;
+  height: 100%;
   background: transparent;
   border: none;
 
