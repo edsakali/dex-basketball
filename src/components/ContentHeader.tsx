@@ -2,6 +2,8 @@ import styled from "styled-components";
 import { Button } from "./ui/Button";
 import { PropsInputSearch, SearchInput } from "./ui/InputSearch";
 import React, { FC } from "react";
+import { useHistory } from "react-router-dom";
+import { pathList } from "../routers/pathList";
 
 interface Props extends PropsInputSearch {
   onSubmit: () => void;
@@ -13,6 +15,7 @@ export const ContentHeader: FC<Props> = ({
   nameSearch,
   onSubmit,
 }) => {
+  const { push } = useHistory();
   return (
     <Wrapper>
       <FormFilter onSubmit={onSubmit}>
@@ -22,7 +25,9 @@ export const ContentHeader: FC<Props> = ({
           nameSearch={nameSearch}
         />
       </FormFilter>
-      <ButtonSearch>Add +</ButtonSearch>
+      <ButtonSearch onClick={() => push(pathList.content.addTeam)}>
+        Add +
+      </ButtonSearch>
     </Wrapper>
   );
 };
@@ -44,10 +49,11 @@ const FormFilter = styled.form`
 `;
 
 const ButtonSearch = styled(Button)`
-  margin: 0;
+  margin: 16px 0 0 0;
   width: 100%;
 
   @media screen and ${({ theme }) => theme.deviceSize.tablet} {
     width: 104px;
+    margin: 0;
   }
 `;

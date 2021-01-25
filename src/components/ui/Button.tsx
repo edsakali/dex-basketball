@@ -9,7 +9,7 @@ export const Button = styled.button<{ cancelBtn?: boolean }>`
     cancelBtn ? theme.colors.lightGrey : "#ffffff"};
   width: 100%;
   padding: 4px 0;
-  margin: 24px 0;
+  //margin: 24px 0;
   border: ${({ cancelBtn, theme }) =>
     cancelBtn ? `1px solid ${theme.colors.lightGrey}` : "none"};
   border-radius: 4px;

@@ -15,7 +15,7 @@ interface InputProps
   error?: FieldError;
 }
 
-export const InputAuth: FC<InputProps> = ({
+export const CustomInput: FC<InputProps> = ({
   registerOptions,
   type,
   label,
@@ -56,8 +56,8 @@ const InputWrapper = styled.div<{ error: boolean }>`
   justify-content: space-between;
   color: ${({ theme }) => theme.colors.darkGrey};
   background: ${({ theme }) => theme.colors.lightestGrey1};
-  height: 40px;
   width: 100%;
+  height: 32px;
   padding: 0 12px;
   border: ${({ error }) => (error ? "1px solid #FF768E" : "none")};
   border-radius: 4px;
@@ -81,13 +81,14 @@ const InputWrapper = styled.div<{ error: boolean }>`
       background: ${({ theme }) => theme.colors.lightestGrey1};
     }
   }
+  @media screen and ${({ theme }) => theme.deviceSize.tablet} {
+    height: 40px;
+  }
 `;
 
 const InputContainer = styled.div`
   display: flex;
   flex-direction: column;
-  margin-bottom: 24px;
-
   & > label {
     color: ${({ theme }) => theme.colors.grey};
     transition: all 0.2s ease;

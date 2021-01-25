@@ -57,6 +57,7 @@ const SidebarContainer = styled.div<{ visible: boolean }>`
   width: 201px;
   position: absolute;
   top: 62px;
+  z-index: 10000;
   left: ${({ visible }) => (visible ? 0 : "-100%")};
   transition: left 0.5s ease;
   height: calc(100vh - 62px);

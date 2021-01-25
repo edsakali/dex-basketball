@@ -6,6 +6,7 @@ const register = async ({ userName, login, password }: RegisterParams) => {
   const response = await baseFetch({
     url: "api/Auth/SignUp",
     method: "POST",
+    headers: { "Content-Type": "application/json" },
     data: {
       userName,
       login,
@@ -32,6 +33,7 @@ const register = async ({ userName, login, password }: RegisterParams) => {
 const login = async (params: LoginParams) => {
   const response = await baseFetch({
     url: "api/Auth/SignIn",
+    headers: { "Content-Type": "application/json" },
     data: params,
     method: "POST",
   });

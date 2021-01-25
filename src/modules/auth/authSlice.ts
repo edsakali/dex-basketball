@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-
 import { signInAction, signUpAction } from "./authActions";
 import { RootState } from "../../redux/store";
 

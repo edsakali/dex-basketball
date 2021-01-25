@@ -38,6 +38,7 @@ const customStyles: StylesConfig<{ value: string; label: string }, boolean> = {
   menu: (provided, state) => ({
     ...provided,
     width: "88px",
+    height: "40px",
     borderRadius: "4px",
   }),
   control: (provided, state) => ({

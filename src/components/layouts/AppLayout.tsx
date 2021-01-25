@@ -37,7 +37,7 @@ const ContentWrapper = styled.div`
 
 const Content = styled.div`
   flex: 1;
-  padding: 16px 12px;
+  padding: 16px 0;
 
   @media screen and ${({ theme }) => theme.deviceSize.tablet} {
     padding: 32px 80px;

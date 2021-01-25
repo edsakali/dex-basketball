@@ -1,16 +1,20 @@
 import { AppLayout } from "../components/layouts/AppLayout";
 import { Route, Switch } from "react-router-dom";
-import { TeamPage } from "../modules/teams/pages/TeamPage";
+import { TeamsPage } from "../modules/teams/pages/TeamsPage";
 import { PlayerPage } from "../modules/players/pages/PlayerPage";
 import { pathList } from "./pathList";
+import { AddTeamPage } from "../modules/teams/pages/AddTeamPage";
 
 export const ContentRoutes = () => (
   <AppLayout>
     <Switch>
-      <Route path={pathList.content.teams}>
-        <TeamPage />
+      <Route path={pathList.content.teams} exact>
+        <TeamsPage />
       </Route>
-      <Route path={pathList.content.players}>
+      <Route path={pathList.content.addTeam}>
+        <AddTeamPage />
+      </Route>
+      <Route path={pathList.content.players} exact>
         <PlayerPage />
       </Route>
     </Switch>

@@ -6,5 +6,6 @@ export const pathList = {
   content: {
     teams: "/teams",
     players: "/players",
+    addTeam: "/teams/addTeam",
   },
 };

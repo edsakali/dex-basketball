@@ -41,7 +41,8 @@ const CardsContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 12px;
-  margin: 32px 0;
+  margin: 16px 0;
+  overflow-y: auto;
   max-height: 752px;
   height: 100%;
 
