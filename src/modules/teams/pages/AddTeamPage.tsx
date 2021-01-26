@@ -58,8 +58,6 @@ const AddTeamWrapper = styled.div`
   flex-direction: column;
   border-radius: 10px;
   background: #ffffff;
-  height: 565px;
-  overflow: auto;
 `;
 const HeaderAddTeam = styled.div`
   display: flex;

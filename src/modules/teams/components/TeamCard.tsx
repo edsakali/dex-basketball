@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import teamImg from "../../../assets/images/teamsimg.png";
 import { FC } from "react";
 
 interface Props {
@@ -11,7 +10,7 @@ interface Props {
 export const TeamCard: FC<Props> = ({ name, foundationYear, imageUrl }) => (
   <TeamCardInfo>
     <TeamCardImg>
-      <TeamImg src={teamImg} alt="img" />
+      <TeamImg src={`http://dev.trainee.dex-it.ru${imageUrl}`} alt="img" />
     </TeamCardImg>
     <TeamDescription>
       <TeamName>{name}</TeamName>

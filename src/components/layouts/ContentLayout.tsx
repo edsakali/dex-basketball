@@ -34,7 +34,14 @@ export const ContentLayout: FC<Props> = ({
 const CardsSection = styled.section`
   display: flex;
   flex-direction: column;
+  padding: 0 12px;
+  max-height: 928px;
   height: 100%;
+  overflow-y: auto;
+
+  @media screen and ${({ theme }) => theme.deviceSize.tablet} {
+    padding: 0;
+  }
 `;
 
 const CardsContainer = styled.div`
@@ -43,7 +50,7 @@ const CardsContainer = styled.div`
   gap: 12px;
   margin: 16px 0;
   overflow-y: auto;
-  max-height: 752px;
+  max-height: 784px;
   height: 100%;
 
   @media screen and ${({ theme }) => theme.deviceSize.tablet} {
