@@ -1,62 +1,19 @@
-import React, { FC } from "react";
-import Select, { StylesConfig } from "react-select";
-import { Controller } from "react-hook-form";
-import { Control, FieldValues } from "react-hook-form";
+import React from "react";
+import Select from "react-select";
+import { Control, FieldValues, Controller } from "react-hook-form";
 import { ThemeConfig } from "react-select/src/theme";
+import styled from "styled-components";
 
 export interface SelectProps<TFieldValues extends FieldValues = FieldValues> {
   control: Control<TFieldValues>;
   nameSelect: string;
-  isMulti?: boolean;
+  options?: Array<{
+    value: string | number | undefined;
+    label: string | undefined;
+  }>;
+  label?: string;
+  selectPageSize?: boolean;
 }
-//
-// const options = [
-//   { value: "portland trail blazers", label: "Portland trail blazers" },
-//   { value: "minnesota timberwolves", label: "Minnesota timberwolves" },
-//   { value: "oklahoma city thunder", label: "Oklahoma city thunder" },
-//   { value: "memphis Grizzlies", label: "Memphis Grizzlies" },
-//   { value: "denver Nuggets", label: "Denver Nuggets" },
-//   {
-//     value: "philadelphia seventy sixers",
-//     label: "Philadelphia seventy sixers",
-//   },
-// ];
-
-const customStyles: StylesConfig<{ value: string; label: string }, boolean> = {
-  singleValue: (prov, state) => ({
-    ...prov,
-    color: "#9C9C9C",
-    fontSize: "18px",
-  }),
-  option: (provided, state) => ({
-    ...provided,
-    color: state.isSelected || state.isFocused ? "#ffffff" : "#9C9C9C",
-    paddingLeft: "20px",
-    borderBottom: "0.5px solid #D1D1D1 ",
-    fontSize: "18px",
-  }),
-  menu: (provided, state) => ({
-    ...provided,
-    width: "88px",
-    height: "40px",
-    borderRadius: "4px",
-  }),
-  control: (provided, state) => ({
-    ...provided,
-    boxShadow: "none",
-    border:
-      state.menuIsOpen || state.isFocused
-        ? "0.5px solid #9C9C9C"
-        : " 0.5px solid #D1D1D1",
-    width: "88px",
-    borderRadius: "4px",
-  }),
-};
-const options = [
-  { value: "6", label: "6" },
-  { value: "12", label: "12" },
-  { value: "24", label: "24" },
-];
 
 const configTheme: ThemeConfig = (theme) => ({
   ...theme,
@@ -66,18 +23,74 @@ const configTheme: ThemeConfig = (theme) => ({
     primary50: "#FF768E",
     primary25: "#FF768E",
     primary: "#E4163A",
+    neutral80: "#303030",
+    neutral70: "#ffffff",
   },
 });
-export const CustomSelect: FC<SelectProps> = ({ control, nameSelect }) => (
-  <Controller
-    name={nameSelect}
-    control={control}
-    options={options}
-    defaultValue={options[0]}
-    styles={customStyles}
-    theme={configTheme}
-    as={Select}
-    maxMenuHeight={200}
-    menuPlacement="top"
-  />
+export const CustomSelect = ({
+  control,
+  nameSelect,
+  options,
+  label,
+  selectPageSize,
+}: SelectProps) => (
+  <SelectContainer>
+    {label && <label>{label}</label>}
+    <Controller
+      name={nameSelect}
+      control={control}
+      options={options}
+      defaultValue={selectPageSize && options ? options[0] : ""}
+      classNamePrefix={"react-select"}
+      theme={configTheme}
+      as={<ReactSelect selectPageSize="true" />}
+      maxMenuHeight={200}
+      menuPlacement={selectPageSize ? "top" : "bottom"}
+    />
+  </SelectContainer>
 );
+
+const SelectContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  & > label {
+    color: ${({ theme }) => theme.colors.grey};
+  }
+`;
+const ReactSelect = styled(Select)`
+  .react-select__control {
+    &:hover {
+      background: #d1d1d1;
+      transition: all 0.2s ease-in-out;
+    }
+    &:active {
+      box-shadow: 0 0 5px #d9d9d9;
+    }
+    width: 100%;
+    border-radius: 4px;
+    box-shadow: none;
+    border: none;
+    background: #f6f6f6;
+  }
+  .react-select__menu {
+    color: #9c9c9c;
+    border-radius: 4px;
+    border: 0.5px solid #d1d1d1;
+  }
+
+  .react-select__option {
+    border-bottom: 0.5px solid #d1d1d1;
+    &:last-child {
+      border-bottom: none;
+    }
+
+    &:hover {
+      color: #ffffff;
+    }
+  }
+
+  .react-select_is-open > .react-select__control {
+    border: 0.5px solid #9c9c9c;
+  }
+`;

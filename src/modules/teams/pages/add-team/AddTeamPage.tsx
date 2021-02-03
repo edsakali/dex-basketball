@@ -1,20 +1,13 @@
 import styled from "styled-components";
-import { FormAddTeam } from "../components/FormAddTeam";
+import { TeamForm } from "../../components/TeamForm";
 import { useForm } from "react-hook-form";
-import { useAppDispatch } from "../../../redux/store";
-import { fetchAddTeam } from "../teamsAsyncActions";
+import { useAppDispatch } from "../../../../redux/store";
+import { fetchAddTeam } from "../../teamsAsyncActions";
 import { useEffect, useState } from "react";
-
-const toBase64 = (file: File): Promise<string | ArrayBuffer | null> =>
-  new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = (error) => reject(error);
-  });
+import { toBase64 } from "../../../../core/helpers/toBase64";
 
 export const AddTeamPage = () => {
-  const [previewImage, setPreviewImage] = useState<string | undefined>();
+  const [teamLogo, setTeamLogo] = useState<string | undefined>();
   const dispatch = useAppDispatch();
   const { watch, register, handleSubmit } = useForm();
   const imageUpload: FileList = watch("file");
@@ -22,14 +15,14 @@ export const AddTeamPage = () => {
   useEffect(() => {
     if (imageUpload && imageUpload[0]) {
       toBase64(imageUpload[0]).then((base64) => {
-        base64 && setPreviewImage(base64.toString());
+        base64 && setTeamLogo(base64.toString());
       });
     }
   }, [imageUpload]);
 
-  const onSubmit = handleSubmit((addTeamsData, event) => {
-    const { name, division, conference, foundationYear } = addTeamsData;
-    const file = addTeamsData.file[0];
+  const onSubmit = handleSubmit((Data, event) => {
+    const { name, division, conference, foundationYear } = Data;
+    const file = Data.file[0];
     const formData = new FormData();
 
     formData.append("file", file);
@@ -44,11 +37,7 @@ export const AddTeamPage = () => {
       <HeaderAddTeam>
         <p>Bread crumbs</p>
       </HeaderAddTeam>
-      <FormAddTeam
-        onSubmit={onSubmit}
-        register={register}
-        previewImage={previewImage}
-      />
+      <TeamForm onSubmit={onSubmit} register={register} teamLogo={teamLogo} />
     </AddTeamWrapper>
   );
 };

@@ -1,6 +1,6 @@
-import { baseFetch, baseFetchImg } from "../baseFetch";
+import { baseFetch } from "../baseFetch";
 import { User } from "../../modules/auth/authSlice";
-import { TeamParams } from "./TeamsDto";
+import { EditTeamParams, TeamParams } from "./TeamsDto";
 interface FetchTeamsResponse {
   data: [
     {
@@ -18,60 +18,92 @@ interface FetchTeamsResponse {
 }
 
 interface TeamIdProps {
-  id: number;
+  id: string;
 }
+
+export interface ParamsGetElement {
+  page: number;
+  PageSize: { value: number };
+}
+
 const getTeams = async (user: User): Promise<FetchTeamsResponse> => {
   const response = await baseFetch({
-    url: "api/Team/GetTeams",
+    url: "api/Team/GetTeams?Page=1&PageSize=6",
     method: "GET",
     headers: { Authorization: "Bearer " + user.token },
-    data: undefined,
+    body: undefined,
+  });
+  return response.json();
+};
+
+const getTeamsFilter = async (
+  user: User,
+  { page, PageSize }: ParamsGetElement
+): Promise<FetchTeamsResponse> => {
+  const response = await baseFetch({
+    url: `api/Team/GetTeams?Page=${page}&PageSize=${PageSize.value}`,
+    method: "GET",
+    headers: { Authorization: "Bearer " + user.token },
+    body: undefined,
   });
   return response.json();
 };
 
 const getTeamId = async (
   user: User,
-  params: TeamIdProps
+  { id }: TeamIdProps
 ): Promise<FetchTeamsResponse> => {
   const response = await baseFetch({
-    url: `api/Team/GetTeams`,
+    url: `api/Team/Get?id=${id}`,
     method: "GET",
     headers: { Authorization: "Bearer " + user.token },
-    data: params,
   });
   return response.json();
 };
 
-const postImage = async (
+const deleteTeam = async (
   user: User,
-  formData: any
+  { id }: TeamIdProps
 ): Promise<FetchTeamsResponse> => {
-  const response = await baseFetchImg({
-    url: `api/Image/SaveImage`,
-    method: "POST",
+  const response = await baseFetch({
+    url: `api/Team/Delete?id=${id}`,
+    method: "DELETE",
     headers: { Authorization: "Bearer " + user.token },
-    data: formData,
   });
   return response.json();
 };
 
 const postTeam = async (user: User, params: TeamParams) => {
   const response = await baseFetch({
-    url: `api/Team/Add`,
+    url: "api/Team/Add",
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       Authorization: "Bearer " + user.token,
     },
-    data: params,
+    body: JSON.stringify(params),
+  });
+  return response.json();
+};
+
+const editTeam = async (user: User, params: EditTeamParams) => {
+  const response = await baseFetch({
+    url: "api/Team/Update",
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + user.token,
+    },
+    body: JSON.stringify(params),
   });
   return response.json();
 };
 
 export const teamsServices = {
-  getTeams,
+  getTeamsFilter,
   getTeamId,
-  postImage,
+  deleteTeam,
+  editTeam,
   postTeam,
+  getTeams,
 };

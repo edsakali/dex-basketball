@@ -1,20 +1,22 @@
+import React from "react";
 import styled from "styled-components";
+import { useHistory } from "react-router-dom";
+
 import { Button } from "./ui/Button";
 import { PropsInputSearch, SearchInput } from "./ui/InputSearch";
-import React, { FC } from "react";
-import { useHistory } from "react-router-dom";
-import { pathList } from "../routers/pathList";
 
 interface Props extends PropsInputSearch {
   onSubmit: () => void;
+  addItemPath: string;
 }
 
-export const ContentHeader: FC<Props> = ({
+export const ContentHeader = ({
   register,
   placeholder,
   nameSearch,
   onSubmit,
-}) => {
+  addItemPath,
+}: Props) => {
   const { push } = useHistory();
   return (
     <Wrapper>
@@ -25,9 +27,7 @@ export const ContentHeader: FC<Props> = ({
           nameSearch={nameSearch}
         />
       </FormFilter>
-      <ButtonSearch onClick={() => push(pathList.content.addTeam)}>
-        Add +
-      </ButtonSearch>
+      <ButtonSearch onClick={() => push(addItemPath)}>Add +</ButtonSearch>
     </Wrapper>
   );
 };

@@ -1,11 +1,13 @@
 export const pathList = {
   auth: {
-    login: "/login",
-    register: "/register",
+    login: "/login/",
+    register: "/register/",
   },
   content: {
-    teams: "/teams",
-    players: "/players",
-    addTeam: "/teams/addTeam",
+    teams: "/teams/",
+    addTeam: "/teams/addTeam/",
+    editTeam: "/teams/editTeam/",
+    players: "/players/",
+    addPlayer: "/players/add/addPlayer/",
   },
 };

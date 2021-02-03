@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { FC } from "react";
+import React, { FC } from "react";
 import { ContentHeader } from "../ContentHeader";
 import { PropsInputSearch } from "../ui/InputSearch";
 import { ContentFooter } from "../ContentFooter";
@@ -7,6 +7,8 @@ import { SelectProps } from "../ui/CustomSelect";
 
 interface Props extends PropsInputSearch, SelectProps {
   onSubmit: () => void;
+  onPageChange?(selectedItem: { selected: number }): void;
+  addItemPath: string;
 }
 
 export const ContentLayout: FC<Props> = ({
@@ -17,46 +19,30 @@ export const ContentLayout: FC<Props> = ({
   nameSelect,
   control,
   children,
+  onPageChange,
+  addItemPath,
 }) => {
   return (
     <CardsSection>
       <ContentHeader
+        addItemPath={addItemPath}
         register={register}
         placeholder={placeholder}
         nameSearch={nameSearch}
         onSubmit={onSubmit}
       />
-      <CardsContainer>{children}</CardsContainer>
-      <ContentFooter nameSelect={nameSelect} control={control} />
+      {children}
+      <ContentFooter
+        nameSelect={nameSelect}
+        control={control}
+        onPageChange={onPageChange}
+      />
     </CardsSection>
   );
 };
 const CardsSection = styled.section`
-  display: flex;
-  flex-direction: column;
   padding: 0 12px;
-  max-height: 928px;
-  height: 100%;
-  overflow-y: auto;
-
   @media screen and ${({ theme }) => theme.deviceSize.tablet} {
     padding: 0;
   }
-`;
-
-const CardsContainer = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  margin: 16px 0;
-  overflow-y: auto;
-  max-height: 784px;
-  height: 100%;
-
-  @media screen and ${({ theme }) => theme.deviceSize.tablet} {
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 24px;
-    height: 100%;
-    margin: 32px 0;
-  } ;
 `;

@@ -36,10 +36,13 @@ const ContentWrapper = styled.div`
 `;
 
 const Content = styled.div`
-  flex: 1;
   padding: 16px 0;
+  width: 100%;
+  height: calc(100vh - 62px);
+  overflow-y: auto;
 
   @media screen and ${({ theme }) => theme.deviceSize.tablet} {
     padding: 32px 80px;
+    height: calc(100vh - 80px);
   } ;
 `;

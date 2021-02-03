@@ -1,0 +1,52 @@
+import { createSlice } from "@reduxjs/toolkit";
+import { fetchPlayers, fetchPositions } from "./playersAsyncActions";
+import { RootState } from "../../redux/store";
+import { PlayerParams } from "../../api/players/PlayersDto";
+
+export type Loading = "pending" | "idle";
+
+interface PlayersState {
+  data: Array<PlayerParams>;
+  loading: Loading;
+  positions?: Array<string>;
+  error?: string | null;
+}
+
+const initialState: PlayersState = {
+  data: [],
+  loading: "idle",
+};
+
+const playersSlice = createSlice({
+  name: "players",
+  initialState: initialState,
+  reducers: {},
+  extraReducers: (builder) => {
+    builder.addCase(fetchPlayers.pending, (state) => {
+      state.loading = "pending";
+    });
+    builder.addCase(fetchPlayers.fulfilled, (state, action) => {
+      state.loading = "idle";
+      // state.data = action.payload.data;
+    });
+    builder.addCase(fetchPlayers.rejected, (state, action) => {
+      state.loading = "idle";
+      state.error = action.error.message;
+    });
+    builder.addCase(fetchPositions.pending, (state) => {
+      state.loading = "pending";
+    });
+    builder.addCase(fetchPositions.fulfilled, (state, action) => {
+      state.loading = "idle";
+      state.positions = action.payload;
+    });
+    builder.addCase(fetchPositions.rejected, (state, action) => {
+      state.loading = "idle";
+      state.error = action.error.message;
+    });
+  },
+});
+
+export const playersSelector = (state: RootState) => state.players;
+export const teamsActions = playersSlice.actions;
+export const playersReducer = playersSlice.reducer;

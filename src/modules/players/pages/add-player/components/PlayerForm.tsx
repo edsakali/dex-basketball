@@ -1,63 +1,81 @@
+import { FileInput } from "../../../../../components/ui/FileInput";
 import styled from "styled-components";
-import { CustomInput } from "../../../components/ui/CustomInput";
-import { Button } from "../../../components/ui/Button";
-import { FileInput } from "../../../components/ui/FileInput";
-import { ReactComponent as AddPhotoIcon } from "../../../assets/images/icons/addPhoto.svg";
-import { UseFormMethods } from "react-hook-form";
-import { FC } from "react";
+import { ReactComponent as AddPhotoIcon } from "../../../../../assets/images/icons/addPhoto.svg";
+import { Control, FieldValues, UseFormMethods } from "react-hook-form";
+import { Button } from "../../../../../components/ui/Button";
+import { CustomInput } from "../../../../../components/ui/CustomInput";
+import { CustomSelect } from "../../../../../components/ui/CustomSelect";
 
-interface FormProps extends Partial<Pick<UseFormMethods, "register">> {
+interface Props<TFieldValues extends FieldValues = FieldValues>
+  extends Partial<Pick<UseFormMethods, "register">> {
   onSubmit: () => void;
   previewImage: string | undefined;
+  control: Control<TFieldValues>;
+  optionsPositions?: Array<{ value: string; label: string }>;
+  optionsTeam?: Array<{ value: number | undefined; label: string | undefined }>;
 }
 
-export const FormAddTeam: FC<FormProps> = ({
+export const PlayerForm = ({
   onSubmit,
   register,
   previewImage,
-}) => {
+  control,
+  optionsPositions,
+  optionsTeam,
+}: Props) => {
   return (
     <Form onSubmit={onSubmit}>
       <AddImg>
         <ImgInputWrapper>
           <FileInputIcon />
-          {previewImage && <TeamImg src={previewImage} />}
+          {previewImage && <PlayerImg src={previewImage} />}
           <FileInput register={register} />
         </ImgInputWrapper>
       </AddImg>
       <WrapperItem>
-        <AddTeamDetails>
+        <CustomInput register={register} name="name" label="Name" type="text" />
+        <CustomSelect
+          control={control}
+          nameSelect="Position"
+          label={"Position"}
+          options={optionsPositions}
+        />
+        <CustomSelect
+          control={control}
+          nameSelect="Team"
+          label={"Team"}
+          options={optionsTeam}
+        />
+        <WrapperItemGrid>
           <CustomInput
             register={register}
-            name="name"
-            label="Team"
-            type="text"
+            name="Height"
+            label="Height (cm)"
+            type="number"
           />
           <CustomInput
             register={register}
-            name="division"
-            label="Division"
-            type="text"
+            name="Weight"
+            label="Weight (kg)"
+            type="number"
           />
           <CustomInput
             register={register}
-            name="conference"
-            label="Conference"
-            type="text"
+            name="Birthday"
+            label="Birthday"
+            type="date"
           />
           <CustomInput
             register={register}
-            name="foundationYear"
-            label="Year of foundation"
-            type="text"
+            name="Number"
+            label="Number"
+            type="number"
           />
-        </AddTeamDetails>
-        <ButtonsWrapper>
           <Button type="reset" cancelBtn>
             Cancel
           </Button>
           <Button>Save</Button>
-        </ButtonsWrapper>
+        </WrapperItemGrid>
       </WrapperItem>
     </Form>
   );
@@ -77,10 +95,17 @@ const Form = styled.form`
   }
 `;
 
+const PlayerImg = styled.img`
+  max-width: 100%;
+  max-height: 100%;
+  z-index: 50;
+  opacity: 0.5;
+  object-fit: scale-down;
+`;
+
 const AddImg = styled.div`
   display: flex;
   justify-content: center;
-  max-width: 100%;
   width: 100%;
   height: 100%;
   @media screen and ${({ theme }) => theme.deviceSize.tablet} {
@@ -91,6 +116,9 @@ const AddImg = styled.div`
 `;
 
 const ImgInputWrapper = styled.div`
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
   max-width: 185px;
   width: 100%;
   height: 144px;
@@ -121,6 +149,7 @@ const FileInputIcon = styled(AddPhotoIcon)`
     max-height: 100%;
   }
 `;
+
 const WrapperItem = styled.div`
   display: flex;
   flex-direction: column;
@@ -133,26 +162,9 @@ const WrapperItem = styled.div`
   }
 `;
 
-const AddTeamDetails = styled.div`
-  display: flex;
-  flex-direction: column;
+const WrapperItemGrid = styled.div`
+  display: grid;
+  grid-template-columns: calc(50% - 12px) calc(50% - 12px);
   width: 100%;
   gap: 24px;
-`;
-
-const ButtonsWrapper = styled.div`
-  display: flex;
-  width: 100%;
-  gap: 24px;
-`;
-
-const TeamImg = styled.img`
-  max-width: 100%;
-  max-height: 100%;
-  z-index: 50;
-  top: 50%;
-  left: 50%;
-  opacity: 0.5;
-  transform: translate(-50%, -50%);
-  position: absolute;
 `;

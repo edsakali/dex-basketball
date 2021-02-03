@@ -35,7 +35,7 @@ const HeaderContainer = styled.div`
   align-items: center;
   position: sticky;
   top: 0;
-  z-index: 99;
+  z-index: 200;
   width: 100%;
   background: #ffffff;
   box-shadow: 0 1px 10px rgba(209, 209, 209, 0.5);

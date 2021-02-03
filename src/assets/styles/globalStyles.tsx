@@ -8,7 +8,6 @@ export const GlobalStyle = createGlobalStyle`
     font-family: 'Avenir', sans-serif;
     font-size: 14px;
     font-weight: 500;
-    line-height: 24px;
 }
 
 `;

@@ -6,7 +6,7 @@ interface InputProps
   extends Partial<Pick<UseFormMethods, "register" | "errors">> {
   name: string;
   label: string;
-  type: "text" | "password";
+  type: "text" | "password" | "date" | "number";
   registerOptions?: RegisterOptions;
   value?: string;
   disabled?: boolean;
@@ -63,6 +63,12 @@ const InputWrapper = styled.div<{ error: boolean }>`
   border-radius: 4px;
   cursor: pointer;
 
+  & > input[type="number"]::-webkit-outer-spin-button,
+  & > input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
   &:hover {
     background: ${({ theme }) => theme.colors.lightestGrey};
     transition: all 0.2s ease-in-out;
@@ -89,10 +95,9 @@ const InputWrapper = styled.div<{ error: boolean }>`
 const InputContainer = styled.div`
   display: flex;
   flex-direction: column;
+  gap: 8px;
   & > label {
     color: ${({ theme }) => theme.colors.grey};
-    transition: all 0.2s ease;
-    z-index: 500;
   }
 `;
 const IconWrapper = styled.div`
