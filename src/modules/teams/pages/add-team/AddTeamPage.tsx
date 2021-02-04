@@ -9,7 +9,7 @@ import { toBase64 } from "../../../../core/helpers/toBase64";
 export const AddTeamPage = () => {
   const [teamLogo, setTeamLogo] = useState<string | undefined>();
   const dispatch = useAppDispatch();
-  const { watch, register, handleSubmit } = useForm();
+  const { watch, register, handleSubmit, errors } = useForm();
   const imageUpload: FileList = watch("file");
 
   useEffect(() => {
@@ -37,7 +37,12 @@ export const AddTeamPage = () => {
       <HeaderAddTeam>
         <p>Bread crumbs</p>
       </HeaderAddTeam>
-      <TeamForm onSubmit={onSubmit} register={register} teamLogo={teamLogo} />
+      <TeamForm
+        onSubmit={onSubmit}
+        register={register}
+        teamLogo={teamLogo}
+        errors={errors}
+      />
     </AddTeamWrapper>
   );
 };

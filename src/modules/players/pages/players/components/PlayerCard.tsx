@@ -1,34 +1,69 @@
 import styled from "styled-components";
 import { PlayerParams } from "../../../../../api/players/PlayersDto";
-import photo from "../../../../../assets/images/photo1.png";
 
-type Props = Pick<PlayerParams, "name" | "number" | "team">;
+type Props = Pick<PlayerParams, "name" | "number" | "team" | "avatarUrl">;
 
-export const PlayerCard = ({ name, number, team }: Props) => (
-  <CardWrapper>
+export const PlayerCard = ({ name, number, team, avatarUrl }: Props) => (
+  <>
     <ImgContainer>
-      <Img src={photo} alt="photo" />
+      <Img src={`http://dev.trainee.dex-it.ru${avatarUrl}`} alt="photo" />
     </ImgContainer>
     <Description>
       <PlayerName>
         {name}
-        <PlayerNumber>#{number}</PlayerNumber>
+        <PlayerNumber>&nbsp;#{number}</PlayerNumber>
       </PlayerName>
       <PlayerTeam>{team}</PlayerTeam>
     </Description>
-  </CardWrapper>
+  </>
 );
 
-const CardWrapper = styled.div``;
+const ImgContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  padding: 11px 24px 0 24px;
+  border-radius: 4px 4px 0 0;
+  background: linear-gradient(
+    121.57deg,
+    ${({ theme }) => theme.colors.grey} 1.62%,
+    #393939 81.02%
+  );
+  @media screen and ${({ theme }) => theme.deviceSize.tablet} {
+    padding: 73px 0 0 0;
+  }
+`;
 
-const ImgContainer = styled.div``;
+const Img = styled.img`
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+`;
 
-const Img = styled.img``;
+const Description = styled.div`
+  text-align: center;
+  padding: 19px 0;
+  border-radius: 0 0 4px 4px;
+  background: ${({ theme }) => theme.colors.darkGrey};
+  color: #ffffff;
+`;
 
-const Description = styled.div``;
+const PlayerName = styled.h1`
+  font-size: 12px;
+  margin-bottom: 10px;
 
-const PlayerName = styled.h1``;
+  @media screen and ${({ theme }) => theme.deviceSize.tablet} {
+    font-size: 18px;
+  }
+`;
 
-const PlayerNumber = styled.span``;
+const PlayerNumber = styled.span`
+  color: ${({ theme }) => theme.colors.lightRed};
+`;
 
-const PlayerTeam = styled.p``;
+const PlayerTeam = styled.p`
+  font-size: 10px;
+
+  @media screen and ${({ theme }) => theme.deviceSize.tablet} {
+    font-size: 14px;
+  }
+`;

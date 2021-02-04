@@ -16,7 +16,7 @@ interface ParamsId {
 export const EditTeamPage = () => {
   const [teamLogo, setTeamLogo] = useState<string | undefined>();
   const dispatch = useAppDispatch();
-  const { watch, register, handleSubmit, setValue } = useForm();
+  const { watch, register, handleSubmit, setValue, errors } = useForm();
   const imageUpload: FileList = watch("file");
   const { id }: ParamsId = useParams();
   const { team } = useSelector(teamsSelector);
@@ -63,6 +63,7 @@ export const EditTeamPage = () => {
         <p>Bread crumbs</p>
       </HeaderEditTeam>
       <TeamForm
+        errors={errors}
         onSubmit={onSubmit}
         register={register}
         teamLogo={

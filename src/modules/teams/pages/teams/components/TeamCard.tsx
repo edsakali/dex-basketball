@@ -5,9 +5,9 @@ type Props = Pick<TeamParams, "name" | "foundationYear" | "imageUrl">;
 
 export const TeamCard = ({ name, foundationYear, imageUrl }: Props) => (
   <>
-    <TeamLogoContainer>
-      <TeamLogo src={`http://dev.trainee.dex-it.ru${imageUrl}`} alt="img" />
-    </TeamLogoContainer>
+    <LogoContainer>
+      <Logo src={`http://dev.trainee.dex-it.ru${imageUrl}`} alt="img" />
+    </LogoContainer>
     <TeamDescription>
       <TeamName>{name}</TeamName>
       <TeamFoundation>Year of foundation: {foundationYear}</TeamFoundation>
@@ -15,7 +15,7 @@ export const TeamCard = ({ name, foundationYear, imageUrl }: Props) => (
   </>
 );
 
-const TeamLogoContainer = styled.div`
+const LogoContainer = styled.div`
   display: flex;
   justify-content: center;
   padding: 25px 56px;
@@ -30,7 +30,7 @@ const TeamLogoContainer = styled.div`
     padding: 65px 0;
   }
 `;
-const TeamLogo = styled.img`
+const Logo = styled.img`
   max-width: 100%;
   max-height: 100%;
   object-fit: cover;

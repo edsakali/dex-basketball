@@ -93,7 +93,6 @@ export const fetchAddTeam = createAsyncThunk<
   async (AddTeamParams, { rejectWithValue, getState }) => {
     const {
       formData,
-      imageUrl,
       name,
       foundationYear,
       division,

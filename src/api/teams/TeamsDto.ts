@@ -8,7 +8,7 @@ export interface TeamParams {
 }
 
 export interface AddTeamParams extends TeamParams {
-  formData: any;
+  formData: FormData;
 }
 
 export interface EditTeamParams {

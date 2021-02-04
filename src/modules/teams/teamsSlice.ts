@@ -49,6 +49,8 @@ const teamsSlice = createSlice({
     builder.addCase(fetchTeamsFilter.fulfilled, (state, action) => {
       state.loading = "idle";
       state.data = action.payload.data;
+      state.count = action.payload.count;
+      state.size = action.payload.size;
     });
     builder.addCase(fetchTeamsFilter.rejected, (state, action) => {
       state.loading = "idle";

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { UseFormMethods } from "react-hook-form";
+import { FieldErrors, UseFormMethods } from "react-hook-form";
 import { CustomInput } from "../../../components/ui/CustomInput";
 import { Button } from "../../../components/ui/Button";
 import { FileInput } from "../../../components/ui/FileInput";
@@ -8,9 +8,10 @@ import { ReactComponent as AddPhotoIcon } from "../../../assets/images/icons/add
 interface Props extends Partial<Pick<UseFormMethods, "register">> {
   onSubmit: () => void;
   teamLogo: string | undefined;
+  errors: FieldErrors;
 }
 
-export const TeamForm = ({ onSubmit, register, teamLogo }: Props) => {
+export const TeamForm = ({ onSubmit, register, teamLogo, errors }: Props) => {
   return (
     <Form onSubmit={onSubmit}>
       <AddImg>
@@ -27,24 +28,40 @@ export const TeamForm = ({ onSubmit, register, teamLogo }: Props) => {
             name="name"
             label="Name"
             type="text"
+            error={errors.name}
+            registerOptions={{
+              required: "Name is required.",
+            }}
           />
           <CustomInput
             register={register}
             name="division"
             label="Division"
             type="text"
+            error={errors.division}
+            registerOptions={{
+              required: "Division is required.",
+            }}
           />
           <CustomInput
             register={register}
             name="conference"
             label="Conference"
             type="text"
+            error={errors.conference}
+            registerOptions={{
+              required: "Conference is required.",
+            }}
           />
           <CustomInput
             register={register}
             name="foundationYear"
             label="Year of foundation"
             type="number"
+            error={errors.foundationYear}
+            registerOptions={{
+              required: "Year of foundation is required.",
+            }}
           />
         </AddTeamDetails>
         <ButtonsWrapper>

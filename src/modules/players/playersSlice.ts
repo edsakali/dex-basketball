@@ -1,5 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchPlayers, fetchPositions } from "./playersAsyncActions";
+import {
+  fetchAddPlayer,
+  fetchPlayers,
+  fetchPlayersFilter,
+  fetchPositions,
+} from "./playersAsyncActions";
 import { RootState } from "../../redux/store";
 import { PlayerParams } from "../../api/players/PlayersDto";
 
@@ -9,6 +14,8 @@ interface PlayersState {
   data: Array<PlayerParams>;
   loading: Loading;
   positions?: Array<string>;
+  count?: number;
+  size?: number;
   error?: string | null;
 }
 
@@ -27,9 +34,24 @@ const playersSlice = createSlice({
     });
     builder.addCase(fetchPlayers.fulfilled, (state, action) => {
       state.loading = "idle";
-      // state.data = action.payload.data;
+      state.data = action.payload.data;
+      state.count = action.payload.count;
+      state.size = action.payload.size;
     });
     builder.addCase(fetchPlayers.rejected, (state, action) => {
+      state.loading = "idle";
+      state.error = action.error.message;
+    });
+    builder.addCase(fetchPlayersFilter.pending, (state) => {
+      state.loading = "pending";
+    });
+    builder.addCase(fetchPlayersFilter.fulfilled, (state, action) => {
+      state.loading = "idle";
+      state.data = action.payload.data;
+      state.count = action.payload.count;
+      state.size = action.payload.size;
+    });
+    builder.addCase(fetchPlayersFilter.rejected, (state, action) => {
       state.loading = "idle";
       state.error = action.error.message;
     });
@@ -41,6 +63,16 @@ const playersSlice = createSlice({
       state.positions = action.payload;
     });
     builder.addCase(fetchPositions.rejected, (state, action) => {
+      state.loading = "idle";
+      state.error = action.error.message;
+    });
+    builder.addCase(fetchAddPlayer.pending, (state) => {
+      state.loading = "pending";
+    });
+    builder.addCase(fetchAddPlayer.fulfilled, (state) => {
+      state.loading = "idle";
+    });
+    builder.addCase(fetchAddPlayer.rejected, (state, action) => {
       state.loading = "idle";
       state.error = action.error.message;
     });

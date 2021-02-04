@@ -36,38 +36,38 @@ export const PlayerForm = ({
         <CustomInput register={register} name="name" label="Name" type="text" />
         <CustomSelect
           control={control}
-          nameSelect="Position"
+          nameSelect="position"
           label={"Position"}
           options={optionsPositions}
         />
         <CustomSelect
           control={control}
-          nameSelect="Team"
+          nameSelect="team"
           label={"Team"}
           options={optionsTeam}
         />
         <WrapperItemGrid>
           <CustomInput
             register={register}
-            name="Height"
+            name="height"
             label="Height (cm)"
             type="number"
           />
           <CustomInput
             register={register}
-            name="Weight"
+            name="weight"
             label="Weight (kg)"
             type="number"
           />
           <CustomInput
             register={register}
-            name="Birthday"
+            name="birthday"
             label="Birthday"
             type="date"
           />
           <CustomInput
             register={register}
-            name="Number"
+            name="number"
             label="Number"
             type="number"
           />

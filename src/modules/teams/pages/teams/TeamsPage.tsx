@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useEffect, useMemo, useState } from "react";
 import { ContentLayout } from "../../../../components/layouts/ContentLayout";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
@@ -10,6 +10,7 @@ import { fetchTeams, fetchTeamsFilter } from "../../teamsAsyncActions";
 import { useAppDispatch } from "../../../../redux/store";
 import { pathList } from "../../../../routers/pathList";
 import { Spinner } from "../../../../components/Spiner";
+import { CardWrapper } from "../../../../assets/styles/CardWrapper";
 
 export const TeamsPage: FC = () => {
   const { data, loading } = useSelector(teamsSelector);
@@ -18,6 +19,8 @@ export const TeamsPage: FC = () => {
   const dispatch = useAppDispatch();
   const { register, control, handleSubmit, watch } = useForm();
 
+  const { count = 6, size = 6 } = useSelector(teamsSelector);
+
   const PageSize = watch("PageSize");
 
   useEffect(() => {
@@ -25,12 +28,14 @@ export const TeamsPage: FC = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    PageSize && dispatch(fetchTeamsFilter({ page, PageSize }));
+    dispatch(fetchTeamsFilter({ page, PageSize }));
   }, [dispatch, PageSize, page]);
 
   const onPageChange = (selectedItem: { selected: number }) => {
     setPage(selectedItem.selected + 1);
   };
+
+  const pageCount = useMemo(() => Math.ceil(count / size), [count, size]);
 
   const onSubmitHandler = handleSubmit((formValues) => {});
 
@@ -44,6 +49,7 @@ export const TeamsPage: FC = () => {
       nameSelect="PageSize"
       control={control}
       addItemPath={pathList.content.addTeam}
+      pageCount={pageCount}
     >
       {loading === "pending" ? (
         <Spinner />
@@ -52,13 +58,13 @@ export const TeamsPage: FC = () => {
           {data &&
             data.map(({ name, foundationYear, id, imageUrl }) => {
               return (
-                <TeamsLink to={pathList.content.teams + id} key={id}>
+                <TeamLink to={pathList.content.teams + id} key={id}>
                   <TeamCard
                     name={name}
                     foundationYear={foundationYear}
                     imageUrl={imageUrl}
                   />
-                </TeamsLink>
+                </TeamLink>
               );
             })}
         </CardWrapper>
@@ -66,18 +72,7 @@ export const TeamsPage: FC = () => {
     </ContentLayout>
   );
 };
-export const CardWrapper = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  margin: 16px 0;
-  @media screen and ${({ theme }) => theme.deviceSize.tablet} {
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 24px;
-    margin: 32px 0;
-  }
-`;
 
-const TeamsLink = styled(Link)`
+const TeamLink = styled(Link)`
   text-decoration: none;
 `;

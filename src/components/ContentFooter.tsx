@@ -2,8 +2,6 @@ import React, { FC } from "react";
 import styled from "styled-components";
 import { CustomSelect, SelectProps } from "./ui/CustomSelect";
 import { Pagination } from "./Pagination";
-import { useSelector } from "react-redux";
-import { teamsSelector } from "../modules/teams/teamsSlice";
 
 const options = [
   { value: "6", label: "6" },
@@ -12,35 +10,43 @@ const options = [
 ];
 
 interface Props extends SelectProps {
+  pageCount: number;
   onPageChange?(selectedItem: { selected: number }): void;
 }
-
-const pageCount = (count = 6, size = 6) => count / size;
 
 export const ContentFooter: FC<Props> = ({
   nameSelect,
   control,
   onPageChange,
+  pageCount,
 }) => {
-  const { count, size } = useSelector(teamsSelector);
-
   return (
-    <Wrapper>
-      <Pagination
-        pageCount={Math.ceil(pageCount(count, size))}
-        onPageChange={onPageChange}
-      />
-      <CustomSelect
-        nameSelect={nameSelect}
-        control={control}
-        selectPageSize
-        options={options}
-      />
-    </Wrapper>
+    <ContentWrapper>
+      <Pagination pageCount={pageCount} onPageChange={onPageChange} />
+      <CustomSelectWrapper>
+        <CustomSelect
+          nameSelect={nameSelect}
+          control={control}
+          selectPageSize
+          options={options}
+        />
+      </CustomSelectWrapper>
+    </ContentWrapper>
   );
 };
 
-const Wrapper = styled.div`
+const ContentWrapper = styled.div`
   display: flex;
   justify-content: space-between;
+`;
+
+const CustomSelectWrapper = styled.div`
+  max-width: 60px;
+  width: 100%;
+  border: 0.5px solid #d1d1d1;
+  border-radius: 4px;
+
+  @media screen and ${({ theme }) => theme.deviceSize.tablet} {
+    max-width: 88px;
+  }
 `;

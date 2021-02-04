@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useAppDispatch } from "../../../../redux/store";
 import { useForm } from "react-hook-form";
 import { toBase64 } from "../../../../core/helpers/toBase64";
-import { fetchPositions } from "../../playersAsyncActions";
+import { fetchAddPlayer, fetchPositions } from "../../playersAsyncActions";
 import { useSelector } from "react-redux";
 import { playersSelector } from "../../playersSlice";
 import { teamsSelector } from "../../../teams/teamsSlice";
@@ -46,15 +46,26 @@ export const AddPlayerPage = () => {
   );
 
   const onSubmit = handleSubmit((Data, event) => {
+    const { name, height, weight, number, birthday } = Data;
     const file = Data.file[0];
+    const position = Data.position.value;
+    const team = Data.team.value;
     const formData = new FormData();
-    console.log(Data);
 
     formData.append("file", file);
 
-    // dispatch(
-    //   fetchAddTeam({ formData, name, foundationYear, division, conference })
-    // );
+    dispatch(
+      fetchAddPlayer({
+        formData,
+        name,
+        position,
+        team,
+        height,
+        weight,
+        number,
+        birthday,
+      })
+    );
   });
 
   return (
