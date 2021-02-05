@@ -3,10 +3,10 @@ import { RootState } from "../../redux/store";
 import { playerServices } from "../../api/players/services";
 import { postImage } from "../../api/postImg";
 import { PlayerParams } from "../../api/players/PlayersDto";
-import { ParamsGetElement } from "../../api/teams/services";
+import { ParamsGetElement } from "../../api/appDto";
 
 export const fetchPlayers = createAsyncThunk(
-  "teams/fetchPlayers",
+  "player/fetchPlayers",
   async (props, { rejectWithValue, getState }) => {
     try {
       const { auth } = getState() as RootState;
@@ -28,7 +28,7 @@ export const fetchPlayersFilter = createAsyncThunk<
   any,
   ParamsGetElement,
   { rejectValue: string; getState: () => void }
->("teams/fetchPlayersFilter", async (props, { rejectWithValue, getState }) => {
+>("player/fetchPlayersFilter", async (props, { rejectWithValue, getState }) => {
   try {
     const { auth } = getState() as RootState;
     if (!auth.user) {
@@ -45,7 +45,7 @@ export const fetchPlayersFilter = createAsyncThunk<
 });
 
 export const fetchPositions = createAsyncThunk(
-  "teams/fetchPositions",
+  "player/fetchPositions",
   async (_, { rejectWithValue, getState }) => {
     try {
       const { auth } = getState() as RootState;
@@ -68,7 +68,7 @@ export const fetchAddPlayer = createAsyncThunk<
   PlayerParams,
   { rejectValue: string; getState: () => void }
 >(
-  "teams/fetchAddPlayer",
+  "player/fetchAddPlayer",
 
   async (AddPlayerParams, { rejectWithValue, getState }) => {
     const {
@@ -86,7 +86,6 @@ export const fetchAddPlayer = createAsyncThunk<
       if (!auth.user) {
         throw new Error("Invalid operation User is undefined");
       }
-      console.log(formData);
       const avatarUrl = await postImage(auth.user, formData);
       return await playerServices.postPlayer(auth.user, {
         avatarUrl,
@@ -107,3 +106,43 @@ export const fetchAddPlayer = createAsyncThunk<
     }
   }
 );
+
+export const fetchPlayerId = createAsyncThunk<
+  any,
+  { id: string },
+  { rejectValue: string; getState: () => void }
+>("player/fetchPlayerId", async (params, { rejectWithValue, getState }) => {
+  try {
+    const { auth } = getState() as RootState;
+    if (!auth.user) {
+      throw new Error("Invalid operation User is undefined");
+    }
+    return await playerServices.getPlayerId(auth.user, params);
+  } catch (err) {
+    if (err.message) {
+      return rejectWithValue(err.message);
+    } else {
+      return rejectWithValue(err);
+    }
+  }
+});
+
+export const fetchDeletePlayer = createAsyncThunk<
+  any,
+  { id: string },
+  { rejectValue: string; getState: () => void }
+>("player/fetchDeletePlayer", async (params, { rejectWithValue, getState }) => {
+  try {
+    const { auth } = getState() as RootState;
+    if (!auth.user) {
+      throw new Error("Invalid operation User is undefined");
+    }
+    return await playerServices.deletePlayer(auth.user, params);
+  } catch (err) {
+    if (err.message) {
+      return rejectWithValue(err.message);
+    } else {
+      return rejectWithValue(err);
+    }
+  }
+});

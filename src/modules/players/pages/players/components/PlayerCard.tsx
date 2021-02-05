@@ -58,6 +58,12 @@ const PlayerName = styled.h1`
 
 const PlayerNumber = styled.span`
   color: ${({ theme }) => theme.colors.lightRed};
+  font-size: 12px;
+  margin-bottom: 10px;
+
+  @media screen and ${({ theme }) => theme.deviceSize.tablet} {
+    font-size: 18px;
+  }
 `;
 
 const PlayerTeam = styled.p`

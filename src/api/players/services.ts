@@ -1,7 +1,7 @@
 import { User } from "../../modules/auth/authSlice";
 import { baseFetch } from "../baseFetch";
 import { FetchPlayersResponse, PlayerParams } from "./PlayersDto";
-import { ParamsGetElement } from "../teams/services";
+import { IdProps, ParamsGetElement } from "../appDto";
 
 const postPlayer = async (user: User, params: PlayerParams) => {
   const response = await baseFetch({
@@ -52,10 +52,35 @@ const getPlayersFilter = async (
   return response.json();
 };
 
+const deletePlayer = async (
+  user: User,
+  { id }: IdProps
+): Promise<FetchPlayersResponse> => {
+  const response = await baseFetch({
+    url: `api/Player/Delete?id=${id}`,
+    method: "DELETE",
+    headers: { Authorization: "Bearer " + user.token },
+  });
+  return response.json();
+};
+
+const getPlayerId = async (
+  user: User,
+  { id }: IdProps
+): Promise<FetchPlayersResponse> => {
+  const response = await baseFetch({
+    url: `api/Player/Get?id=${id}`,
+    method: "GET",
+    headers: { Authorization: "Bearer " + user.token },
+  });
+  return response.json();
+};
+
 export const playerServices = {
   getPlayers,
   getPositions,
   getPlayersFilter,
-  // getPlayerId,
+  getPlayerId,
   postPlayer,
+  deletePlayer,
 };

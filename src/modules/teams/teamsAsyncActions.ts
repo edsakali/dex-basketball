@@ -1,8 +1,9 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { ParamsGetElement, teamsServices } from "../../api/teams/services";
+import { teamsServices } from "../../api/teams/services";
 import { RootState } from "../../redux/store";
 import { AddTeamParams, EditTeamParams } from "../../api/teams/TeamsDto";
 import { postImage } from "../../api/postImg";
+import { ParamsGetElement } from "../../api/appDto";
 
 export const fetchTeams = createAsyncThunk(
   "teams/fetchTeams",

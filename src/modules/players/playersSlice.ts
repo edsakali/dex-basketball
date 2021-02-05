@@ -1,6 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
   fetchAddPlayer,
+  fetchDeletePlayer,
+  fetchPlayerId,
   fetchPlayers,
   fetchPlayersFilter,
   fetchPositions,
@@ -14,6 +16,7 @@ interface PlayersState {
   data: Array<PlayerParams>;
   loading: Loading;
   positions?: Array<string>;
+  player?: PlayerParams | undefined;
   count?: number;
   size?: number;
   error?: string | null;
@@ -55,6 +58,17 @@ const playersSlice = createSlice({
       state.loading = "idle";
       state.error = action.error.message;
     });
+    builder.addCase(fetchPlayerId.pending, (state) => {
+      state.loading = "pending";
+    });
+    builder.addCase(fetchPlayerId.fulfilled, (state, action) => {
+      state.loading = "idle";
+      state.player = action.payload;
+    });
+    builder.addCase(fetchPlayerId.rejected, (state, action) => {
+      state.loading = "idle";
+      state.error = action.error.message;
+    });
     builder.addCase(fetchPositions.pending, (state) => {
       state.loading = "pending";
     });
@@ -73,6 +87,16 @@ const playersSlice = createSlice({
       state.loading = "idle";
     });
     builder.addCase(fetchAddPlayer.rejected, (state, action) => {
+      state.loading = "idle";
+      state.error = action.error.message;
+    });
+    builder.addCase(fetchDeletePlayer.pending, (state) => {
+      state.loading = "pending";
+    });
+    builder.addCase(fetchDeletePlayer.fulfilled, (state) => {
+      state.loading = "idle";
+    });
+    builder.addCase(fetchDeletePlayer.rejected, (state, action) => {
       state.loading = "idle";
       state.error = action.error.message;
     });

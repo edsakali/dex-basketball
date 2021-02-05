@@ -27,7 +27,7 @@ const LogoContainer = styled.div`
   );
 
   @media screen and ${({ theme }) => theme.deviceSize.tablet} {
-    padding: 65px 0;
+    padding: 65px 10px;
   }
 `;
 const Logo = styled.img`

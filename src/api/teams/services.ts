@@ -1,30 +1,7 @@
 import { baseFetch } from "../baseFetch";
 import { User } from "../../modules/auth/authSlice";
-import { EditTeamParams, TeamParams } from "./TeamsDto";
-interface FetchTeamsResponse {
-  data: [
-    {
-      name: "string";
-      foundationYear: number;
-      division: "string";
-      conference: "string";
-      imageUrl: "string";
-      id: number;
-    }
-  ];
-  count: number;
-  page: number;
-  size: number;
-}
-
-interface TeamIdProps {
-  id: string;
-}
-
-export interface ParamsGetElement {
-  page: number;
-  PageSize: { value: number };
-}
+import { EditTeamParams, FetchTeamsResponse, TeamParams } from "./TeamsDto";
+import { IdProps, ParamsGetElement } from "../appDto";
 
 const getTeams = async (user: User): Promise<FetchTeamsResponse> => {
   const response = await baseFetch({
@@ -51,7 +28,7 @@ const getTeamsFilter = async (
 
 const getTeamId = async (
   user: User,
-  { id }: TeamIdProps
+  { id }: IdProps
 ): Promise<FetchTeamsResponse> => {
   const response = await baseFetch({
     url: `api/Team/Get?id=${id}`,
@@ -63,7 +40,7 @@ const getTeamId = async (
 
 const deleteTeam = async (
   user: User,
-  { id }: TeamIdProps
+  { id }: IdProps
 ): Promise<FetchTeamsResponse> => {
   const response = await baseFetch({
     url: `api/Team/Delete?id=${id}`,

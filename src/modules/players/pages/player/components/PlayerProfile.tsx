@@ -1,36 +1,47 @@
 import styled from "styled-components";
 
 interface Props {
+  avatarUrl?: string;
   name?: string;
-  foundationYear?: number;
-  imageUrl?: string;
-  division?: string;
-  conference?: string;
+  position?: string;
+  team?: number;
+  height?: number;
+  weight?: number;
+  age?: number;
+  number?: number;
 }
 
-export const TeamProfile = ({
+export const PlayerProfile = ({
+  avatarUrl,
   name,
-  foundationYear,
-  imageUrl,
-  division,
-  conference,
+  position,
+  team,
+  height,
+  weight,
+  age,
+  number,
 }: Props) => {
-  const teamMeta = [
-    { label: "Year of foundation", value: foundationYear },
-    { label: "Division", value: division },
-    { label: "Conference", value: conference },
+  const playerMeta = [
+    { label: "Position", value: position },
+    { label: "Team", value: team },
+    { label: "Height", value: height },
+    { label: "Weight", value: weight },
+    { label: "Age", value: age },
   ];
   return (
     <ProfileContainer>
-      <LogoWrapper>
-        {imageUrl && (
-          <Logo src={`http://dev.trainee.dex-it.ru${imageUrl}`} alt={"Logo"} />
+      <ImgWrapper>
+        {avatarUrl && (
+          <Img src={`http://dev.trainee.dex-it.ru${avatarUrl}`} alt={"Logo"} />
         )}
-      </LogoWrapper>
-      <TeamInfo>
-        <TeamName>{name}</TeamName>
+      </ImgWrapper>
+      <PlayerInfo>
+        <PlayerName>
+          {name}
+          <PlayerNumber>&nbsp;#{number}</PlayerNumber>
+        </PlayerName>
         <MetaWrapper>
-          {teamMeta?.map(({ label, value }, index) => {
+          {playerMeta?.map(({ label, value }, index) => {
             return (
               <MetaItem key={index}>
                 <ItemLabel>{label}</ItemLabel>
@@ -39,7 +50,7 @@ export const TeamProfile = ({
             );
           })}
         </MetaWrapper>
-      </TeamInfo>
+      </PlayerInfo>
     </ProfileContainer>
   );
 };
@@ -57,26 +68,30 @@ const ProfileContainer = styled.div`
   }
 `;
 
-const LogoWrapper = styled.div`
+const ImgWrapper = styled.div`
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-end;
   padding: 48px 118px;
 
   @media screen and ${({ theme }) => theme.deviceSize.laptop} {
-    max-width: 500px;
+    max-width: 587px;
     width: 100%;
     padding: 0;
   }
 `;
 
-const Logo = styled.img`
+const Img = styled.img`
   max-width: 100%;
   max-height: 100%;
-  object-fit: cover;
+
+  @media screen and ${({ theme }) => theme.deviceSize.laptop} {
+    width: 400px;
+    height: 320px;
+  }
 `;
 
-const TeamInfo = styled.div`
+const PlayerInfo = styled.div`
   width: 100%;
   color: #ffffff;
   text-align: center;
@@ -85,16 +100,26 @@ const TeamInfo = styled.div`
     padding: 65px 0;
   }
 `;
-
-const TeamName = styled.h1`
+const PlayerName = styled.h1`
   font-size: 24px;
-  font-weight: 800;
   margin-bottom: 32px;
+  font-weight: 800;
 
   @media screen and ${({ theme }) => theme.deviceSize.laptop} {
     font-size: 36px;
     margin-bottom: 40px;
   }
+`;
+
+const PlayerNumber = styled.span`
+  color: ${({ theme }) => theme.colors.lightRed};
+  font-size: 24px;
+  margin-bottom: 32px;
+  font-weight: 800;
+
+  @media screen and ${({ theme }) => theme.deviceSize.laptop} {
+    font-size: 36px;
+    margin-bottom: 40px;
 `;
 
 const MetaWrapper = styled.div`

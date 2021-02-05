@@ -9,5 +9,6 @@ export const pathList = {
     editTeam: "/teams/editTeam/",
     players: "/players/",
     addPlayer: "/players/add/addPlayer/",
+    editPlayers: "/players/editPlayer/",
   },
 };

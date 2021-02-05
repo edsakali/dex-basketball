@@ -8,8 +8,7 @@ export const Button = styled.button<{ cancelBtn?: boolean }>`
   color: ${({ cancelBtn, theme }) =>
     cancelBtn ? theme.colors.lightGrey : "#ffffff"};
   width: 100%;
-  padding: 4px 0;
-  //margin: 24px 0;
+  padding: 10px 0;
   border: ${({ cancelBtn, theme }) =>
     cancelBtn ? `1px solid ${theme.colors.lightGrey}` : "none"};
   border-radius: 4px;
@@ -42,8 +41,5 @@ export const Button = styled.button<{ cancelBtn?: boolean }>`
     border: ${({ cancelBtn, theme }) =>
       cancelBtn ? `1px solid ${theme.colors.grey}` : "none"};
     transition: all 0.2s ease-in-out;
-  }
-  @media screen and ${({ theme }) => theme.deviceSize.tablet} {
-    padding: 10px 0;
   }
 `;

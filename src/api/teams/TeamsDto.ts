@@ -22,3 +22,19 @@ export interface EditTeamParams {
   file?: any;
   formData?: FormData | undefined;
 }
+
+export interface FetchTeamsResponse {
+  data: [
+    {
+      name: "string";
+      foundationYear: number;
+      division: "string";
+      conference: "string";
+      imageUrl: "string";
+      id: number;
+    }
+  ];
+  count: number;
+  page: number;
+  size: number;
+}

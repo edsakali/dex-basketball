@@ -3,6 +3,7 @@ import { TeamParams } from "../../api/teams/TeamsDto";
 import {
   fetchAddTeam,
   fetchDeleteTeam,
+  fetchEditTeam,
   fetchTeamId,
   fetchTeams,
   fetchTeamsFilter,
@@ -85,6 +86,16 @@ const teamsSlice = createSlice({
       state.loading = "idle";
     });
     builder.addCase(fetchAddTeam.rejected, (state, action) => {
+      state.loading = "idle";
+      state.error = action.error.message;
+    });
+    builder.addCase(fetchEditTeam.pending, (state) => {
+      state.loading = "pending";
+    });
+    builder.addCase(fetchEditTeam.fulfilled, (state) => {
+      state.loading = "idle";
+    });
+    builder.addCase(fetchEditTeam.rejected, (state, action) => {
       state.loading = "idle";
       state.error = action.error.message;
     });

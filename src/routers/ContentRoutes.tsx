@@ -7,6 +7,7 @@ import { AddTeamPage } from "../modules/teams/pages/add-team/AddTeamPage";
 import { TeamViewPage } from "../modules/teams/pages/team/TeamViewPage";
 import { AddPlayerPage } from "../modules/players/pages/add-player/AddPlayerPage";
 import { EditTeamPage } from "../modules/teams/pages/edit-team/EditTeamPage";
+import { PlayerViewPage } from "../modules/players/pages/player/PlayerViewPage";
 
 export const ContentRoutes = () => {
   return (
@@ -21,13 +22,19 @@ export const ContentRoutes = () => {
         <Route path={pathList.content.teams + ":id"} exact>
           <TeamViewPage />
         </Route>
+        <Route path={pathList.content.editTeam + ":id"} exact>
+          <EditTeamPage />
+        </Route>
         <Route path={pathList.content.players} exact>
           <PlayersPage />
         </Route>
         <Route path={pathList.content.addPlayer} exact>
           <AddPlayerPage />
         </Route>
-        <Route path={pathList.content.editTeam + ":id"} exact>
+        <Route path={pathList.content.players + ":id"} exact>
+          <PlayerViewPage />
+        </Route>
+        <Route path={pathList.content.editPlayers + ":id"} exact>
           <EditTeamPage />
         </Route>
       </Switch>
