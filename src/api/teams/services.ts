@@ -1,7 +1,7 @@
 import { baseFetch } from "../baseFetch";
 import { User } from "../../modules/auth/authSlice";
 import { EditTeamParams, FetchTeamsResponse, TeamParams } from "./TeamsDto";
-import { IdProps, ParamsGetElement } from "../appDto";
+import { IdParams, ParamsGetElement } from "../appDto";
 
 const getTeams = async (user: User): Promise<FetchTeamsResponse> => {
   const response = await baseFetch({
@@ -28,7 +28,7 @@ const getTeamsFilter = async (
 
 const getTeamId = async (
   user: User,
-  { id }: IdProps
+  { id }: IdParams
 ): Promise<FetchTeamsResponse> => {
   const response = await baseFetch({
     url: `api/Team/Get?id=${id}`,
@@ -40,7 +40,7 @@ const getTeamId = async (
 
 const deleteTeam = async (
   user: User,
-  { id }: IdProps
+  { id }: IdParams
 ): Promise<FetchTeamsResponse> => {
   const response = await baseFetch({
     url: `api/Team/Delete?id=${id}`,

@@ -1,7 +1,7 @@
 import { User } from "../../modules/auth/authSlice";
 import { baseFetch } from "../baseFetch";
 import { FetchPlayersResponse, PlayerParams } from "./PlayersDto";
-import { IdProps, ParamsGetElement } from "../appDto";
+import { IdParams, ParamsGetElement } from "../appDto";
 
 const postPlayer = async (user: User, params: PlayerParams) => {
   const response = await baseFetch({
@@ -54,7 +54,7 @@ const getPlayersFilter = async (
 
 const deletePlayer = async (
   user: User,
-  { id }: IdProps
+  { id }: IdParams
 ): Promise<FetchPlayersResponse> => {
   const response = await baseFetch({
     url: `api/Player/Delete?id=${id}`,
@@ -66,10 +66,24 @@ const deletePlayer = async (
 
 const getPlayerId = async (
   user: User,
-  { id }: IdProps
+  { id }: IdParams
 ): Promise<FetchPlayersResponse> => {
   const response = await baseFetch({
     url: `api/Player/Get?id=${id}`,
+    method: "GET",
+    headers: { Authorization: "Bearer " + user.token },
+  });
+  return response.json();
+};
+
+const getPlayerTeamIds = async (
+  user: User,
+  TeamIds: Array<{ value: string }>
+): Promise<FetchPlayersResponse> => {
+  const newParams = TeamIds.map((item) => ["TeamIds", item.value]);
+  const newTeamIds = new URLSearchParams(newParams).toString();
+  const response = await baseFetch({
+    url: `api/Player/GetPlayers?${newTeamIds}`,
     method: "GET",
     headers: { Authorization: "Bearer " + user.token },
   });
@@ -83,4 +97,5 @@ export const playerServices = {
   getPlayerId,
   postPlayer,
   deletePlayer,
+  getPlayerTeamIds,
 };

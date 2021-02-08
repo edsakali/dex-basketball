@@ -1,4 +1,4 @@
-export interface IdProps {
+export interface IdParams {
   id: string;
 }
 

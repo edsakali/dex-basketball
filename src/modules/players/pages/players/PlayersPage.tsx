@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { ContentLayout } from "../../../../components/layouts/ContentLayout";
 import { pathList } from "../../../../routers/pathList";

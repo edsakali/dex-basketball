@@ -46,6 +46,7 @@ export const TeamProfile = ({
 
 const ProfileContainer = styled.div`
   width: 100%;
+  margin-bottom: 16px;
   background: linear-gradient(
     276.45deg,
     ${({ theme }) => theme.colors.grey} 0%,
@@ -54,6 +55,7 @@ const ProfileContainer = styled.div`
   @media screen and ${({ theme }) => theme.deviceSize.laptop} {
     display: flex;
     border-radius: 0 0 10px 10px;
+    margin-bottom: 24px;
   }
 `;
 

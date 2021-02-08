@@ -22,10 +22,9 @@ export const EditTeamPage = () => {
   const { team } = useSelector(teamsSelector);
 
   useEffect(() => {
-    setValue("name", team?.name);
-    setValue("division", team?.division);
-    setValue("conference", team?.conference);
-    setValue("foundationYear", team?.foundationYear);
+    if (team) {
+      Object.entries(team).forEach(([key, value]) => setValue(key, value));
+    }
   }, [setValue, team]);
 
   useEffect(() => {

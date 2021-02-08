@@ -5,6 +5,7 @@ import {
   fetchPlayerId,
   fetchPlayers,
   fetchPlayersFilter,
+  fetchPlayersTeamIds,
   fetchPositions,
 } from "./playersAsyncActions";
 import { RootState } from "../../redux/store";
@@ -13,8 +14,9 @@ import { PlayerParams } from "../../api/players/PlayersDto";
 export type Loading = "pending" | "idle";
 
 interface PlayersState {
-  data: Array<PlayerParams>;
   loading: Loading;
+  data?: Array<PlayerParams>;
+  players?: Array<PlayerParams>;
   positions?: Array<string>;
   player?: PlayerParams | undefined;
   count?: number;
@@ -23,7 +25,6 @@ interface PlayersState {
 }
 
 const initialState: PlayersState = {
-  data: [],
   loading: "idle",
 };
 
@@ -97,6 +98,19 @@ const playersSlice = createSlice({
       state.loading = "idle";
     });
     builder.addCase(fetchDeletePlayer.rejected, (state, action) => {
+      state.loading = "idle";
+      state.error = action.error.message;
+    });
+    builder.addCase(fetchPlayersTeamIds.pending, (state) => {
+      state.loading = "pending";
+    });
+    builder.addCase(fetchPlayersTeamIds.fulfilled, (state, action) => {
+      state.loading = "idle";
+      state.players = action.payload.data;
+      state.count = action.payload.count;
+      state.size = action.payload.size;
+    });
+    builder.addCase(fetchPlayersTeamIds.rejected, (state, action) => {
       state.loading = "idle";
       state.error = action.error.message;
     });

@@ -9,6 +9,7 @@ import { ReactComponent as DeleteImg } from "../../../../assets/images/icons/del
 import { PlayerProfile } from "./components/PlayerProfile";
 import { fetchDeletePlayer, fetchPlayerId } from "../../playersAsyncActions";
 import { playersSelector } from "../../playersSlice";
+import { getAge } from "../../../../core/helpers/getAge";
 
 interface ParamsId {
   id: string | undefined;
@@ -18,13 +19,6 @@ export const PlayerViewPage = () => {
   const dispatch = useAppDispatch();
   const { id }: ParamsId = useParams();
   const { player } = useSelector(playersSelector);
-
-  const getAge = (player: any) => {
-    const birthDate = new Date(player?.birthday);
-    let now = new Date();
-    let otherDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-    return otherDate.getFullYear() - birthDate.getFullYear();
-  };
 
   useEffect(() => {
     id && dispatch(fetchPlayerId({ id }));

@@ -28,21 +28,24 @@ export const fetchPlayersFilter = createAsyncThunk<
   any,
   ParamsGetElement,
   { rejectValue: string; getState: () => void }
->("player/fetchPlayersFilter", async (props, { rejectWithValue, getState }) => {
-  try {
-    const { auth } = getState() as RootState;
-    if (!auth.user) {
-      throw new Error("Invalid operation User is undefined");
-    }
-    return await playerServices.getPlayersFilter(auth.user, props);
-  } catch (err) {
-    if (err.message) {
-      return rejectWithValue(err.message);
-    } else {
-      return rejectWithValue(err);
+>(
+  "player/fetchPlayersFilter",
+  async (params, { rejectWithValue, getState }) => {
+    try {
+      const { auth } = getState() as RootState;
+      if (!auth.user) {
+        throw new Error("Invalid operation User is undefined");
+      }
+      return await playerServices.getPlayersFilter(auth.user, params);
+    } catch (err) {
+      if (err.message) {
+        return rejectWithValue(err.message);
+      } else {
+        return rejectWithValue(err);
+      }
     }
   }
-});
+);
 
 export const fetchPositions = createAsyncThunk(
   "player/fetchPositions",
@@ -146,3 +149,26 @@ export const fetchDeletePlayer = createAsyncThunk<
     }
   }
 });
+
+export const fetchPlayersTeamIds = createAsyncThunk<
+  any,
+  Array<{ value: string }>,
+  { rejectValue: string; getState: () => void }
+>(
+  "player/fetchPlayersTeamIds",
+  async (TeamIds, { rejectWithValue, getState }) => {
+    try {
+      const { auth } = getState() as RootState;
+      if (!auth.user) {
+        throw new Error("Invalid operation User is undefined");
+      }
+      return await playerServices.getPlayerTeamIds(auth.user, TeamIds);
+    } catch (err) {
+      if (err.message) {
+        return rejectWithValue(err.message);
+      } else {
+        return rejectWithValue(err);
+      }
+    }
+  }
+);
