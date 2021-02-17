@@ -3,7 +3,6 @@ import { FieldErrors, UseFormMethods } from "react-hook-form";
 import { Input } from "../../../components/ui/Input";
 import { Button } from "../../../components/ui/Button";
 import { InputFile } from "../../../components/ui/InputFile";
-import { ReactComponent as AddPhotoIcon } from "../../../assets/images/icons/addPhoto.svg";
 
 interface Props extends Partial<Pick<UseFormMethods, "register">> {
   onSubmit: () => void;
