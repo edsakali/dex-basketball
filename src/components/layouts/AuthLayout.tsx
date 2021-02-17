@@ -66,9 +66,9 @@ const WrapperTitle = styled.div`
 const Title = styled.h1`
   display: flex;
   justify-content: center;
+  font-family: "Avenir Book", sans-serif;
   font-size: 36px;
   font-weight: 400;
-  //margin-bottom: 32px;
   color: ${({ theme }) => theme.colors.blue};
 
   @media screen and (min-width: 768px) {

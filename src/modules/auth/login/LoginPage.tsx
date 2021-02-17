@@ -11,9 +11,9 @@ import { pathList } from "../../../routers/pathList";
 
 export const LoginPage: FC = () => {
   const dispatch = useAppDispatch();
-  const [showPassword, setShowPassword] = useState<boolean>(false);
-  const { user } = useSelector(authSelector);
   const { push } = useHistory();
+  const { user } = useSelector(authSelector);
+  const [showPassword, setShowPassword] = useState<boolean>(false);
   const { register, handleSubmit, errors } = useForm<LoginParams>({
     mode: "onBlur",
   });

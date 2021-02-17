@@ -1,62 +1,66 @@
-import styled from "styled-components";
-import { PlayerForm } from "./components/PlayerForm";
-import { useEffect, useMemo, useState } from "react";
-import { useAppDispatch } from "../../../../redux/store";
-import { useForm } from "react-hook-form";
-import { toBase64 } from "../../../../core/helpers/toBase64";
-import { fetchAddPlayer, fetchPositions } from "../../playersAsyncActions";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { useHistory, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { useForm } from "react-hook-form";
+import debounce from "lodash.debounce";
+import styled from "styled-components";
+import { useAppDispatch } from "../../../../redux/store";
+import { toBase64 } from "../../../../core/helpers/toBase64";
+import { fetchAddPlayer, fetchTeamsFilter } from "../../playersAsyncActions";
+import { PlayerForm, PlayerFormFields } from "../../components/PlayerForm";
+import { ContentTitle } from "../../../../components/ContentTitle";
+import { pathList } from "../../../../routers/pathList";
+import { usePlayerPositions } from "../../usePlayerPositions";
 import { playersSelector } from "../../playersSlice";
-import { teamsSelector } from "../../../teams/teamsSlice";
 
 export const AddPlayerPage = () => {
-  const [previewImage, setPreviewImage] = useState<string | undefined>();
-
   const dispatch = useAppDispatch();
-
-  const { positions } = useSelector(playersSelector);
-
-  const { data } = useSelector(teamsSelector);
-
-  const { watch, register, handleSubmit, control } = useForm();
-
+  const { pathname } = useLocation();
+  const { goBack } = useHistory();
+  const { teamsFilter, loadingTeamsFilter } = useSelector(playersSelector);
+  const [playerImage, setPlayerImage] = useState<string | undefined>();
+  const { optionsPositions } = usePlayerPositions();
+  const { watch, register, handleSubmit, control } = useForm<PlayerFormFields>({
+    mode: "onBlur",
+  });
   const imageUpload: FileList = watch("file");
-
-  useEffect(() => {
-    dispatch(fetchPositions());
-  }, [dispatch]);
 
   useEffect(() => {
     if (imageUpload && imageUpload[0]) {
       toBase64(imageUpload[0]).then((base64) => {
-        base64 && setPreviewImage(base64.toString());
+        base64 && setPlayerImage(base64.toString());
       });
     }
   }, [imageUpload]);
 
-  const optionsPositions = useMemo(
-    () =>
-      positions &&
-      positions.map((position) => ({ value: position, label: position })),
-    [positions]
-  );
-  const optionsTeam = useMemo(
-    () => data && data.map(({ id, name }) => ({ value: id, label: name })),
-    [data]
+  const goBackHandler = () => goBack();
+
+  const teamsOptions = useMemo(() => {
+    return teamsFilter.map((team) => ({
+      value: team.id,
+      label: team.name,
+    }));
+  }, [teamsFilter]);
+
+  const handleInputChange = useCallback(
+    (newValue: string) => {
+      dispatch(fetchTeamsFilter({ name: newValue }));
+    },
+    [dispatch]
   );
 
-  const onSubmit = handleSubmit((Data, event) => {
+  const loadSuggestions = debounce(handleInputChange, 750);
+
+  const onSubmit = handleSubmit((Data) => {
     const { name, height, weight, number, birthday } = Data;
-    const file = Data.file[0];
+    const imageFile = Data.file[0];
     const position = Data.position.value;
     const team = Data.team.value;
-    const formData = new FormData();
-
-    formData.append("file", file);
-
+    const callback = () => goBack();
     dispatch(
       fetchAddPlayer({
-        formData,
+        callback,
+        imageFile,
         name,
         position,
         team,
@@ -70,31 +74,31 @@ export const AddPlayerPage = () => {
 
   return (
     <AddPlayerWrapper>
-      <HeaderAddPlayer>
-        <p>Bread crumbs</p>
-      </HeaderAddPlayer>
+      <ContentTitle
+        crumbs={[
+          { label: "Main", pathname: "/" },
+          { label: "Players", pathname: pathList.content.players },
+          { label: "Add new player", pathname: pathname },
+        ]}
+      />
       <PlayerForm
+        handleInputChange={loadSuggestions}
         register={register}
         onSubmit={onSubmit}
-        previewImage={previewImage}
+        playerImage={playerImage}
         control={control}
         optionsPositions={optionsPositions}
-        optionsTeam={optionsTeam}
+        teamsOptions={teamsOptions}
+        loading={loadingTeamsFilter}
+        goBackHandler={goBackHandler}
       />
     </AddPlayerWrapper>
   );
 };
 
 const AddPlayerWrapper = styled.div`
-  border-radius: 10px;
   background: #ffffff;
-`;
-
-const HeaderAddPlayer = styled.div`
-  display: flex;
-  align-items: center;
-  height: 69px;
-  border-radius: 10px;
-  padding-left: 16px;
-  color: red;
+  @media screen and ${({ theme }) => theme.deviceSize.tablet} {
+    border-radius: 10px;
+  }
 `;

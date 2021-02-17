@@ -4,13 +4,13 @@ import { App } from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { store } from "./redux/store";
 import "react-toastify/dist/ReactToastify.css";
+import "./assets/styles/styles.css";
 
 ReactDOM.render(
-  // <StrictMode>
   <ReduxProvider store={store}>
     <App />
   </ReduxProvider>,
-  // </StrictMode>,
+
   document.getElementById("root")
 );
 

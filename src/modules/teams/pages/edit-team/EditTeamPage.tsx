@@ -1,25 +1,35 @@
-import { TeamForm } from "../../components/TeamForm";
-import styled from "styled-components";
+import { useHistory, useLocation, useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
-import { fetchEditTeam } from "../../teamsAsyncActions";
+import styled from "styled-components";
+import { fetchEditTeam, fetchTeamId } from "../../teamsAsyncActions";
+import { pathList } from "../../../../routers/pathList";
+import { TeamForm } from "../../components/TeamForm";
 import { useAppDispatch } from "../../../../redux/store";
 import { useEffect, useState } from "react";
 import { toBase64 } from "../../../../core/helpers/toBase64";
-import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
 import { teamsSelector } from "../../teamsSlice";
-
-interface ParamsId {
-  id: string | undefined;
-}
+import { ContentTitle } from "../../../../components/ContentTitle";
+import { LoadState } from "../../../../redux/loadState";
+import { Spinner } from "../../../../components/Spiner";
 
 export const EditTeamPage = () => {
-  const [teamLogo, setTeamLogo] = useState<string | undefined>();
   const dispatch = useAppDispatch();
-  const { watch, register, handleSubmit, setValue, errors } = useForm();
+  const { pathname } = useLocation();
+  const { goBack } = useHistory();
+  const { id } = useParams<{ id: string }>();
+  const [teamLogo, setTeamLogo] = useState<string | undefined>();
+  const { team, loadingTeam } = useSelector(teamsSelector);
+  const { watch, register, handleSubmit, setValue, errors } = useForm({
+    mode: "onBlur",
+  });
   const imageUpload: FileList = watch("file");
-  const { id }: ParamsId = useParams();
-  const { team } = useSelector(teamsSelector);
+
+  useEffect(() => {
+    if (!team) {
+      dispatch(fetchTeamId({ id }));
+    }
+  }, [dispatch, team, id]);
 
   useEffect(() => {
     if (team) {
@@ -35,19 +45,20 @@ export const EditTeamPage = () => {
     }
   }, [imageUpload]);
 
+  const goBackHandler = () => goBack();
+
   const onSubmit = handleSubmit((Data, event) => {
     const { name, division, conference, foundationYear } = Data;
-    const file = Data.file[0];
-    const formData = new FormData();
+    const imageFile = Data.file[0];
     const imageUrlLogo = team?.imageUrl;
-    formData.append("file", file);
+    const callback = () => goBack();
 
     dispatch(
       fetchEditTeam({
-        id,
-        file,
-        formData,
+        callback,
+        imageFile,
         imageUrlLogo,
+        id,
         name,
         foundationYear,
         division,
@@ -58,17 +69,29 @@ export const EditTeamPage = () => {
 
   return (
     <EditTeamWrapper>
-      <HeaderEditTeam>
-        <p>Bread crumbs</p>
-      </HeaderEditTeam>
-      <TeamForm
-        errors={errors}
-        onSubmit={onSubmit}
-        register={register}
-        teamLogo={
-          !teamLogo ? "http://dev.trainee.dex-it.ru" + team?.imageUrl : teamLogo
-        }
+      <ContentTitle
+        crumbs={[
+          { label: "Main", pathname: "/" },
+          { label: "Teams", pathname: pathList.content.teams },
+          { label: team?.name, pathname: pathList.content.teams + id },
+          { label: "Edit team", pathname: pathname },
+        ]}
       />
+      {loadingTeam === LoadState.pending ? (
+        <Spinner />
+      ) : (
+        <TeamForm
+          errors={errors}
+          onSubmit={onSubmit}
+          register={register}
+          teamLogo={
+            !teamLogo && team
+              ? "http://dev.trainee.dex-it.ru" + team.imageUrl
+              : teamLogo
+          }
+          goBackHandler={goBackHandler}
+        />
+      )}
     </EditTeamWrapper>
   );
 };
@@ -78,13 +101,4 @@ const EditTeamWrapper = styled.div`
   flex-direction: column;
   border-radius: 10px;
   background: #ffffff;
-`;
-
-const HeaderEditTeam = styled.div`
-  display: flex;
-  align-items: center;
-  height: 69px;
-  border-radius: 10px;
-  padding-left: 16px;
-  color: red;
 `;

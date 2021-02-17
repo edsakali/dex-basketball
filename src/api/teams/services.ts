@@ -1,11 +1,28 @@
 import { baseFetch } from "../baseFetch";
-import { User } from "../../modules/auth/authSlice";
-import { EditTeamParams, FetchTeamsResponse, TeamParams } from "./TeamsDto";
+import { TeamsResponse, Team, TeamParams } from "./TeamsDto";
 import { IdParams, ParamsGetElement } from "../appDto";
+import { CustomError } from "../../core/helpers/errorHelper";
+import { User } from "../auth/AuthDto";
 
-const getTeams = async (user: User): Promise<FetchTeamsResponse> => {
+export enum InitialTeamsPageParams {
+  page = 1,
+  pageSize = 6,
+}
+
+const getTeams = async (
+  user: User,
+  {
+    name,
+    page = InitialTeamsPageParams.page,
+    pageSize = InitialTeamsPageParams.pageSize,
+  }: ParamsGetElement
+): Promise<TeamsResponse> => {
+  let url = `api/Team/GetTeams?Page=${page}&PageSize=${pageSize}`;
+  if (name) {
+    url = `${url}&Name=${name}`;
+  }
   const response = await baseFetch({
-    url: "api/Team/GetTeams?Page=1&PageSize=6",
+    url: url,
     method: "GET",
     headers: { Authorization: "Bearer " + user.token },
     body: undefined,
@@ -13,23 +30,7 @@ const getTeams = async (user: User): Promise<FetchTeamsResponse> => {
   return response.json();
 };
 
-const getTeamsFilter = async (
-  user: User,
-  { page, PageSize }: ParamsGetElement
-): Promise<FetchTeamsResponse> => {
-  const response = await baseFetch({
-    url: `api/Team/GetTeams?Page=${page}&PageSize=${PageSize.value}`,
-    method: "GET",
-    headers: { Authorization: "Bearer " + user.token },
-    body: undefined,
-  });
-  return response.json();
-};
-
-const getTeamId = async (
-  user: User,
-  { id }: IdParams
-): Promise<FetchTeamsResponse> => {
+const getTeamId = async (user: User, { id }: IdParams): Promise<Team> => {
   const response = await baseFetch({
     url: `api/Team/Get?id=${id}`,
     method: "GET",
@@ -38,15 +39,28 @@ const getTeamId = async (
   return response.json();
 };
 
-const deleteTeam = async (
-  user: User,
-  { id }: IdParams
-): Promise<FetchTeamsResponse> => {
+const deleteTeam = async (user: User, { id }: IdParams): Promise<Team> => {
   const response = await baseFetch({
     url: `api/Team/Delete?id=${id}`,
     method: "DELETE",
     headers: { Authorization: "Bearer " + user.token },
   });
+
+  if (!response.ok) {
+    switch (response.status) {
+      case 500:
+        throw new CustomError(
+          response.status.toString(),
+          "Невозможно удалить команду, необходимо удалить игроков!"
+        );
+      default:
+        throw new CustomError(
+          response.status.toString(),
+          "Ошибка удаления команды!"
+        );
+    }
+  }
+
   return response.json();
 };
 
@@ -60,10 +74,24 @@ const postTeam = async (user: User, params: TeamParams) => {
     },
     body: JSON.stringify(params),
   });
+  if (!response.ok) {
+    switch (response.status) {
+      case 409:
+        throw new CustomError(
+          response.status.toString(),
+          "Эта команда уже добавлен!"
+        );
+      default:
+        throw new CustomError(
+          response.status.toString(),
+          "Ошибка добавления команды!"
+        );
+    }
+  }
   return response.json();
 };
 
-const editTeam = async (user: User, params: EditTeamParams) => {
+const editTeam = async (user: User, params: TeamParams) => {
   const response = await baseFetch({
     url: "api/Team/Update",
     method: "PUT",
@@ -77,7 +105,6 @@ const editTeam = async (user: User, params: EditTeamParams) => {
 };
 
 export const teamsServices = {
-  getTeamsFilter,
   getTeamId,
   deleteTeam,
   editTeam,

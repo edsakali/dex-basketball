@@ -89,6 +89,7 @@ const TeamInfo = styled.div`
 `;
 
 const TeamName = styled.h1`
+  font-family: "Avenir Black", sans-serif;
   font-size: 24px;
   font-weight: 800;
   margin-bottom: 32px;
@@ -121,6 +122,7 @@ const MetaItem = styled.div`
 `;
 
 const ItemLabel = styled.div`
+  font-family: "Avenir Black", sans-serif;
   font-size: 18px;
   font-weight: 800;
   margin-bottom: 8px;

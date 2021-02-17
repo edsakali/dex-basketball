@@ -1,11 +1,11 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { LoginParams, RegisterParams } from "../../api/auth/AuthDto";
+import { LoginParams, RegisterParams, User } from "../../api/auth/AuthDto";
 import { authServices } from "../../api/auth/services";
 import { notification } from "../../core/helpers/notification";
 import { CustomError } from "../../core/helpers/errorHelper";
 
 export const signUpAction = createAsyncThunk<
-  any,
+  User,
   RegisterParams,
   { rejectValue: string }
 >(
@@ -34,7 +34,7 @@ export const signUpAction = createAsyncThunk<
 );
 
 export const signInAction = createAsyncThunk<
-  any,
+  User,
   LoginParams,
   { rejectValue: string }
 >(
@@ -46,7 +46,6 @@ export const signInAction = createAsyncThunk<
       const loginData = await authServices.login(loginParams);
       localStorage.setItem("user", JSON.stringify(loginData));
       return loginData;
-      // callback && callback();
     } catch (err) {
       if (err instanceof CustomError) {
         notification("error", err.text);

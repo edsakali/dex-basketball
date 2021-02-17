@@ -32,12 +32,12 @@ const PaginationWrapper = styled.div`
   .pagination > li > a {
     position: relative;
     float: left;
-    padding: 5px 10px;
+    padding: 6px 14px;
     line-height: 1.42857143;
     text-decoration: none;
     color: #707070;
     cursor: pointer;
-    font-size: 12px;
+    font-size: 18px;
     background-color: transparent;
   }
 
@@ -62,13 +62,5 @@ const PaginationWrapper = styled.div`
   .pagination .next a {
     background: none;
     color: #707070;
-  }
-
-  @media screen and ${({ theme }) => theme.deviceSize.tablet} {
-    .pagination > li > a {
-      padding: 6px 14px;
-      line-height: 1.42857143;
-      font-size: 18px;
-    }
   }
 `;

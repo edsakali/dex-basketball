@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { ContentLayout } from "../../../../components/layouts/ContentLayout";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
@@ -6,57 +6,71 @@ import { TeamCard } from "./components/TeamCard";
 import { useSelector } from "react-redux";
 import { teamsSelector } from "../../teamsSlice";
 import styled from "styled-components";
-import { fetchTeams, fetchTeamsFilter } from "../../teamsAsyncActions";
+import { fetchTeams } from "../../teamsAsyncActions";
 import { useAppDispatch } from "../../../../redux/store";
 import { pathList } from "../../../../routers/pathList";
 import { Spinner } from "../../../../components/Spiner";
 import { CardWrapper } from "../../../../assets/styles/CardWrapper";
+import { OptionTypeBase } from "react-select";
+import { InitialTeamsPageParams } from "../../../../api/teams/services";
+import { EmptyContent } from "../../../../components/EmptyContent";
+import { LoadState } from "../../../../redux/loadState";
+import emptyTeamImg from "../../../../assets/images/empty-teams-bg.png";
 
-export const TeamsPage: FC = () => {
-  const { data, loading } = useSelector(teamsSelector);
-  const [page, setPage] = useState<number>(1);
+const DEFAULT_FIELD_VALUES = {
+  pageSize: {
+    value: InitialTeamsPageParams.pageSize,
+    label: InitialTeamsPageParams.pageSize,
+  },
+};
 
+interface FormFields {
+  pageSize: OptionTypeBase;
+  name: string;
+  nameSelects: OptionTypeBase[];
+}
+
+export const TeamsPage = () => {
   const dispatch = useAppDispatch();
-  const { register, control, handleSubmit, watch } = useForm();
-
-  const { count = 6, size = 6 } = useSelector(teamsSelector);
-
-  const PageSize = watch("PageSize");
-
-  useEffect(() => {
-    dispatch(fetchTeams());
-  }, [dispatch]);
+  const { dataTeams, loading, count, size } = useSelector(teamsSelector);
+  const [page, setPage] = useState<number>(InitialTeamsPageParams.page);
+  const { register, control, watch } = useForm<FormFields>({
+    defaultValues: DEFAULT_FIELD_VALUES,
+  });
+  const pageSize = watch("pageSize");
+  const name = watch("name");
 
   useEffect(() => {
-    dispatch(fetchTeamsFilter({ page, PageSize }));
-  }, [dispatch, PageSize, page]);
+    dispatch(fetchTeams({ name, pageSize: pageSize?.value, page }));
+  }, [dispatch, name, pageSize, page]);
 
   const onPageChange = (selectedItem: { selected: number }) => {
     setPage(selectedItem.selected + 1);
   };
 
-  const pageCount = useMemo(() => Math.ceil(count / size), [count, size]);
-
-  const onSubmitHandler = handleSubmit((formValues) => {});
+  const pageCount = useMemo(() => {
+    if (count && size) {
+      return Math.ceil(count / size);
+    }
+    return InitialTeamsPageParams.page;
+  }, [count, size]);
 
   return (
     <ContentLayout
       onPageChange={onPageChange}
       register={register}
       placeholder="Search..."
-      nameSearch="Search"
-      onSubmit={onSubmitHandler}
-      nameSelect="PageSize"
+      nameSearch="name"
       control={control}
       addItemPath={pathList.content.addTeam}
       pageCount={pageCount}
     >
-      {loading === "pending" ? (
+      {loading === LoadState.pending ? (
         <Spinner />
-      ) : (
+      ) : dataTeams.length ? (
         <CardWrapper>
-          {data &&
-            data.map(({ name, foundationYear, id, imageUrl }) => {
+          {dataTeams &&
+            dataTeams.map(({ name, foundationYear, id, imageUrl }) => {
               return (
                 <TeamLink to={pathList.content.teams + id} key={id}>
                   <TeamCard
@@ -68,6 +82,8 @@ export const TeamsPage: FC = () => {
               );
             })}
         </CardWrapper>
+      ) : (
+        <EmptyContent label={"team"} emptyImg={emptyTeamImg} />
       )}
     </ContentLayout>
   );

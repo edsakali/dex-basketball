@@ -18,6 +18,7 @@ export const AppLayout: FC = ({ children }) => {
       />
       <ContentWrapper>
         <Sidebar toggleSidebar={toggleSidebar} />
+        {toggleSidebar && <BackDrop onClick={handleToggleSidebar} />}
         <Content>{children}</Content>
       </ContentWrapper>
     </Layout>
@@ -45,4 +46,18 @@ const Content = styled.div`
     padding: 32px 80px;
     height: calc(100vh - 80px);
   } ;
+`;
+
+const BackDrop = styled.div`
+  z-index: 150;
+  background: rgba(0, 0, 0, 0.6);
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+
+  @media screen and ${({ theme }) => theme.deviceSize.tablet} {
+    display: none;
+  }
 `;

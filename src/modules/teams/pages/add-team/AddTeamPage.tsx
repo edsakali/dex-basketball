@@ -5,11 +5,18 @@ import { useAppDispatch } from "../../../../redux/store";
 import { fetchAddTeam } from "../../teamsAsyncActions";
 import { useEffect, useState } from "react";
 import { toBase64 } from "../../../../core/helpers/toBase64";
+import { pathList } from "../../../../routers/pathList";
+import { useHistory, useLocation } from "react-router-dom";
+import { ContentTitle } from "../../../../components/ContentTitle";
 
 export const AddTeamPage = () => {
   const [teamLogo, setTeamLogo] = useState<string | undefined>();
+  const { pathname } = useLocation();
+  const { goBack } = useHistory();
   const dispatch = useAppDispatch();
-  const { watch, register, handleSubmit, errors } = useForm();
+  const { watch, register, handleSubmit, errors } = useForm({
+    mode: "onBlur",
+  });
   const imageUpload: FileList = watch("file");
 
   useEffect(() => {
@@ -20,44 +27,48 @@ export const AddTeamPage = () => {
     }
   }, [imageUpload]);
 
+  const goBackHandler = () => goBack();
+
   const onSubmit = handleSubmit((Data, event) => {
     const { name, division, conference, foundationYear } = Data;
-    const file = Data.file[0];
-    const formData = new FormData();
-
-    formData.append("file", file);
+    const imageFile = Data.file[0];
+    const callback = () => goBack();
 
     dispatch(
-      fetchAddTeam({ formData, name, foundationYear, division, conference })
+      fetchAddTeam({
+        callback,
+        imageFile,
+        name,
+        foundationYear,
+        division,
+        conference,
+      })
     );
   });
 
   return (
     <AddTeamWrapper>
-      <HeaderAddTeam>
-        <p>Bread crumbs</p>
-      </HeaderAddTeam>
+      <ContentTitle
+        crumbs={[
+          { label: "Main", pathname: "/" },
+          { label: "Teams", pathname: pathList.content.teams },
+          { label: "Add new team", pathname: pathname },
+        ]}
+      />
       <TeamForm
         onSubmit={onSubmit}
         register={register}
         teamLogo={teamLogo}
         errors={errors}
+        goBackHandler={goBackHandler}
       />
     </AddTeamWrapper>
   );
 };
 
 const AddTeamWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  border-radius: 10px;
   background: #ffffff;
-`;
-const HeaderAddTeam = styled.div`
-  display: flex;
-  align-items: center;
-  height: 69px;
-  border-radius: 10px;
-  padding-left: 16px;
-  color: red;
+  @media screen and ${({ theme }) => theme.deviceSize.tablet} {
+    border-radius: 10px;
+  }
 `;

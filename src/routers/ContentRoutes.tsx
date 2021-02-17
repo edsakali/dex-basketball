@@ -8,6 +8,7 @@ import { TeamViewPage } from "../modules/teams/pages/team/TeamViewPage";
 import { AddPlayerPage } from "../modules/players/pages/add-player/AddPlayerPage";
 import { EditTeamPage } from "../modules/teams/pages/edit-team/EditTeamPage";
 import { PlayerViewPage } from "../modules/players/pages/player/PlayerViewPage";
+import { EditPlayerPage } from "../modules/players/pages/edit-player/EditPlayerPage";
 
 export const ContentRoutes = () => {
   return (
@@ -35,7 +36,7 @@ export const ContentRoutes = () => {
           <PlayerViewPage />
         </Route>
         <Route path={pathList.content.editPlayers + ":id"} exact>
-          <EditTeamPage />
+          <EditPlayerPage />
         </Route>
       </Switch>
     </AppLayout>

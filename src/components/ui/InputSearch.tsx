@@ -1,7 +1,6 @@
-import { ReactComponent as SearchImg } from "../../assets/images/icons/search.svg";
 import styled from "styled-components";
 import { UseFormMethods } from "react-hook-form";
-import { FC } from "react";
+import { ReactComponent as SearchImg } from "../../assets/images/icons/search.svg";
 
 export interface PropsInputSearch
   extends Partial<Pick<UseFormMethods, "register">> {
@@ -10,12 +9,12 @@ export interface PropsInputSearch
   nameSearch: string;
 }
 
-export const SearchInput: FC<PropsInputSearch> = ({
+export const SearchInput = ({
   register,
   type,
   nameSearch,
   placeholder,
-}) => (
+}: PropsInputSearch) => (
   <InputWrapper>
     <Input
       ref={register}
@@ -63,13 +62,7 @@ const Input = styled.input`
     padding: 8px 0;
   } ;
 `;
-const IconWrapper = styled.button`
+const IconWrapper = styled.div`
   display: flex;
   align-items: center;
-  cursor: pointer;
-  border: none;
-  background: transparent;
-  &:focus {
-    outline: none;
-  }
 `;

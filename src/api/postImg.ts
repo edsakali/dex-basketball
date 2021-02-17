@@ -1,7 +1,7 @@
-import { User } from "../modules/auth/authSlice";
 import { baseFetch } from "./baseFetch";
+import { User } from "./auth/AuthDto";
 
-export const postImage = async (
+const _postImage = async (
   user: User,
   formData: FormData | undefined
 ): Promise<string> => {
@@ -12,4 +12,10 @@ export const postImage = async (
     body: formData,
   });
   return response.json();
+};
+
+export const getUploadedImage = async (user: User, imageFile: File) => {
+  const formData = new FormData();
+  formData.append("file", imageFile);
+  return await _postImage(user, formData);
 };

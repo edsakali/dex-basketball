@@ -5,25 +5,31 @@ import {
   fetchDeleteTeam,
   fetchEditTeam,
   fetchTeamId,
+  fetchTeamPlayers,
   fetchTeams,
-  fetchTeamsFilter,
 } from "./teamsAsyncActions";
 import { RootState } from "../../redux/store";
-
-export type Loading = "pending" | "idle";
+import { LoadState } from "../../redux/loadState";
+import { PlayerParams } from "../../api/players/PlayersDto";
 
 interface TeamsState {
-  data: Array<TeamParams>;
-  loading: Loading;
+  dataTeams: Array<TeamParams>;
+  teamsFilter?: Array<TeamParams>;
+  loading: LoadState;
+  loadingTeam: LoadState;
+  loadingTeamPlayers: LoadState;
+  teamPlayers: Array<PlayerParams>;
   count?: number;
   size?: number;
-  team?: TeamParams | undefined;
-  error?: string | null;
+  team?: TeamParams;
 }
 
 const initialState: TeamsState = {
-  data: [],
-  loading: "idle",
+  dataTeams: [],
+  teamPlayers: [],
+  loading: LoadState.needLoad,
+  loadingTeam: LoadState.needLoad,
+  loadingTeamPlayers: LoadState.needLoad,
 };
 
 const teamsSlice = createSlice({
@@ -32,72 +38,65 @@ const teamsSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchTeams.pending, (state) => {
-      state.loading = "pending";
+      state.loading = LoadState.pending;
+      state.dataTeams = [];
     });
     builder.addCase(fetchTeams.fulfilled, (state, action) => {
-      state.loading = "idle";
-      state.data = action.payload.data;
+      state.loading = LoadState.idle;
+      state.dataTeams = action.payload.data;
       state.count = action.payload.count;
       state.size = action.payload.size;
     });
     builder.addCase(fetchTeams.rejected, (state, action) => {
-      state.loading = "idle";
-      state.error = action.error.message;
-    });
-    builder.addCase(fetchTeamsFilter.pending, (state) => {
-      state.loading = "pending";
-    });
-    builder.addCase(fetchTeamsFilter.fulfilled, (state, action) => {
-      state.loading = "idle";
-      state.data = action.payload.data;
-      state.count = action.payload.count;
-      state.size = action.payload.size;
-    });
-    builder.addCase(fetchTeamsFilter.rejected, (state, action) => {
-      state.loading = "idle";
-      state.error = action.error.message;
+      state.loading = LoadState.idle;
     });
     builder.addCase(fetchTeamId.pending, (state) => {
-      state.loading = "pending";
+      state.loadingTeam = LoadState.pending;
     });
     builder.addCase(fetchTeamId.fulfilled, (state, action) => {
-      state.loading = "idle";
+      state.loadingTeam = LoadState.idle;
       state.team = action.payload;
     });
     builder.addCase(fetchTeamId.rejected, (state, action) => {
-      state.loading = "idle";
-      state.error = action.error.message;
+      state.loadingTeam = LoadState.idle;
+    });
+    builder.addCase(fetchTeamPlayers.pending, (state) => {
+      state.loadingTeamPlayers = LoadState.pending;
+    });
+    builder.addCase(fetchTeamPlayers.fulfilled, (state, action) => {
+      state.loadingTeamPlayers = LoadState.idle;
+      state.teamPlayers = action.payload.data;
+    });
+    builder.addCase(fetchTeamPlayers.rejected, (state, action) => {
+      state.loadingTeamPlayers = LoadState.idle;
     });
 
     builder.addCase(fetchDeleteTeam.pending, (state) => {
-      state.loading = "pending";
+      state.loading = LoadState.pending;
     });
     builder.addCase(fetchDeleteTeam.fulfilled, (state) => {
-      state.loading = "idle";
+      state.loading = LoadState.idle;
     });
     builder.addCase(fetchDeleteTeam.rejected, (state, action) => {
-      state.loading = "idle";
-      state.error = action.error.message;
+      state.loading = LoadState.idle;
     });
     builder.addCase(fetchAddTeam.pending, (state) => {
-      state.loading = "pending";
+      state.loading = LoadState.pending;
     });
     builder.addCase(fetchAddTeam.fulfilled, (state) => {
-      state.loading = "idle";
+      state.loading = LoadState.idle;
     });
     builder.addCase(fetchAddTeam.rejected, (state, action) => {
-      state.loading = "idle";
-      state.error = action.error.message;
+      state.loading = LoadState.idle;
     });
     builder.addCase(fetchEditTeam.pending, (state) => {
-      state.loading = "pending";
+      state.loading = LoadState.pending;
     });
     builder.addCase(fetchEditTeam.fulfilled, (state) => {
-      state.loading = "idle";
+      state.loading = LoadState.idle;
     });
     builder.addCase(fetchEditTeam.rejected, (state, action) => {
-      state.loading = "idle";
-      state.error = action.error.message;
+      state.loading = LoadState.idle;
     });
   },
 });

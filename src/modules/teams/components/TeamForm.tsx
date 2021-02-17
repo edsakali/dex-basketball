@@ -7,11 +7,18 @@ import { ReactComponent as AddPhotoIcon } from "../../../assets/images/icons/add
 
 interface Props extends Partial<Pick<UseFormMethods, "register">> {
   onSubmit: () => void;
-  teamLogo: string | undefined;
+  teamLogo?: string;
   errors: FieldErrors;
+  goBackHandler: () => void;
 }
 
-export const TeamForm = ({ onSubmit, register, teamLogo, errors }: Props) => {
+export const TeamForm = ({
+  onSubmit,
+  register,
+  teamLogo,
+  errors,
+  goBackHandler,
+}: Props) => {
   return (
     <Form onSubmit={onSubmit}>
       <AddImg>
@@ -65,7 +72,7 @@ export const TeamForm = ({ onSubmit, register, teamLogo, errors }: Props) => {
           />
         </AddTeamDetails>
         <ButtonsWrapper>
-          <Button type="reset" cancelBtn>
+          <Button type="reset" onClick={goBackHandler} cancelBtn>
             Cancel
           </Button>
           <Button>Save</Button>
@@ -79,10 +86,9 @@ const Form = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
-  border-radius: 10px;
   padding: 48px 24px;
   height: 100%;
-  @media screen and ${({ theme }) => theme.deviceSize.tablet} {
+  @media screen and ${({ theme }) => theme.deviceSize.laptop} {
     flex-direction: row;
     align-items: flex-start;
     padding: 48px 0;
@@ -95,7 +101,7 @@ const AddImg = styled.div`
   max-width: 100%;
   width: 100%;
   height: 100%;
-  @media screen and ${({ theme }) => theme.deviceSize.tablet} {
+  @media screen and ${({ theme }) => theme.deviceSize.laptop} {
     justify-content: flex-start;
     max-width: 545px;
     margin: 0 75px;
@@ -111,10 +117,11 @@ const ImgInputWrapper = styled.div`
   border-radius: 10px;
   position: relative;
 
-  @media screen and ${({ theme }) => theme.deviceSize.tablet} {
+  @media screen and ${({ theme }) => theme.deviceSize.laptop} {
     max-width: 336px;
     width: 100%;
-    height: 261px;
+    height: 100%;
+    aspect-ratio: 1.287;
     margin-bottom: 0;
   }
 `;
@@ -128,7 +135,7 @@ const FileInputIcon = styled(AddPhotoIcon)`
   left: 50%;
   transform: translate(-50%, -50%);
   opacity: 0.7;
-  @media screen and ${({ theme }) => theme.deviceSize.tablet} {
+  @media screen and ${({ theme }) => theme.deviceSize.laptop} {
     max-width: 100%;
     max-height: 100%;
   }
@@ -152,7 +159,7 @@ const WrapperItem = styled.div`
   gap: 24px;
   width: 100%;
 
-  @media screen and ${({ theme }) => theme.deviceSize.tablet} {
+  @media screen and ${({ theme }) => theme.deviceSize.laptop} {
     margin-right: 24px;
   }
 `;

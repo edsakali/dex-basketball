@@ -24,5 +24,4 @@ const InputFile = styled.input`
   opacity: 0;
   cursor: pointer;
   z-index: 100;
-  //display: none;
 `;

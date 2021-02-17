@@ -1,22 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { signInAction, signUpAction } from "./authActions";
 import { RootState } from "../../redux/store";
-
-export interface User {
-  name: string;
-  token: string;
-  avatarUrl: string;
-}
+import { LoadState } from "../../redux/loadState";
+import { User } from "../../api/auth/AuthDto";
 
 interface AuthState {
-  loading: "idle" | "pending";
-  error: string | undefined;
+  loading: LoadState;
   user?: User | null;
 }
 
 const initialState: AuthState = {
-  loading: "idle",
-  error: undefined,
+  loading: LoadState.needLoad,
 };
 
 export const authSlice = createSlice({
@@ -32,32 +26,29 @@ export const authSlice = createSlice({
       if (user) {
         state.user = JSON.parse(user);
       }
+      state.loading = LoadState.idle;
     },
   },
   extraReducers: (builder) => {
     builder.addCase(signUpAction.pending, (state) => {
-      state.loading = "pending";
+      state.loading = LoadState.pending;
     });
     builder.addCase(signUpAction.fulfilled, (state, { payload }) => {
-      state.loading = "idle";
+      state.loading = LoadState.idle;
       state.user = payload;
-      state.error = undefined;
     });
-    builder.addCase(signUpAction.rejected, (state, { payload }) => {
-      state.loading = "idle";
-      state.error = payload;
+    builder.addCase(signUpAction.rejected, (state) => {
+      state.loading = LoadState.idle;
     });
     builder.addCase(signInAction.pending, (state) => {
-      state.loading = "pending";
+      state.loading = LoadState.pending;
     });
     builder.addCase(signInAction.fulfilled, (state, { payload }) => {
-      state.loading = "idle";
+      state.loading = LoadState.idle;
       state.user = payload;
-      state.error = undefined;
     });
-    builder.addCase(signInAction.rejected, (state, { payload }) => {
-      state.loading = "idle";
-      state.error = payload;
+    builder.addCase(signInAction.rejected, (state) => {
+      state.loading = LoadState.idle;
     });
   },
 });

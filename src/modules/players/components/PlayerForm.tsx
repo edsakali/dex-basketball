@@ -1,34 +1,54 @@
-import { FileInput } from "../../../../../components/ui/FileInput";
+import { FileInput } from "../../../components/ui/FileInput";
 import styled from "styled-components";
-import { ReactComponent as AddPhotoIcon } from "../../../../../assets/images/icons/addPhoto.svg";
-import { Control, FieldValues, UseFormMethods } from "react-hook-form";
-import { Button } from "../../../../../components/ui/Button";
-import { CustomInput } from "../../../../../components/ui/CustomInput";
-import { CustomSelect } from "../../../../../components/ui/CustomSelect";
+import { ReactComponent as AddPhotoIcon } from "../../../assets/images/icons/addPhoto.svg";
+import { UseFormMethods } from "react-hook-form";
+import { Button } from "../../../components/ui/Button";
+import { CustomInput } from "../../../components/ui/CustomInput";
+import {
+  CustomSelect,
+  SelectOptions,
+  SelectProps,
+} from "../../../components/ui/CustomSelect";
+import { OptionTypeBase } from "react-select";
 
-interface Props<TFieldValues extends FieldValues = FieldValues>
-  extends Partial<Pick<UseFormMethods, "register">> {
+export interface PlayerFormFields {
+  name: string;
+  height: number;
+  weight: number;
+  number: number;
+  file: FileList;
+  birthday: string;
+  position: OptionTypeBase;
+  team: OptionTypeBase;
+}
+
+interface Props
+  extends Partial<Pick<UseFormMethods, "register">>,
+    Pick<SelectProps, "control" | "handleInputChange" | "loading"> {
   onSubmit: () => void;
-  previewImage: string | undefined;
-  control: Control<TFieldValues>;
+  playerImage?: string;
   optionsPositions?: Array<{ value: string; label: string }>;
-  optionsTeam?: Array<{ value: number | undefined; label: string | undefined }>;
+  teamsOptions?: SelectOptions;
+  goBackHandler: () => void;
 }
 
 export const PlayerForm = ({
   onSubmit,
   register,
-  previewImage,
+  playerImage,
   control,
   optionsPositions,
-  optionsTeam,
+  teamsOptions,
+  handleInputChange,
+  loading,
+  goBackHandler,
 }: Props) => {
   return (
     <Form onSubmit={onSubmit}>
       <AddImg>
         <ImgInputWrapper>
           <FileInputIcon />
-          {previewImage && <PlayerImg src={previewImage} />}
+          {playerImage && <PlayerImg src={playerImage} />}
           <FileInput register={register} />
         </ImgInputWrapper>
       </AddImg>
@@ -44,7 +64,9 @@ export const PlayerForm = ({
           control={control}
           nameSelect="team"
           label={"Team"}
-          options={optionsTeam}
+          options={teamsOptions}
+          handleInputChange={handleInputChange}
+          loading={loading}
         />
         <WrapperItemGrid>
           <CustomInput
@@ -71,7 +93,7 @@ export const PlayerForm = ({
             label="Number"
             type="number"
           />
-          <Button type="reset" cancelBtn>
+          <Button type="reset" onClick={goBackHandler} cancelBtn>
             Cancel
           </Button>
           <Button>Save</Button>
@@ -85,10 +107,9 @@ const Form = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
-  border-radius: 10px;
   padding: 48px 24px;
   height: 100%;
-  @media screen and ${({ theme }) => theme.deviceSize.tablet} {
+  @media screen and ${({ theme }) => theme.deviceSize.laptop} {
     flex-direction: row;
     align-items: flex-start;
     padding: 48px 0;
@@ -108,7 +129,7 @@ const AddImg = styled.div`
   justify-content: center;
   width: 100%;
   height: 100%;
-  @media screen and ${({ theme }) => theme.deviceSize.tablet} {
+  @media screen and ${({ theme }) => theme.deviceSize.laptop} {
     justify-content: flex-start;
     max-width: 545px;
     margin: 0 75px;
@@ -127,10 +148,11 @@ const ImgInputWrapper = styled.div`
   border-radius: 10px;
   position: relative;
 
-  @media screen and ${({ theme }) => theme.deviceSize.tablet} {
+  @media screen and ${({ theme }) => theme.deviceSize.laptop} {
     max-width: 336px;
     width: 100%;
-    height: 261px;
+    height: 100%;
+    aspect-ratio: 1.287;
     margin-bottom: 0;
   }
 `;
@@ -144,7 +166,7 @@ const FileInputIcon = styled(AddPhotoIcon)`
   left: 50%;
   transform: translate(-50%, -50%);
   opacity: 0.7;
-  @media screen and ${({ theme }) => theme.deviceSize.tablet} {
+  @media screen and ${({ theme }) => theme.deviceSize.laptop} {
     max-width: 100%;
     max-height: 100%;
   }
@@ -157,7 +179,7 @@ const WrapperItem = styled.div`
   gap: 24px;
   width: 100%;
 
-  @media screen and ${({ theme }) => theme.deviceSize.tablet} {
+  @media screen and ${({ theme }) => theme.deviceSize.laptop} {
     margin-right: 24px;
   }
 `;

@@ -69,6 +69,10 @@ const InputWrapper = styled.div<{ error: boolean }>`
     margin: 0;
   }
 
+  & > input[type="date"]::-webkit-calendar-picker-indicator {
+    opacity: 0.2;
+  }
+
   &:hover {
     background: ${({ theme }) => theme.colors.lightestGrey};
     transition: all 0.2s ease-in-out;

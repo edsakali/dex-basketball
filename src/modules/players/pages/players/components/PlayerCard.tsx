@@ -41,7 +41,7 @@ const Img = styled.img`
 
 const Description = styled.div`
   text-align: center;
-  padding: 19px 0;
+  padding: 19px 5px;
   border-radius: 0 0 4px 4px;
   background: ${({ theme }) => theme.colors.darkGrey};
   color: #ffffff;
@@ -50,6 +50,9 @@ const Description = styled.div`
 const PlayerName = styled.h1`
   font-size: 12px;
   margin-bottom: 10px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 
   @media screen and ${({ theme }) => theme.deviceSize.tablet} {
     font-size: 18px;

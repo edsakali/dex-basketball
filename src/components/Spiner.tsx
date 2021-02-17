@@ -22,6 +22,7 @@ const SpinnerWrapper = styled.div`
   width: 100%;
   height: 100%;
 `;
+
 const StyledSpinner = styled.svg`
   animation: rotate 2s linear infinite;
   width: 50px;

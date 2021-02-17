@@ -1,25 +1,16 @@
 import styled from "styled-components";
-import { Button } from "./ui/Button";
-import emptyTeamImg from "../assets/images/empty-teams-bg.png";
-import { pathList } from "../routers/pathList";
-import { useHistory } from "react-router-dom";
-
 interface Props {
   label: string;
+  emptyImg: string;
 }
 
-export const EmptyContent = ({ label }: Props) => {
-  const { push } = useHistory();
-
+export const EmptyContent = ({ label, emptyImg }: Props) => {
   return (
     <EmptyContentContainer>
       <EmptyContentWrapper>
-        <EmptyContentImg src={emptyTeamImg} alt="emptyTeamImg" />
+        <EmptyContentImg src={emptyImg} alt="emptyImg" />
         <EmptyContentTitle>Empty here</EmptyContentTitle>
         <EmptyActionText>Add new {label} to continue</EmptyActionText>
-        <ButtonWrapper>
-          <Button onClick={() => push(pathList.content.addTeam)}>Add +</Button>
-        </ButtonWrapper>
       </EmptyContentWrapper>
     </EmptyContentContainer>
   );
@@ -31,6 +22,10 @@ const EmptyContentContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 16px 0;
+  @media screen and ${({ theme }) => theme.deviceSize.tablet} {
+    margin: 75px 0;
+  }
 `;
 
 const EmptyContentWrapper = styled.div`
@@ -44,38 +39,32 @@ const EmptyContentWrapper = styled.div`
     max-width: 556px;
     width: 100%;
     padding: 48px 37px;
-    border-radius: 15px;
   }
 `;
 
 const EmptyContentImg = styled.img`
-  width: 100%;
+  max-width: 100%;
   object-fit: cover;
   margin-bottom: 48px;
 `;
 
 const EmptyContentTitle = styled.h2`
+  font-family: "Avenir Black", sans-serif;
   font-size: 24px;
+  font-weight: 800;
   color: ${({ theme }) => theme.colors.lightestRed};
-  margin-bottom: 24px;
+  margin-bottom: 16px;
   @media screen and ${({ theme }) => theme.deviceSize.tablet} {
     font-size: 36px;
   }
 `;
 
 const EmptyActionText = styled.p`
-  font-size: 18px;
+  font-family: "Avenir Book", sans-serif;
+  font-size: 15px;
+  font-weight: 400;
   color: ${({ theme }) => theme.colors.grey};
-  margin-bottom: 48px;
   @media screen and ${({ theme }) => theme.deviceSize.tablet} {
     font-size: 24px;
-  }
-`;
-const ButtonWrapper = styled.div`
-  margin: 0 auto;
-  width: 100%;
-  @media screen and ${({ theme }) => theme.deviceSize.tablet} {
-    max-width: 366px;
-    width: 100%;
   }
 `;

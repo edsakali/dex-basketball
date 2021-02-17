@@ -3,6 +3,11 @@ export interface IdParams {
 }
 
 export interface ParamsGetElement {
-  page: number;
-  PageSize: { value: number };
+  page?: number;
+  pageSize?: number;
+  name?: string;
+}
+
+export interface ParamsId {
+  id?: string;
 }

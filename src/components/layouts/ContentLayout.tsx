@@ -3,42 +3,46 @@ import React, { FC } from "react";
 import { ContentHeader } from "../ContentHeader";
 import { PropsInputSearch } from "../ui/InputSearch";
 import { ContentFooter } from "../ContentFooter";
-import { SelectProps } from "../ui/CustomSelect";
+import { SelectOptions, SelectProps } from "../ui/CustomSelect";
 
-interface Props extends PropsInputSearch, SelectProps {
+interface Props
+  extends PropsInputSearch,
+    Pick<SelectProps, "control" | "handleInputChange"> {
   pageCount: number;
-  onSubmit: () => void;
   onPageChange(selectedItem: { selected: number }): void;
   addItemPath: string;
+  nameSearchSelect?: string;
+  selectOptions?: SelectOptions;
 }
 
 export const ContentLayout: FC<Props> = ({
   register,
   placeholder,
   nameSearch,
-  onSubmit,
-  nameSelect,
   control,
   children,
   onPageChange,
   addItemPath,
   pageCount,
+  nameSearchSelect,
+  selectOptions,
+  handleInputChange,
 }) => {
   return (
     <CardsSection>
-      <ContentTopWrapper>
-        <ContentHeader
-          addItemPath={addItemPath}
-          register={register}
-          placeholder={placeholder}
-          nameSearch={nameSearch}
-          onSubmit={onSubmit}
-        />
-        {children}
-      </ContentTopWrapper>
+      <ContentHeader
+        selectOptions={selectOptions}
+        handleInputChange={handleInputChange}
+        nameSearchSelect={nameSearchSelect}
+        control={control}
+        addItemPath={addItemPath}
+        register={register}
+        placeholder={placeholder}
+        nameSearch={nameSearch}
+      />
+      <ContentWrapper>{children}</ContentWrapper>
       <ContentFooter
         pageCount={pageCount}
-        nameSelect={nameSelect}
         control={control}
         onPageChange={onPageChange}
       />
@@ -48,12 +52,19 @@ export const ContentLayout: FC<Props> = ({
 const CardsSection = styled.section`
   display: flex;
   flex-direction: column;
-  height: 100%;
   justify-content: space-between;
   padding: 0 12px;
+
   @media screen and ${({ theme }) => theme.deviceSize.tablet} {
     padding: 0;
   }
 `;
 
-const ContentTopWrapper = styled.div``;
+const ContentWrapper = styled.div`
+  min-height: 650px;
+  margin: 16px 0;
+
+  @media screen and ${({ theme }) => theme.deviceSize.laptop} {
+    margin: 0;
+  }
+`;
