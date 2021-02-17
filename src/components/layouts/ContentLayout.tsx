@@ -3,7 +3,7 @@ import React, { FC } from "react";
 import { ContentHeader } from "../ContentHeader";
 import { PropsInputSearch } from "../ui/InputSearch";
 import { ContentFooter } from "../ContentFooter";
-import { SelectOptions, SelectProps } from "../ui/CustomSelect";
+import { SelectOptions, SelectProps } from "../ui/Select/Select";
 
 interface Props
   extends PropsInputSearch,

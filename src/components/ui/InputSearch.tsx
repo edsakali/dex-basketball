@@ -5,15 +5,15 @@ import { ReactComponent as SearchImg } from "../../assets/images/icons/search.sv
 export interface PropsInputSearch
   extends Partial<Pick<UseFormMethods, "register">> {
   placeholder: string;
-  type?: "text";
   nameSearch: string;
+  type?: "text";
 }
 
-export const SearchInput = ({
-  register,
-  type,
+export const InputSearch = ({
   nameSearch,
   placeholder,
+  register,
+  type,
 }: PropsInputSearch) => (
   <InputWrapper>
     <Input

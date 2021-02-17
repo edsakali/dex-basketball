@@ -2,8 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { Button } from "./ui/Button";
-import { PropsInputSearch, SearchInput } from "./ui/InputSearch";
-import { CustomSelect, SelectOptions, SelectProps } from "./ui/CustomSelect";
+import { PropsInputSearch, InputSearch } from "./ui/InputSearch";
+import { Select, SelectOptions, SelectProps } from "./ui/Select/Select";
 import { useSelector } from "react-redux";
 import { playersSelector } from "../modules/players/playersSlice";
 
@@ -31,7 +31,7 @@ export const ContentHeader = ({
   return (
     <Wrapper>
       <FilterContainer>
-        <SearchInput
+        <InputSearch
           register={register}
           placeholder={placeholder}
           nameSearch={nameSearch}
@@ -41,7 +41,7 @@ export const ContentHeader = ({
           handleInputChange &&
           loadingTeamsFilter && (
             <SelectTeamName>
-              <CustomSelect
+              <Select
                 control={control}
                 nameSelect={nameSearchSelect}
                 isMulti

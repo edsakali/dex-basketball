@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import { FieldErrors, UseFormMethods } from "react-hook-form";
-import { CustomInput } from "../../../components/ui/CustomInput";
+import { Input } from "../../../components/ui/Input";
 import { Button } from "../../../components/ui/Button";
-import { FileInput } from "../../../components/ui/FileInput";
+import { InputFile } from "../../../components/ui/InputFile";
 import { ReactComponent as AddPhotoIcon } from "../../../assets/images/icons/addPhoto.svg";
 
 interface Props extends Partial<Pick<UseFormMethods, "register">> {
@@ -22,15 +22,14 @@ export const TeamForm = ({
   return (
     <Form onSubmit={onSubmit}>
       <AddImg>
-        <ImgInputWrapper>
-          <FileInputIcon />
-          {teamLogo && <TeamImg src={teamLogo} />}
-          <FileInput register={register} />
-        </ImgInputWrapper>
+        <InputFile
+          register={register}
+          image={teamLogo && <TeamImg src={teamLogo} />}
+        />
       </AddImg>
       <WrapperItem>
         <AddTeamDetails>
-          <CustomInput
+          <Input
             register={register}
             name="name"
             label="Name"
@@ -40,7 +39,7 @@ export const TeamForm = ({
               required: "Name is required.",
             }}
           />
-          <CustomInput
+          <Input
             register={register}
             name="division"
             label="Division"
@@ -50,7 +49,7 @@ export const TeamForm = ({
               required: "Division is required.",
             }}
           />
-          <CustomInput
+          <Input
             register={register}
             name="conference"
             label="Conference"
@@ -60,7 +59,7 @@ export const TeamForm = ({
               required: "Conference is required.",
             }}
           />
-          <CustomInput
+          <Input
             register={register}
             name="foundationYear"
             label="Year of foundation"
@@ -105,39 +104,6 @@ const AddImg = styled.div`
     justify-content: flex-start;
     max-width: 545px;
     margin: 0 75px;
-  }
-`;
-
-const ImgInputWrapper = styled.div`
-  max-width: 185px;
-  width: 100%;
-  height: 144px;
-  margin-bottom: 48px;
-  background: #9c9c9c;
-  border-radius: 10px;
-  position: relative;
-
-  @media screen and ${({ theme }) => theme.deviceSize.laptop} {
-    max-width: 336px;
-    width: 100%;
-    height: 100%;
-    aspect-ratio: 1.287;
-    margin-bottom: 0;
-  }
-`;
-
-const FileInputIcon = styled(AddPhotoIcon)`
-  position: absolute;
-  z-index: 99;
-  max-width: 41px;
-  max-height: 40px;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  opacity: 0.7;
-  @media screen and ${({ theme }) => theme.deviceSize.laptop} {
-    max-width: 100%;
-    max-height: 100%;
   }
 `;
 

@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { CustomSelect, SelectProps } from "./ui/CustomSelect";
+import { Select, SelectProps } from "./ui/Select/Select";
 import { Pagination } from "./Pagination";
 
 const options = [
@@ -19,7 +19,7 @@ export const ContentFooter = ({ control, onPageChange, pageCount }: Props) => {
     <ContentWrapper>
       <Pagination pageCount={pageCount} onPageChange={onPageChange} />
       <CustomSelectWrapper>
-        <CustomSelect
+        <Select
           nameSelect={"pageSize"}
           control={control}
           selectPageSize

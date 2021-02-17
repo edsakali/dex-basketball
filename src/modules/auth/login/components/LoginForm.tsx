@@ -2,7 +2,7 @@ import { FC } from "react";
 import styled from "styled-components";
 import { AuthLayout } from "../../../../components/layouts/AuthLayout";
 import { Button } from "../../../../components/ui/Button";
-import { CustomInput } from "../../../../components/ui/CustomInput";
+import { Input } from "../../../../components/ui/Input";
 import { AuthNavigation } from "../../../../components/navigation/AuthNavigation";
 import iconVis from "../../../../assets/images/icons/visibility.svg";
 import iconVisOff from "../../../../assets/images/icons/visibility_off.svg";
@@ -29,7 +29,7 @@ export const LoginForm: FC<FormProps> = ({
   return (
     <AuthLayout titleText="Sign In" img={layer1}>
       <Form onSubmit={onSubmit}>
-        <CustomInput
+        <Input
           type="text"
           label="Login"
           name="login"
@@ -44,7 +44,7 @@ export const LoginForm: FC<FormProps> = ({
           }}
         />
 
-        <CustomInput
+        <Input
           register={register}
           error={errors.password}
           name="password"

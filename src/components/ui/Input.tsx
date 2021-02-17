@@ -15,7 +15,7 @@ interface InputProps
   error?: FieldError;
 }
 
-export const CustomInput: FC<InputProps> = ({
+export const Input: FC<InputProps> = ({
   registerOptions,
   type,
   label,
@@ -29,7 +29,7 @@ export const CustomInput: FC<InputProps> = ({
     <InputContainer>
       {label && <label>{label}</label>}
       <InputWrapper error={!!error}>
-        <Input
+        <StyledInput
           ref={register && register(registerOptions)}
           type={type}
           id={name}
@@ -111,7 +111,7 @@ const IconWrapper = styled.div`
   cursor: pointer;
 `;
 
-const Input = styled.input`
+const StyledInput = styled.input`
   width: 100%;
   height: 100%;
   background: transparent;

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { ThemeConfig } from "react-select/src/theme";
 
-export const ReactSelectStyles = styled.div`
+export const SelectStyles = styled.div`
   .react-select__control {
     width: 100%;
     min-height: 40px;
