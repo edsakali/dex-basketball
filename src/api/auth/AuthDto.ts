@@ -4,5 +4,11 @@ export interface RegisterParams {
   userName: string;
 }
 
+export interface User {
+  name: string;
+  token: string;
+  avatarUrl: string;
+}
+
 export interface LoginParams
   extends Pick<RegisterParams, "login" | "password"> {}

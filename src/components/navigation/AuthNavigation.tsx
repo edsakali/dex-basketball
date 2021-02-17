@@ -32,5 +32,5 @@ const AuthTextNav = styled.p`
 
 const AuthNavLink = styled(NavLink)`
   color: ${({ theme }) => theme.colors.red};
-  text-decoration: none;
+  text-decoration: underline;
 `;

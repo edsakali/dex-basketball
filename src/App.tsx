@@ -1,36 +1,28 @@
-import React, { FC } from "react";
-import {
-  BrowserRouter as Router,
-  Redirect,
-  Route,
-  Switch,
-} from "react-router-dom";
-import { LoginPage } from "./modules/auth/login/LoginPage";
-import { Content } from "./routes/Content";
-import { GlobalStyle } from "./assets/styles/globalStyles";
+import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
 import { ThemeProvider } from "styled-components";
-import { theme } from "./assets/styles/styledTheming";
-import { RegistrationPage } from "./modules/auth/registration/RegistrationPage";
 import { ToastContainer } from "react-toastify";
-import { pathList } from "./core/router/pathList";
+import { theme } from "./assets/styles/styledTheming";
+import { useAppDispatch } from "./redux/store";
+import { authSelector, getUser } from "./modules/auth/authSlice";
+import { AppRouter } from "./routers/Router";
+import { LoadState } from "./redux/loadState";
+import { Spinner } from "./components/Spiner";
 
-export const App: FC = () => {
-  return (
+export const App = () => {
+  const dispatch = useAppDispatch();
+  const { loading } = useSelector(authSelector);
+
+  useEffect(() => {
+    dispatch(getUser());
+  }, [dispatch]);
+
+  return loading === LoadState.idle ? (
     <ThemeProvider theme={theme}>
       <ToastContainer />
-      <Router>
-        <GlobalStyle />
-        <Switch>
-          <Route path={pathList.auth.login} exact component={LoginPage} />
-          <Route
-            path={pathList.auth.register}
-            exact
-            component={RegistrationPage}
-          />
-          <Route path="/" exact component={Content} />
-          <Redirect from={"*"} to={pathList.auth.login} />
-        </Switch>
-      </Router>
+      <AppRouter />
     </ThemeProvider>
+  ) : (
+    <Spinner />
   );
 };
