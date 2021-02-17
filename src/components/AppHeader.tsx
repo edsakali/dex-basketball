@@ -37,7 +37,7 @@ const HeaderContainer = styled.div`
   top: 0;
   z-index: 250;
   width: 100%;
-  background: #ffffff;
+  background: ${({ theme }) => theme.colors.white};
   box-shadow: 0 1px 10px rgba(209, 209, 209, 0.5);
   height: 62px;
 

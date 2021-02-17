@@ -83,7 +83,7 @@ const FilterContainer = styled.div`
 
 const SelectTeamName = styled.div`
   width: 100%;
-  border: 0.5px solid #d1d1d1;
+  border: 0.5px solid ${({ theme }) => theme.colors.lightestGrey};
   border-radius: 4px;
 
   @media screen and ${({ theme }) => theme.deviceSize.tablet} {

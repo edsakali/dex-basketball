@@ -44,7 +44,7 @@ const Description = styled.div`
   padding: 19px 5px;
   border-radius: 0 0 4px 4px;
   background: ${({ theme }) => theme.colors.darkGrey};
-  color: #ffffff;
+  color: ${({ theme }) => theme.colors.white};
 `;
 
 const PlayerName = styled.h1`

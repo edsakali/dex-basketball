@@ -1,7 +1,6 @@
-import { DefaultTheme } from "styled-components";
-
-export const theme: DefaultTheme = {
+export const styledTheme = {
   colors: {
+    white: "#ffffff",
     darkGrey: "#303030",
     grey: "#707070",
     lightGrey: "#9C9C9C",
@@ -12,6 +11,7 @@ export const theme: DefaultTheme = {
     lightRed: "#FF5761",
     lightestRed: "#FF768E",
     blue: "#344472",
+    lightBlue: "#f5fbff",
   },
   deviceSize: {
     mobileS: "(min-width: 320px)",

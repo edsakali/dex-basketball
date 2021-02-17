@@ -41,11 +41,7 @@ export const Input: FC<InputProps> = ({
           </IconWrapper>
         )}
       </InputWrapper>
-      {error && (
-        <ErrorMessage style={{ color: "#FF768E" }}>
-          {error.message}
-        </ErrorMessage>
-      )}
+      {error && <ErrorMessage>{error.message}</ErrorMessage>}
     </InputContainer>
   );
 };

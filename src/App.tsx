@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { ThemeProvider } from "styled-components";
 import { ToastContainer } from "react-toastify";
-import { theme } from "./assets/styles/styledTheming";
+import { styledTheme } from "./assets/styles/styledTheming";
 import { useAppDispatch } from "./redux/store";
 import { authSelector, getUser } from "./modules/auth/authSlice";
 import { AppRouter } from "./routers/Router";
@@ -18,7 +18,7 @@ export const App = () => {
   }, [dispatch]);
 
   return loading === LoadState.idle ? (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={styledTheme}>
       <ToastContainer />
       <AppRouter />
     </ThemeProvider>

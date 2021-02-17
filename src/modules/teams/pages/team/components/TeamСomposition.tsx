@@ -58,7 +58,7 @@ export const TeamComposition = ({ players }: Props) => {
 };
 
 const TeamRoster = styled.div`
-  background: #ffffff;
+  background: ${({ theme }) => theme.colors.white};
   color: ${({ theme }) => theme.colors.grey};
   border: 0.5px solid ${({ theme }) => theme.colors.lightGrey};
 

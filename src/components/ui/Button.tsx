@@ -6,9 +6,9 @@ export const Button = styled.button<{ cancelBtn?: boolean }>`
   justify-content: center;
   align-items: center;
   color: ${({ cancelBtn, theme }) =>
-    cancelBtn ? theme.colors.lightGrey : "#ffffff"};
+    cancelBtn ? theme.colors.lightGrey : theme.colors.white};
   width: 100%;
-  padding: 12px 0;
+  padding: 10px 0;
   border: ${({ cancelBtn, theme }) =>
     cancelBtn ? `1px solid ${theme.colors.lightGrey}` : "none"};
   border-radius: 4px;
@@ -20,7 +20,7 @@ export const Button = styled.button<{ cancelBtn?: boolean }>`
     background: ${({ cancelBtn, theme }) =>
       cancelBtn ? theme.colors.lightestGrey : theme.colors.lightRed};
     color: ${({ cancelBtn, theme }) =>
-      cancelBtn ? theme.colors.lightGrey : "#ffffff"};
+      cancelBtn ? theme.colors.lightGrey : theme.colors.white};
     transition: all 0.2s ease-in-out;
   }
 
@@ -31,7 +31,7 @@ export const Button = styled.button<{ cancelBtn?: boolean }>`
     background: ${({ cancelBtn, theme }) =>
       cancelBtn ? theme.colors.lightGrey : theme.colors.darkRed};
     color: ${({ cancelBtn, theme }) =>
-      cancelBtn ? theme.colors.grey : "#ffffff"};
+      cancelBtn ? theme.colors.grey : theme.colors.white};
     transition: all 0.2s ease-in-out;
   }
 

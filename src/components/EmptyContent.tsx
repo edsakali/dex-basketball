@@ -32,7 +32,7 @@ const EmptyContentWrapper = styled.div`
   text-align: center;
   padding: 48px 18px;
   width: 100%;
-  background: #ffffff;
+  background: ${({ theme }) => theme.colors.white};
   border-radius: 15px;
 
   @media screen and ${({ theme }) => theme.deviceSize.tablet} {
@@ -49,7 +49,6 @@ const EmptyContentImg = styled.img`
 `;
 
 const EmptyContentTitle = styled.h2`
-  font-family: "Avenir Black", sans-serif;
   font-size: 24px;
   font-weight: 800;
   color: ${({ theme }) => theme.colors.lightestRed};
@@ -60,7 +59,6 @@ const EmptyContentTitle = styled.h2`
 `;
 
 const EmptyActionText = styled.p`
-  font-family: "Avenir Book", sans-serif;
   font-size: 15px;
   font-weight: 400;
   color: ${({ theme }) => theme.colors.grey};

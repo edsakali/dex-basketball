@@ -26,12 +26,12 @@ const LayoutWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 100vh;
 
   @media screen and (min-width: 768px) {
     display: grid;
     grid-template-columns: 0.75fr 1fr;
     width: 100%;
-    background: red;
   }
 `;
 
@@ -41,16 +41,15 @@ const AuthContentLeft = styled.div`
   justify-content: center;
   align-items: center;
   gap: 32px;
-  padding: 0 24px;
+  padding: 24px;
   width: 100%;
-  height: 100vh;
-  background: #ffffff;
+  height: 100%;
 `;
 
 const AuthContentRight = styled.div`
-  background: #f5fbff;
+  background: ${({ theme }) => theme.colors.lightBlue};
   display: none;
-  height: 100vh;
+  height: 100%;
 
   @media screen and (min-width: 768px) {
     display: flex;
@@ -66,7 +65,6 @@ const WrapperTitle = styled.div`
 const Title = styled.h1`
   display: flex;
   justify-content: center;
-  font-family: "Avenir Book", sans-serif;
   font-size: 36px;
   font-weight: 400;
   color: ${({ theme }) => theme.colors.blue};

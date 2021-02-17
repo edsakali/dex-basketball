@@ -158,5 +158,5 @@ export const EditPlayerPage = () => {
 
 const AddPlayerWrapper = styled.div`
   border-radius: 10px;
-  background: #ffffff;
+  background: ${({ theme }) => theme.colors.white};
 `;

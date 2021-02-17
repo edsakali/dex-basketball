@@ -18,14 +18,14 @@ export const ContentFooter = ({ control, onPageChange, pageCount }: Props) => {
   return (
     <ContentWrapper>
       <Pagination pageCount={pageCount} onPageChange={onPageChange} />
-      <CustomSelectWrapper>
+      <SelectWrapper>
         <Select
           nameSelect={"pageSize"}
           control={control}
           selectPageSize
           options={options}
         />
-      </CustomSelectWrapper>
+      </SelectWrapper>
     </ContentWrapper>
   );
 };
@@ -35,9 +35,9 @@ const ContentWrapper = styled.div`
   justify-content: space-between;
 `;
 
-const CustomSelectWrapper = styled.div`
+const SelectWrapper = styled.div`
   max-width: 88px;
   width: 100%;
-  border: 0.5px solid #d1d1d1;
+  border: 0.5px solid ${({ theme }) => theme.colors.lightestGrey};
   border-radius: 4px;
 `;

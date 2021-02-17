@@ -100,5 +100,5 @@ const EditTeamWrapper = styled.div`
   display: flex;
   flex-direction: column;
   border-radius: 10px;
-  background: #ffffff;
+  background: ${({ theme }) => theme.colors.white};
 `;

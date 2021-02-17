@@ -8,12 +8,13 @@ export const SelectStyles = styled.div`
     border-radius: 4px;
     box-shadow: none;
     border: none;
-    background: #f6f6f6;
+    background: ${({ theme }) => theme.colors.lightestGrey1};
 
     &:hover {
-      background: #d1d1d1;
+      background: ${({ theme }) => theme.colors.lightestGrey};
       transition: all 0.2s ease-in-out;
     }
+
     &:active {
       box-shadow: 0 0 5px #d9d9d9;
     }
@@ -21,49 +22,49 @@ export const SelectStyles = styled.div`
 
   .react-select__multi-value {
     padding: 4px 0;
-    background: #e4163a;
-    color: #ffffff;
+    background: ${({ theme }) => theme.colors.red};
+    color: ${({ theme }) => theme.colors.white};
     border-radius: 4px;
   }
 
   .react-select__multi-value__remove {
     &:hover {
-      background: #ff768e;
-      color: #ffffff;
+      background: ${({ theme }) => theme.colors.lightestRed};
+      color: ${({ theme }) => theme.colors.white};
     }
   }
 
   .react-select__loading-indicator > span {
     font-size: 8px;
-    color: #e4163a;
+    color: ${({ theme }) => theme.colors.red};
   }
 
   .react-select__multi-value__label {
-    color: #ffffff;
+    color: ${({ theme }) => theme.colors.white};
   }
 
   .react-select__menu {
-    color: #9c9c9c;
+    color: ${({ theme }) => theme.colors.lightGrey};
     border-radius: 4px;
-    border: 0.5px solid #d1d1d1;
+    border: 0.5px solid ${({ theme }) => theme.colors.lightestGrey};
   }
   .react-select__option--is-focused {
-    color: #ffffff;
+    color: ${({ theme }) => theme.colors.white};
   }
 
   .react-select__option {
-    border-bottom: 0.5px solid #d1d1d1;
+    border-bottom: 0.5px solid ${({ theme }) => theme.colors.lightestGrey};
     &:last-child {
       border-bottom: none;
     }
 
     &:hover {
-      color: #ffffff;
+      color: ${({ theme }) => theme.colors.white};
     }
   }
 
   .react-select_is-open > .react-select__control {
-    border: 0.5px solid #9c9c9c;
+    border: 0.5px solid ${({ theme }) => theme.colors.lightGrey};
   }
 `;
 

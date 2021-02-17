@@ -67,7 +67,7 @@ export const AddTeamPage = () => {
 };
 
 const AddTeamWrapper = styled.div`
-  background: #ffffff;
+  background: ${({ theme }) => theme.colors.white};
   @media screen and ${({ theme }) => theme.deviceSize.tablet} {
     border-radius: 10px;
   }

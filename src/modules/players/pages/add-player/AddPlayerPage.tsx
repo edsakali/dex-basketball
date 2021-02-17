@@ -97,7 +97,7 @@ export const AddPlayerPage = () => {
 };
 
 const AddPlayerWrapper = styled.div`
-  background: #ffffff;
+  background: ${({ theme }) => theme.colors.white};
   @media screen and ${({ theme }) => theme.deviceSize.tablet} {
     border-radius: 10px;
   }

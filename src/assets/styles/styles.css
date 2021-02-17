@@ -1,26 +1,27 @@
 @font-face {
-    font-family: 'Avenir Medium';
+    font-family: 'Avenir';
+    src: url('./fonts/Avenir-Book.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+
+@font-face {
+    font-family: 'Avenir';
     src: url('./fonts/Avenir-Medium.ttf') format('truetype');
     font-weight: 500;
     font-style: normal;
 }
 
 @font-face {
-    font-family: 'Avenir Black';
+    font-family: 'Avenir';
     src: url('./fonts/Avenir-Black.ttf') format('truetype');
     font-weight: 800;
     font-style: normal;
 }
 
 @font-face {
-    font-family: 'Avenir Book';
-    src: url('./fonts/Avenir-Book.ttf') format('truetype');
-    font-weight: 400;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'Avenir Heavy';
+    font-family: 'Avenir';
     src: url('./fonts/Avenir-Heavy.ttf') format('truetype');
     font-weight: 900;
     font-style: normal;
@@ -30,7 +31,7 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: 'Avenir Medium', sans-serif;
+    font-family: 'Avenir', sans-serif;
     font-size: 14px;
     font-weight: 500;
 }

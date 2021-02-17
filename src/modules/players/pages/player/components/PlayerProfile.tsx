@@ -93,7 +93,7 @@ const Img = styled.img`
 
 const PlayerInfo = styled.div`
   width: 100%;
-  color: #ffffff;
+  color: ${({ theme }) => theme.colors.white};
   text-align: center;
   @media screen and ${({ theme }) => theme.deviceSize.laptop} {
     text-align: start;
@@ -101,7 +101,6 @@ const PlayerInfo = styled.div`
   }
 `;
 const PlayerName = styled.h1`
-  font-family: "Avenir Black", sans-serif;
   font-size: 24px;
   margin-bottom: 32px;
   font-weight: 800;
@@ -114,7 +113,6 @@ const PlayerName = styled.h1`
 
 const PlayerNumber = styled.span`
   color: ${({ theme }) => theme.colors.lightRed};
-  font-family: 'Avenir Black', sans-serif;
   font-size: 24px;
   margin-bottom: 32px;
   font-weight: 800;
@@ -146,7 +144,6 @@ const MetaItem = styled.div`
 `;
 
 const ItemLabel = styled.div`
-  font-family: "Avenir Black", sans-serif;
   font-size: 18px;
   font-weight: 800;
   margin-bottom: 8px;

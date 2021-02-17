@@ -62,7 +62,7 @@ const SidebarContainer = styled.div<{ visible: boolean }>`
   transition: left 0.3s ease;
   height: calc(100vh - 62px);
   padding: 0 0 27px 0;
-  background: #ffffff;
+  background: ${({ theme }) => theme.colors.white};
 
   @media screen and ${({ theme }) => theme.deviceSize.tablet} {
     display: flex;
@@ -97,7 +97,7 @@ const UserAccount = styled.div`
   height: 80px;
   margin-bottom: 24px;
   padding-left: 20px;
-  border-bottom: 0.5px solid #9c9c9c;
+  border-bottom: 0.5px solid ${({ theme }) => theme.colors.lightGrey};
 
   @media screen and ${({ theme }) => theme.deviceSize.tablet} {
     display: none;

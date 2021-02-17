@@ -32,35 +32,35 @@ const PaginationWrapper = styled.div`
   .pagination > li > a {
     position: relative;
     float: left;
-    padding: 6px 14px;
-    line-height: 1.42857143;
+    padding: 5px 14px;
     text-decoration: none;
-    color: #707070;
+    color: ${({ theme }) => theme.colors.grey};
+    border-radius: 4px;
     cursor: pointer;
     font-size: 18px;
     background-color: transparent;
   }
 
   .pagination .selected a {
-    color: #ffffff;
-    background-color: #e4163a;
+    color: ${({ theme }) => theme.colors.white};
+    background-color: ${({ theme }) => theme.colors.red};
     border: none;
     outline: none;
     box-shadow: none;
   }
 
   .pagination .page-link:hover {
-    background-color: #ff768e;
-    color: #ffffff;
+    background-color: ${({ theme }) => theme.colors.lightestRed};
+    color: ${({ theme }) => theme.colors.white};
   }
 
   .pagination .previous a {
     background: none;
-    color: #707070;
+    color: ${({ theme }) => theme.colors.grey};
   }
 
   .pagination .next a {
     background: none;
-    color: #707070;
+    color: ${({ theme }) => theme.colors.grey};
   }
 `;

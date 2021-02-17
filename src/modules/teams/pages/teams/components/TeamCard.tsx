@@ -40,7 +40,7 @@ const TeamDescription = styled.div`
   padding: 19px 0;
   border-radius: 0 0 4px 4px;
   background: ${({ theme }) => theme.colors.darkGrey};
-  color: #ffffff;
+  color: ${({ theme }) => theme.colors.white};
 
   @media screen and ${({ theme }) => theme.deviceSize.tablet} {
     padding: 24px 0;

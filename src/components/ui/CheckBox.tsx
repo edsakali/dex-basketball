@@ -41,11 +41,7 @@ export const CheckBox: FC<CheckBoxProps> = ({
           </CheckBoxLabel>
         </CheckboxContainer>
       </CheckBoxWrapper>
-      {error && (
-        <ErrorMessage style={{ color: "#FF768E" }}>
-          {error.message}
-        </ErrorMessage>
-      )}
+      {error && <ErrorMessage>{error.message}</ErrorMessage>}
     </>
   );
 };
@@ -57,7 +53,8 @@ const CheckBoxWrapper = styled.div`
 
 const CheckBoxLabel = styled.label<{ error: boolean }>`
   cursor: pointer;
-  color: ${({ error }) => (error ? " #FF768E" : "#707070")};
+  color: ${({ error, theme }) =>
+    error ? theme.colors.lightRed : theme.colors.grey};
 `;
 
 const ErrorMessage = styled.p`
@@ -86,7 +83,7 @@ const HiddenCheckbox = styled.input.attrs({ type: "checkbox" })`
   position: absolute;
   white-space: nowrap;
   width: 1px;
-  border: 1px solid #e4163a;
+  border: 1px solid ${({ theme }) => theme.colors.red};
 `;
 
 const StyledCheckbox = styled.div<{ checked?: boolean; error?: boolean }>`
@@ -95,13 +92,14 @@ const StyledCheckbox = styled.div<{ checked?: boolean; error?: boolean }>`
   margin-right: 10px;
   width: 12px;
   height: 12px;
-  background: ${({ checked }) => (checked ? "#E4163A" : "#FFFFFF")};
-  border: ${({ error }) => (error ? "1px solid #E4163A" : "1px solid #9c9c9c")};
+  background: ${({ checked, theme }) =>
+    checked ? theme.colors.red : theme.colors.white};
+  border: ${({ error }) => (error ? `1px solid #E4163A` : "1px solid #9c9c9c")};
   border-radius: 2px;
   transition: all 150ms;
 
   &:hover {
-    border: 1px solid #e4163a;
+    border: 1px solid ${({ theme }) => theme.colors.red};
   }
 
   ${Icon} {

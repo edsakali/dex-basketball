@@ -37,7 +37,7 @@ const Wrapper = styled.div`
   justify-content: space-between;
   padding: 15px 16px;
   border-radius: 0;
-  background: #ffffff;
+  background: ${({ theme }) => theme.colors.white};
 
   @media screen and ${({ theme }) => theme.deviceSize.tablet} {
     padding: 20px 32px;
