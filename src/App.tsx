@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
 import { ThemeProvider } from "styled-components";
-import { theme } from "./assets/styles/styledTheming";
 import { ToastContainer } from "react-toastify";
+import { theme } from "./assets/styles/styledTheming";
 import { useAppDispatch } from "./redux/store";
 import { authSelector, getUser } from "./modules/auth/authSlice";
 import { AppRouter } from "./routers/Router";
-import { useSelector } from "react-redux";
 import { LoadState } from "./redux/loadState";
 import { Spinner } from "./components/Spiner";
 
