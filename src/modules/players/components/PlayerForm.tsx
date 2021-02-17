@@ -1,6 +1,5 @@
 import { InputFile } from "../../../components/ui/InputFile";
 import styled from "styled-components";
-import { ReactComponent as AddPhotoIcon } from "../../../assets/images/icons/addPhoto.svg";
 import { UseFormMethods } from "react-hook-form";
 import { Button } from "../../../components/ui/Button";
 import { Input } from "../../../components/ui/Input";
