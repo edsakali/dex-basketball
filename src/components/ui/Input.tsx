@@ -1,4 +1,3 @@
-import { FC } from "react";
 import styled from "styled-components";
 import { FieldError, RegisterOptions, UseFormMethods } from "react-hook-form";
 
@@ -15,7 +14,7 @@ interface InputProps
   error?: FieldError;
 }
 
-export const Input: FC<InputProps> = ({
+export const Input = ({
   registerOptions,
   type,
   label,
@@ -24,7 +23,7 @@ export const Input: FC<InputProps> = ({
   icon,
   onClickIcon,
   error,
-}): JSX.Element => {
+}: InputProps) => {
   return (
     <InputContainer>
       {label && <label>{label}</label>}
@@ -93,11 +92,10 @@ const InputWrapper = styled.div<{ error: boolean }>`
 `;
 
 const InputContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
   & > label {
+    line-height: 24px;
     color: ${({ theme }) => theme.colors.grey};
+    margin-bottom: 8px;
   }
 `;
 const IconWrapper = styled.div`

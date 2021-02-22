@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { Button } from "./ui/Button";
@@ -70,32 +69,30 @@ const Wrapper = styled.div`
 `;
 
 const FilterContainer = styled.div`
-  display: flex;
-  gap: 16px;
-  flex-direction: column;
   width: 100%;
 
   @media screen and ${({ theme }) => theme.deviceSize.tablet} {
+    display: flex;
     flex-direction: row;
-    gap: 24px;
   }
 `;
 
 const SelectTeamName = styled.div`
   width: 100%;
+  margin: 16px 0 0 0;
   border: 0.5px solid ${({ theme }) => theme.colors.lightestGrey};
   border-radius: 4px;
 
   @media screen and ${({ theme }) => theme.deviceSize.tablet} {
     max-width: 364px;
-    margin-right: 24px;
+    margin: 0 24px;
   }
 `;
 
 const AddLink = styled(Link)`
-  margin-top: 16px;
   width: 100%;
   text-decoration: none;
+  margin-top: 16px;
   @media screen and ${({ theme }) => theme.deviceSize.tablet} {
     width: 104px;
     margin-top: 0;

@@ -1,4 +1,3 @@
-import { FC } from "react";
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 
@@ -8,11 +7,11 @@ type PropsAuthNavigation = {
   actionText: string;
 };
 
-export const AuthNavigation: FC<PropsAuthNavigation> = ({
+export const AuthNavigation = ({
   text,
   path,
   actionText,
-}) => {
+}: PropsAuthNavigation) => {
   return (
     <AuthNavWrapper>
       <AuthTextNav>{text}</AuthTextNav>
@@ -23,6 +22,7 @@ export const AuthNavigation: FC<PropsAuthNavigation> = ({
 
 const AuthNavWrapper = styled.div`
   display: flex;
+  margin-top: 24px;
 `;
 
 const AuthTextNav = styled.p`

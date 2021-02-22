@@ -44,12 +44,12 @@ export const PlayerForm = ({
 }: Props) => {
   return (
     <Form onSubmit={onSubmit}>
-      <AddImg>
+      <AddImgWrapper>
         <InputFile
           register={register}
           image={playerImage && <PlayerImg src={playerImage} />}
         />
-      </AddImg>
+      </AddImgWrapper>
       <WrapperItem>
         <Input register={register} name="name" label="Name" type="text" />
         <Select
@@ -114,15 +114,7 @@ const Form = styled.form`
   }
 `;
 
-const PlayerImg = styled.img`
-  max-width: 100%;
-  max-height: 100%;
-  z-index: 50;
-  opacity: 0.5;
-  object-fit: scale-down;
-`;
-
-const AddImg = styled.div`
+const AddImgWrapper = styled.div`
   display: flex;
   justify-content: center;
   width: 100%;
@@ -134,12 +126,20 @@ const AddImg = styled.div`
   }
 `;
 
+const PlayerImg = styled.img`
+  max-width: 100%;
+  max-height: 100%;
+  z-index: 50;
+  opacity: 0.5;
+  object-fit: scale-down;
+`;
+
 const WrapperItem = styled.div`
-  display: flex;
-  flex-direction: column;
   max-width: 366px;
-  gap: 24px;
   width: 100%;
+  & > div {
+    margin-bottom: 24px;
+  }
 
   @media screen and ${({ theme }) => theme.deviceSize.laptop} {
     margin-right: 24px;

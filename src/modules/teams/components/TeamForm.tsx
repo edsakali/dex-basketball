@@ -27,48 +27,46 @@ export const TeamForm = ({
         />
       </AddImg>
       <WrapperItem>
-        <AddTeamDetails>
-          <Input
-            register={register}
-            name="name"
-            label="Name"
-            type="text"
-            error={errors.name}
-            registerOptions={{
-              required: "Name is required.",
-            }}
-          />
-          <Input
-            register={register}
-            name="division"
-            label="Division"
-            type="text"
-            error={errors.division}
-            registerOptions={{
-              required: "Division is required.",
-            }}
-          />
-          <Input
-            register={register}
-            name="conference"
-            label="Conference"
-            type="text"
-            error={errors.conference}
-            registerOptions={{
-              required: "Conference is required.",
-            }}
-          />
-          <Input
-            register={register}
-            name="foundationYear"
-            label="Year of foundation"
-            type="number"
-            error={errors.foundationYear}
-            registerOptions={{
-              required: "Year of foundation is required.",
-            }}
-          />
-        </AddTeamDetails>
+        <Input
+          register={register}
+          name="name"
+          label="Name"
+          type="text"
+          error={errors.name}
+          registerOptions={{
+            required: "Name is required.",
+          }}
+        />
+        <Input
+          register={register}
+          name="division"
+          label="Division"
+          type="text"
+          error={errors.division}
+          registerOptions={{
+            required: "Division is required.",
+          }}
+        />
+        <Input
+          register={register}
+          name="conference"
+          label="Conference"
+          type="text"
+          error={errors.conference}
+          registerOptions={{
+            required: "Conference is required.",
+          }}
+        />
+        <Input
+          register={register}
+          name="foundationYear"
+          label="Year of foundation"
+          type="number"
+          error={errors.foundationYear}
+          registerOptions={{
+            required: "Year of foundation is required.",
+          }}
+        />
         <ButtonsWrapper>
           <Button type="reset" onClick={goBackHandler} cancelBtn>
             Cancel
@@ -118,26 +116,20 @@ const TeamImg = styled.img`
 `;
 
 const WrapperItem = styled.div`
-  display: flex;
-  flex-direction: column;
   max-width: 366px;
-  gap: 24px;
   width: 100%;
+  & > div {
+    margin-bottom: 24px;
+  }
 
   @media screen and ${({ theme }) => theme.deviceSize.laptop} {
     margin-right: 24px;
   }
 `;
 
-const AddTeamDetails = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  gap: 24px;
-`;
-
 const ButtonsWrapper = styled.div`
-  display: flex;
-  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: 24px;
+  width: 100%;
 `;

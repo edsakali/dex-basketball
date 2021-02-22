@@ -40,10 +40,26 @@ const AuthContentLeft = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 32px;
   padding: 24px;
   width: 100%;
   height: 100%;
+`;
+
+const WrapperTitle = styled.div`
+  max-width: 366px;
+  width: 100%;
+  margin-bottom: 32px;
+`;
+const Title = styled.h1`
+  display: flex;
+  justify-content: center;
+  font-size: 36px;
+  font-weight: 400;
+  color: ${({ theme }) => theme.colors.blue};
+
+  @media screen and (min-width: 768px) {
+    justify-content: flex-start;
+  }
 `;
 
 const AuthContentRight = styled.div`
@@ -55,22 +71,6 @@ const AuthContentRight = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-  }
-`;
-
-const WrapperTitle = styled.div`
-  max-width: 366px;
-  width: 100%;
-`;
-const Title = styled.h1`
-  display: flex;
-  justify-content: center;
-  font-size: 36px;
-  font-weight: 400;
-  color: ${({ theme }) => theme.colors.blue};
-
-  @media screen and (min-width: 768px) {
-    justify-content: flex-start;
   }
 `;
 const Img = styled.img`

@@ -1,16 +1,15 @@
-import { FC } from "react";
+import { FieldErrors, UseFormMethods } from "react-hook-form";
 import styled from "styled-components";
 import { AuthLayout } from "../../../../components/layouts/AuthLayout";
-import { Button } from "../../../../components/ui/Button";
 import { Input } from "../../../../components/ui/Input";
 import { AuthNavigation } from "../../../../components/navigation/AuthNavigation";
 import iconVis from "../../../../assets/images/icons/visibility.svg";
 import iconVisOff from "../../../../assets/images/icons/visibility_off.svg";
 import layer2 from "../../../../assets/images/register-bg.png";
-import { FieldErrors, UseFormMethods } from "react-hook-form";
 import { RegisterValues } from "../RegistrationPage";
 import { CheckBox } from "../../../../components/ui/CheckBox";
 import { pathList } from "../../../../routers/pathList";
+import { Button } from "../../../../components/ui/Button";
 
 interface FormProps
   extends Partial<Pick<UseFormMethods, "register" | "errors">> {
@@ -21,14 +20,14 @@ interface FormProps
   watchFields: Partial<RegisterValues>;
 }
 
-export const RegistrationForm: FC<FormProps> = ({
+export const RegistrationForm = ({
   showPassword,
   onShowPassword,
   onSubmit,
   register,
   errors,
   watchFields,
-}): JSX.Element => {
+}: FormProps): JSX.Element => {
   return (
     <AuthLayout titleText="Sign Up" img={layer2}>
       <Form onSubmit={onSubmit}>
@@ -107,9 +106,9 @@ export const RegistrationForm: FC<FormProps> = ({
 };
 
 const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
   max-width: 366px;
   width: 100%;
+  & > div {
+    margin-bottom: 24px;
+  }
 `;

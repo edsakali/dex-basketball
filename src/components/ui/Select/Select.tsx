@@ -1,4 +1,3 @@
-import React from "react";
 import ReactSelect from "react-select";
 import { Control, FieldValues, Controller } from "react-hook-form";
 import styled from "styled-components";
@@ -57,10 +56,9 @@ export const Select = ({
 );
 
 const SelectContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
   & > label {
+    line-height: 24px;
     color: ${({ theme }) => theme.colors.grey};
+    margin-bottom: 8px;
   }
 `;
