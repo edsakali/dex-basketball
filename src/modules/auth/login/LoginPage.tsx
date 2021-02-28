@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -8,11 +8,13 @@ import { LoginForm } from "./components/LoginForm";
 import { signInAction } from "../authActions";
 import { LoginParams } from "../../../api/auth/AuthDto";
 import { pathList } from "../../../routers/pathList";
+import { LoadingBackdrop } from "../../../components/LoadingBackdrop";
+import { LoadState } from "../../../redux/loadState";
 
-export const LoginPage: FC = () => {
+export const LoginPage = () => {
   const dispatch = useAppDispatch();
   const { push } = useHistory();
-  const { user } = useSelector(authSelector);
+  const { user, loading } = useSelector(authSelector);
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const { register, handleSubmit, errors } = useForm<LoginParams>({
     mode: "onBlur",
@@ -39,6 +41,7 @@ export const LoginPage: FC = () => {
         showPassword={showPassword}
         onClickIcon={onClickIcon}
       />
+      {loading === LoadState.pending && <LoadingBackdrop />}
     </>
   );
 };

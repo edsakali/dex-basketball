@@ -19,17 +19,17 @@ const postPlayer = async (user: User, params: PlayerParams) => {
       case 400:
         throw new CustomError(
           response.status.toString(),
-          "Введите корректные данные!"
+          "Please enter correct data!"
         );
       case 409:
         throw new CustomError(
           response.status.toString(),
-          "Этот игрок уже добавлен!"
+          "This player has already been added!"
         );
       default:
         throw new CustomError(
           response.status.toString(),
-          "Ошибка добавления игрока!"
+          "Player adding error!"
         );
     }
   }
@@ -122,13 +122,10 @@ const editPlayer = async (user: User, params: PlayerParams) => {
       case 400:
         throw new CustomError(
           response.status.toString(),
-          "Введите корректные данные!"
+          "Please enter correct data!"
         );
       default:
-        throw new CustomError(
-          response.status.toString(),
-          "Ошибка редактирования игрока!"
-        );
+        throw new CustomError(response.status.toString(), "Player edit error!");
     }
   }
   return response.json();

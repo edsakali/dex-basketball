@@ -15,7 +15,10 @@ export const usePlayerPositions = () => {
   const optionsPositions = useMemo(
     () =>
       positions &&
-      positions.map((position) => ({ value: position, label: position })),
+      positions.map((position) => ({
+        value: position,
+        label: position.replace(/([A-Z][a-z]+)/g, "$1 ").trim(),
+      })),
     [positions]
   );
 

@@ -82,6 +82,8 @@ const TeamInfo = styled.div`
   width: 100%;
   color: ${({ theme }) => theme.colors.white};
   text-align: center;
+  padding: 0 10px;
+
   @media screen and ${({ theme }) => theme.deviceSize.laptop} {
     text-align: start;
     padding: 65px 0;
@@ -92,6 +94,8 @@ const TeamName = styled.h1`
   font-size: 24px;
   font-weight: 800;
   margin-bottom: 32px;
+  text-overflow: ellipsis;
+  overflow: hidden;
 
   @media screen and ${({ theme }) => theme.deviceSize.laptop} {
     font-size: 36px;

@@ -47,6 +47,7 @@ export const ContentHeader = ({
                 options={selectOptions}
                 handleInputChange={handleInputChange}
                 loading={loadingTeamsFilter}
+                selectTeamName
               />
             </SelectTeamName>
           )}
@@ -80,6 +81,7 @@ const FilterContainer = styled.div`
 const SelectTeamName = styled.div`
   width: 100%;
   margin: 16px 0 0 0;
+  background: ${({ theme }) => theme.colors.white};
   border: 0.5px solid ${({ theme }) => theme.colors.lightestGrey};
   border-radius: 4px;
 

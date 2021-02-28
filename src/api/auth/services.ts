@@ -14,12 +14,12 @@ const register = async (params: RegisterParams) => {
       case 409:
         throw new CustomError(
           response.status.toString(),
-          "Пользователь с таким логином уже существует!"
+          "User with this login already exists!"
         );
       default:
         throw new CustomError(
           response.status.toString(),
-          "Ошибка регистрации!"
+          "Registration error!"
         );
     }
   }
@@ -39,12 +39,12 @@ const login = async (params: LoginParams) => {
       case 403:
         throw new CustomError(
           response.status.toString(),
-          "Пользователь с таким логином/паролем не найден!"
+          "User with the specified login / password was not found."
         );
       default:
         throw new CustomError(
           response.status.toString(),
-          "Ошибка авторизации!"
+          "Authorisation error!"
         );
     }
   }

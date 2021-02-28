@@ -65,6 +65,14 @@ export const TeamForm = ({
           error={errors.foundationYear}
           registerOptions={{
             required: "Year of foundation is required.",
+            min: {
+              value: 1700,
+              message: "Year of foundation is required.",
+            },
+            maxLength: {
+              value: 4,
+              message: "Year of foundation is required.",
+            },
           }}
         />
         <ButtonsWrapper>

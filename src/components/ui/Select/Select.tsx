@@ -35,7 +35,10 @@ export const Select = ({
 }: SelectProps) => (
   <SelectContainer>
     {label && <label>{label}</label>}
-    <SelectStyles>
+    <SelectStyles
+      selectPageSize={selectPageSize}
+      selectTeamName={selectTeamName}
+    >
       <Controller
         name={nameSelect}
         control={control}
@@ -48,7 +51,7 @@ export const Select = ({
         classNamePrefix={"react-select"}
         theme={configTheme}
         as={<ReactSelect />}
-        maxMenuHeight={200}
+        maxMenuHeight={300}
         menuPlacement={selectPageSize ? "top" : "bottom"}
       />
     </SelectStyles>

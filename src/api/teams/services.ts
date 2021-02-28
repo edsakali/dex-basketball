@@ -51,12 +51,12 @@ const deleteTeam = async (user: User, { id }: IdParams): Promise<Team> => {
       case 500:
         throw new CustomError(
           response.status.toString(),
-          "Невозможно удалить команду, необходимо удалить игроков!"
+          "Unable to delete team, players must be deleted!"
         );
       default:
         throw new CustomError(
           response.status.toString(),
-          "Ошибка удаления команды!"
+          "Command deletion error!"
         );
     }
   }
@@ -79,12 +79,12 @@ const postTeam = async (user: User, params: TeamParams) => {
       case 409:
         throw new CustomError(
           response.status.toString(),
-          "Эта команда уже добавлен!"
+          "This command has already been added!"
         );
       default:
         throw new CustomError(
           response.status.toString(),
-          "Ошибка добавления команды!"
+          "Command adding error!"
         );
     }
   }

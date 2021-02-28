@@ -71,6 +71,9 @@ const PlayerNumber = styled.span`
 
 const PlayerTeam = styled.p`
   font-size: 10px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 
   @media screen and ${({ theme }) => theme.deviceSize.tablet} {
     font-size: 14px;

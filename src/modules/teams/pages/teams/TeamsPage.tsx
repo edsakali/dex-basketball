@@ -16,8 +16,10 @@ import { InitialTeamsPageParams } from "../../../../api/teams/services";
 import { EmptyContent } from "../../../../components/EmptyContent";
 import { LoadState } from "../../../../redux/loadState";
 import emptyTeamImg from "../../../../assets/images/empty-teams-bg.png";
+import { useDebounceValue } from "../../../../core/hooks/useDebounceValue";
 
 const DEFAULT_FIELD_VALUES = {
+  name: "",
   pageSize: {
     value: InitialTeamsPageParams.pageSize,
     label: InitialTeamsPageParams.pageSize,
@@ -39,10 +41,13 @@ export const TeamsPage = () => {
   });
   const pageSize = watch("pageSize");
   const name = watch("name");
+  const debounceName = useDebounceValue<string>(name);
 
   useEffect(() => {
-    dispatch(fetchTeams({ name, pageSize: pageSize?.value, page }));
-  }, [dispatch, name, pageSize, page]);
+    dispatch(
+      fetchTeams({ name: debounceName, pageSize: pageSize?.value, page })
+    );
+  }, [dispatch, debounceName, pageSize, page]);
 
   const onPageChange = (selectedItem: { selected: number }) => {
     setPage(selectedItem.selected + 1);

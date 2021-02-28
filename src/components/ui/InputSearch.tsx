@@ -36,6 +36,7 @@ const InputWrapper = styled.div`
   width: 100%;
   min-height: 40px;
   padding: 0 12px;
+  background: ${({ theme }) => theme.colors.white};
   border: 0.5px solid ${({ theme }) => theme.colors.lightestGrey};
   border-radius: 4px;
 
@@ -49,7 +50,6 @@ const Input = styled.input`
   background: transparent;
   line-height: 24px;
   border: none;
-  padding: 4px 0;
 
   &:focus {
     outline: none;

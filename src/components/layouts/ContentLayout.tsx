@@ -52,7 +52,6 @@ export const ContentLayout: FC<Props> = ({
 const CardsSection = styled.section`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   padding: 0 12px;
 
   @media screen and ${({ theme }) => theme.deviceSize.tablet} {
@@ -61,10 +60,10 @@ const CardsSection = styled.section`
 `;
 
 const ContentWrapper = styled.div`
-  min-height: 650px;
-  margin: 16px 0;
+  min-height: 500px;
 
   @media screen and ${({ theme }) => theme.deviceSize.laptop} {
     margin: 0;
+    min-height: 718px;
   }
 `;

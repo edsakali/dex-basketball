@@ -90,11 +90,16 @@ const UserImg = styled(AccountIcon)`
 
 const MobileIcon = styled.div`
   position: absolute;
-  top: 0;
-  left: 45px;
+  padding: 8px;
+  height: 40px;
+  top: 11px;
+  left: 4px;
   z-index: 199;
-  transform: translate(-100%, 60%);
   cursor: pointer;
+
+  &:hover {
+    opacity: 0.6;
+  }
 
   @media screen and ${({ theme }) => theme.deviceSize.tablet} {
     display: none;

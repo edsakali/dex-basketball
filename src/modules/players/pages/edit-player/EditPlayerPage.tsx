@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 import { useHistory, useLocation, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
@@ -6,7 +6,6 @@ import debounce from "lodash.debounce";
 import styled from "styled-components";
 import { PlayerForm, PlayerFormFields } from "../../components/PlayerForm";
 import { useAppDispatch } from "../../../../redux/store";
-import { toBase64 } from "../../../../core/helpers/toBase64";
 import {
   fetchEditPlayer,
   fetchPlayerId,
@@ -18,6 +17,8 @@ import { pathList } from "../../../../routers/pathList";
 import { usePlayerPositions } from "../../usePlayerPositions";
 import { LoadState } from "../../../../redux/loadState";
 import { Spinner } from "../../../../components/Spiner";
+import { LoadingBackdrop } from "../../../../components/LoadingBackdrop";
+import { useImageUpload } from "../../../../core/hooks/useImageUpload";
 
 export const EditPlayerPage = () => {
   const dispatch = useAppDispatch();
@@ -29,8 +30,8 @@ export const EditPlayerPage = () => {
     teamsFilter,
     loadingTeamsFilter,
     loadingPlayer,
+    loadingEditPlayer,
   } = useSelector(playersSelector);
-  const [playerImage, setPlayerImage] = useState<string | undefined>();
   const { optionsPositions } = usePlayerPositions();
   const {
     watch,
@@ -41,8 +42,8 @@ export const EditPlayerPage = () => {
   } = useForm<PlayerFormFields>({
     mode: "onBlur",
   });
-
   const imageUpload = watch("file");
+  const playerImage = useImageUpload<FileList>(imageUpload);
 
   useEffect(() => {
     if (!player) {
@@ -53,7 +54,7 @@ export const EditPlayerPage = () => {
   useEffect(() => {
     const birthDate = player && new Date(player?.birthday);
     const day = birthDate && ("0" + birthDate.getDate()).slice(-2);
-    const month = birthDate && ("0" + birthDate.getMonth()).slice(-2);
+    const month = birthDate && ("0" + (birthDate.getMonth() + 1)).slice(-2);
     const today =
       birthDate && birthDate.getFullYear() + "-" + month + "-" + day;
     if (player) {
@@ -71,14 +72,6 @@ export const EditPlayerPage = () => {
       setValue("position", { value: player.position, label: player.position });
     }
   }, [player, optionsPositions, setValue]);
-
-  useEffect(() => {
-    if (imageUpload && imageUpload[0]) {
-      toBase64(imageUpload[0]).then((base64) => {
-        base64 && setPlayerImage(base64.toString());
-      });
-    }
-  }, [imageUpload]);
 
   const goBackHandler = () => goBack();
 
@@ -124,7 +117,7 @@ export const EditPlayerPage = () => {
   });
 
   return (
-    <AddPlayerWrapper>
+    <EditPlayerWrapper>
       <ContentTitle
         crumbs={[
           { label: "Main", pathname: "/" },
@@ -152,11 +145,12 @@ export const EditPlayerPage = () => {
           goBackHandler={goBackHandler}
         />
       )}
-    </AddPlayerWrapper>
+      {loadingEditPlayer === LoadState.pending && <LoadingBackdrop />}
+    </EditPlayerWrapper>
   );
 };
 
-const AddPlayerWrapper = styled.div`
+const EditPlayerWrapper = styled.div`
   border-radius: 10px;
   background: ${({ theme }) => theme.colors.white};
 `;

@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useHistory, useLocation, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
@@ -6,24 +7,24 @@ import { fetchEditTeam, fetchTeamId } from "../../teamsAsyncActions";
 import { pathList } from "../../../../routers/pathList";
 import { TeamForm } from "../../components/TeamForm";
 import { useAppDispatch } from "../../../../redux/store";
-import { useEffect, useState } from "react";
-import { toBase64 } from "../../../../core/helpers/toBase64";
 import { teamsSelector } from "../../teamsSlice";
 import { ContentTitle } from "../../../../components/ContentTitle";
 import { LoadState } from "../../../../redux/loadState";
 import { Spinner } from "../../../../components/Spiner";
+import { LoadingBackdrop } from "../../../../components/LoadingBackdrop";
+import { useImageUpload } from "../../../../core/hooks/useImageUpload";
 
 export const EditTeamPage = () => {
   const dispatch = useAppDispatch();
   const { pathname } = useLocation();
   const { goBack } = useHistory();
   const { id } = useParams<{ id: string }>();
-  const [teamLogo, setTeamLogo] = useState<string | undefined>();
-  const { team, loadingTeam } = useSelector(teamsSelector);
+  const { team, loadingTeam, loadingPutTeam } = useSelector(teamsSelector);
   const { watch, register, handleSubmit, setValue, errors } = useForm({
     mode: "onBlur",
   });
   const imageUpload: FileList = watch("file");
+  const teamLogo = useImageUpload<FileList>(imageUpload);
 
   useEffect(() => {
     if (!team) {
@@ -37,17 +38,9 @@ export const EditTeamPage = () => {
     }
   }, [setValue, team]);
 
-  useEffect(() => {
-    if (imageUpload && imageUpload[0]) {
-      toBase64(imageUpload[0]).then((base64) => {
-        base64 && setTeamLogo(base64.toString());
-      });
-    }
-  }, [imageUpload]);
-
   const goBackHandler = () => goBack();
 
-  const onSubmit = handleSubmit((Data, event) => {
+  const onSubmit = handleSubmit((Data) => {
     const { name, division, conference, foundationYear } = Data;
     const imageFile = Data.file[0];
     const imageUrlLogo = team?.imageUrl;
@@ -92,6 +85,7 @@ export const EditTeamPage = () => {
           goBackHandler={goBackHandler}
         />
       )}
+      {loadingPutTeam === LoadState.pending && <LoadingBackdrop />}
     </EditTeamWrapper>
   );
 };

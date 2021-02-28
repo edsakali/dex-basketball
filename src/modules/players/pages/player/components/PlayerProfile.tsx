@@ -22,7 +22,10 @@ export const PlayerProfile = ({
   number,
 }: Props) => {
   const playerMeta = [
-    { label: "Position", value: position },
+    {
+      label: "Position",
+      value: position?.replace(/([A-Z][a-z]+)/g, "$1 ").trim(),
+    },
     { label: "Team", value: team },
     { label: "Height", value: height },
     { label: "Weight", value: weight },
@@ -95,6 +98,7 @@ const PlayerInfo = styled.div`
   width: 100%;
   color: ${({ theme }) => theme.colors.white};
   text-align: center;
+  padding: 0 10px;
   @media screen and ${({ theme }) => theme.deviceSize.laptop} {
     text-align: start;
     padding: 65px 0;
@@ -104,6 +108,8 @@ const PlayerName = styled.h1`
   font-size: 24px;
   margin-bottom: 32px;
   font-weight: 800;
+  text-overflow: ellipsis;
+  overflow: hidden;
 
   @media screen and ${({ theme }) => theme.deviceSize.laptop} {
     font-size: 36px;

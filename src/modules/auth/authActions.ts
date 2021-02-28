@@ -4,11 +4,7 @@ import { authServices } from "../../api/auth/services";
 import { notification } from "../../core/helpers/notification";
 import { CustomError } from "../../core/helpers/errorHelper";
 
-export const signUpAction = createAsyncThunk<
-  User,
-  RegisterParams,
-  { rejectValue: string }
->(
+export const signUpAction = createAsyncThunk<User, RegisterParams>(
   "auth/signUp",
 
   async ({ userName, login, password }, thunkAPI) => {
@@ -26,18 +22,14 @@ export const signUpAction = createAsyncThunk<
       if (err instanceof CustomError) {
         notification("error", err.text);
       } else {
-        notification("error", "Неизвестная ошибка!");
+        notification("error", "Unknown error!");
       }
       return rejectWithValue("Register Error: " + err);
     }
   }
 );
 
-export const signInAction = createAsyncThunk<
-  User,
-  LoginParams,
-  { rejectValue: string }
->(
+export const signInAction = createAsyncThunk<User, LoginParams>(
   "auth/signIn",
 
   async (loginParams, thunkAPI) => {
@@ -50,7 +42,7 @@ export const signInAction = createAsyncThunk<
       if (err instanceof CustomError) {
         notification("error", err.text);
       } else {
-        notification("error", "Неизвестная ошибка!");
+        notification("error", "Unknown error!");
       }
       return rejectWithValue("Register Error: " + err);
     }

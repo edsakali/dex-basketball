@@ -37,13 +37,13 @@ const Logo = styled.img`
 `;
 const TeamDescription = styled.div`
   text-align: center;
-  padding: 19px 0;
+  padding: 19px 5px;
   border-radius: 0 0 4px 4px;
   background: ${({ theme }) => theme.colors.darkGrey};
   color: ${({ theme }) => theme.colors.white};
 
   @media screen and ${({ theme }) => theme.deviceSize.tablet} {
-    padding: 24px 0;
+    padding: 24px 5px;
   } ;
 `;
 const TeamName = styled.p`
@@ -59,6 +59,9 @@ const TeamName = styled.p`
 `;
 const TeamFoundation = styled.p`
   font-size: 10px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 
   @media screen and ${({ theme }) => theme.deviceSize.tablet} {
     font-size: 14px;

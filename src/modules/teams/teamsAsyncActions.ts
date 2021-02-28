@@ -64,7 +64,7 @@ export const fetchDeleteTeam = createAsyncThunk<
     if (err instanceof CustomError) {
       notification("error", err.text);
     } else {
-      notification("error", "Неизвестная ошибка!");
+      notification("error", "Unknown error!");
     }
     return rejectWithValue("Register Error: " + err);
   }
@@ -97,7 +97,7 @@ export const fetchAddTeam = createAsyncThunk<Team, TeamParams>(
       if (err instanceof CustomError) {
         notification("error", err.text);
       } else {
-        notification("error", "Неизвестная ошибка!");
+        notification("error", "Unknown error!");
       }
       return rejectWithValue("Register Error: " + err);
     }

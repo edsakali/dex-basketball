@@ -18,6 +18,8 @@ interface TeamsState {
   loading: LoadState;
   loadingTeam: LoadState;
   loadingTeamPlayers: LoadState;
+  loadingPostTeam: LoadState;
+  loadingPutTeam: LoadState;
   teamPlayers: Array<PlayerParams>;
   count?: number;
   size?: number;
@@ -30,6 +32,8 @@ const initialState: TeamsState = {
   loading: LoadState.needLoad,
   loadingTeam: LoadState.needLoad,
   loadingTeamPlayers: LoadState.needLoad,
+  loadingPostTeam: LoadState.needLoad,
+  loadingPutTeam: LoadState.needLoad,
 };
 
 const teamsSlice = createSlice({
@@ -81,22 +85,22 @@ const teamsSlice = createSlice({
       state.loading = LoadState.idle;
     });
     builder.addCase(fetchAddTeam.pending, (state) => {
-      state.loading = LoadState.pending;
+      state.loadingPostTeam = LoadState.pending;
     });
     builder.addCase(fetchAddTeam.fulfilled, (state) => {
-      state.loading = LoadState.idle;
+      state.loadingPostTeam = LoadState.idle;
     });
     builder.addCase(fetchAddTeam.rejected, (state, action) => {
-      state.loading = LoadState.idle;
+      state.loadingPostTeam = LoadState.idle;
     });
     builder.addCase(fetchEditTeam.pending, (state) => {
-      state.loading = LoadState.pending;
+      state.loadingPutTeam = LoadState.pending;
     });
     builder.addCase(fetchEditTeam.fulfilled, (state) => {
-      state.loading = LoadState.idle;
+      state.loadingPutTeam = LoadState.idle;
     });
     builder.addCase(fetchEditTeam.rejected, (state, action) => {
-      state.loading = LoadState.idle;
+      state.loadingPutTeam = LoadState.idle;
     });
   },
 });

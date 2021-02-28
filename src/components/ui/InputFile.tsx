@@ -37,8 +37,7 @@ const ImgInputWrapper = styled.div`
   @media screen and ${({ theme }) => theme.deviceSize.laptop} {
     max-width: 336px;
     width: 100%;
-    height: 100%;
-    aspect-ratio: 1.287;
+    height: 261px;
     margin-bottom: 0;
   }
 `;

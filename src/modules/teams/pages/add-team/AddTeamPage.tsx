@@ -3,33 +3,29 @@ import { TeamForm } from "../../components/TeamForm";
 import { useForm } from "react-hook-form";
 import { useAppDispatch } from "../../../../redux/store";
 import { fetchAddTeam } from "../../teamsAsyncActions";
-import { useEffect, useState } from "react";
-import { toBase64 } from "../../../../core/helpers/toBase64";
 import { pathList } from "../../../../routers/pathList";
 import { useHistory, useLocation } from "react-router-dom";
 import { ContentTitle } from "../../../../components/ContentTitle";
+import { LoadState } from "../../../../redux/loadState";
+import { LoadingBackdrop } from "../../../../components/LoadingBackdrop";
+import { useSelector } from "react-redux";
+import { teamsSelector } from "../../teamsSlice";
+import { useImageUpload } from "../../../../core/hooks/useImageUpload";
 
 export const AddTeamPage = () => {
-  const [teamLogo, setTeamLogo] = useState<string | undefined>();
   const { pathname } = useLocation();
+  const { loadingPostTeam } = useSelector(teamsSelector);
   const { goBack } = useHistory();
   const dispatch = useAppDispatch();
   const { watch, register, handleSubmit, errors } = useForm({
     mode: "onBlur",
   });
   const imageUpload: FileList = watch("file");
-
-  useEffect(() => {
-    if (imageUpload && imageUpload[0]) {
-      toBase64(imageUpload[0]).then((base64) => {
-        base64 && setTeamLogo(base64.toString());
-      });
-    }
-  }, [imageUpload]);
+  const teamLogo = useImageUpload<FileList>(imageUpload);
 
   const goBackHandler = () => goBack();
 
-  const onSubmit = handleSubmit((Data, event) => {
+  const onSubmit = handleSubmit((Data) => {
     const { name, division, conference, foundationYear } = Data;
     const imageFile = Data.file[0];
     const callback = () => goBack();
@@ -62,6 +58,7 @@ export const AddTeamPage = () => {
         errors={errors}
         goBackHandler={goBackHandler}
       />
+      {loadingPostTeam === LoadState.pending && <LoadingBackdrop />}
     </AddTeamWrapper>
   );
 };
