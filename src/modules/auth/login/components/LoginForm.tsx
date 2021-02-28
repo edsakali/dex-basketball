@@ -1,12 +1,10 @@
 import styled from "styled-components";
 import { FieldErrors, UseFormMethods } from "react-hook-form";
-import { AuthLayout } from "../../../../components/layouts/AuthLayout";
 import { Button } from "../../../../components/ui/Button";
 import { Input } from "../../../../components/ui/Input";
 import { AuthNavigation } from "../../../../components/navigation/AuthNavigation";
 import iconVis from "../../../../assets/images/icons/visibility.svg";
 import iconVisOff from "../../../../assets/images/icons/visibility_off.svg";
-import layer1 from "../../../../assets/images/login-bg.png";
 import { LoginParams } from "../../../../api/auth/AuthDto";
 import { pathList } from "../../../../routers/pathList";
 
@@ -26,7 +24,7 @@ export const LoginForm = ({
   errors,
 }: FormProps) => {
   return (
-    <AuthLayout titleText="Sign In" img={layer1}>
+    <Wrapper>
       <Form onSubmit={onSubmit}>
         <Input
           type="text"
@@ -66,9 +64,16 @@ export const LoginForm = ({
         actionText="Sign Up"
         path={pathList.auth.register}
       />
-    </AuthLayout>
+    </Wrapper>
   );
 };
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
 
 const Form = styled.form`
   max-width: 366px;

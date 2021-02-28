@@ -19,7 +19,7 @@ export const AddPlayerPage = () => {
   const dispatch = useAppDispatch();
   const { pathname } = useLocation();
   const { goBack } = useHistory();
-  const { teamsFilter, loadingTeamsFilter, loadingPostPlayer } = useSelector(
+  const { teamsFilter, loadingTeamsFilter, loading } = useSelector(
     playersSelector
   );
   const { optionsPositions } = usePlayerPositions();
@@ -81,18 +81,19 @@ export const AddPlayerPage = () => {
           { label: "Add new player", pathname: pathname },
         ]}
       />
-      <PlayerForm
-        handleInputChange={loadSuggestions}
-        register={register}
-        onSubmit={onSubmit}
-        playerImage={playerImage}
-        control={control}
-        optionsPositions={optionsPositions}
-        teamsOptions={teamsOptions}
-        loading={loadingTeamsFilter}
-        goBackHandler={goBackHandler}
-      />
-      {loadingPostPlayer === LoadState.pending && <LoadingBackdrop />}
+      <LoadingBackdrop loading={loading === LoadState.pending}>
+        <PlayerForm
+          handleInputChange={loadSuggestions}
+          register={register}
+          onSubmit={onSubmit}
+          playerImage={playerImage}
+          control={control}
+          optionsPositions={optionsPositions}
+          teamsOptions={teamsOptions}
+          loading={loadingTeamsFilter}
+          goBackHandler={goBackHandler}
+        />
+      </LoadingBackdrop>
     </AddPlayerWrapper>
   );
 };

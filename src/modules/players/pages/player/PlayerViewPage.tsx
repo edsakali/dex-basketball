@@ -15,7 +15,7 @@ export const PlayerViewPage = () => {
   const dispatch = useAppDispatch();
   const { pathname } = useLocation();
   const { id } = useParams<{ id: string }>();
-  const { player, loadingPlayer } = useSelector(playersSelector);
+  const { player, loading } = useSelector(playersSelector);
 
   useEffect(() => {
     id && dispatch(fetchPlayerId({ id }));
@@ -35,7 +35,7 @@ export const PlayerViewPage = () => {
         pathEdit={pathList.content.editPlayers + id}
         pathBack={pathList.content.players}
       />
-      {loadingPlayer === LoadState.pending ? (
+      {loading === LoadState.pending ? (
         <Spinner />
       ) : (
         <PlayerProfile

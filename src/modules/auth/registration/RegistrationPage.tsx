@@ -8,8 +8,10 @@ import { signUpAction } from "../authActions";
 import { RegisterParams } from "../../../api/auth/AuthDto";
 import { authSelector } from "../authSlice";
 import { pathList } from "../../../routers/pathList";
-import { LoadState } from "../../../redux/loadState";
+import { AuthLayout } from "../../../components/layouts/AuthLayout";
+import layer2 from "../../../assets/images/register-bg.png";
 import { LoadingBackdrop } from "../../../components/LoadingBackdrop";
+import { LoadState } from "../../../redux/loadState";
 
 export interface RegisterValues extends RegisterParams {
   password_repeat: string;
@@ -42,16 +44,17 @@ export const RegistrationPage = () => {
   });
 
   return (
-    <>
-      <RegistrationForm
-        errors={errors}
-        register={register}
-        onSubmit={handleFormSubmit}
-        showPassword={showPassword}
-        onShowPassword={handleShowPassword}
-        watchFields={watchFields}
-      />
-      {loading === LoadState.pending && <LoadingBackdrop />}
-    </>
+    <AuthLayout titleText="Sign Up" img={layer2}>
+      <LoadingBackdrop loading={loading === LoadState.pending}>
+        <RegistrationForm
+          errors={errors}
+          register={register}
+          onSubmit={handleFormSubmit}
+          showPassword={showPassword}
+          onShowPassword={handleShowPassword}
+          watchFields={watchFields}
+        />
+      </LoadingBackdrop>
+    </AuthLayout>
   );
 };

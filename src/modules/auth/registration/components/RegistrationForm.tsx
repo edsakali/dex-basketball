@@ -1,11 +1,9 @@
 import { FieldErrors, UseFormMethods } from "react-hook-form";
 import styled from "styled-components";
-import { AuthLayout } from "../../../../components/layouts/AuthLayout";
 import { Input } from "../../../../components/ui/Input";
 import { AuthNavigation } from "../../../../components/navigation/AuthNavigation";
 import iconVis from "../../../../assets/images/icons/visibility.svg";
 import iconVisOff from "../../../../assets/images/icons/visibility_off.svg";
-import layer2 from "../../../../assets/images/register-bg.png";
 import { RegisterValues } from "../RegistrationPage";
 import { CheckBox } from "../../../../components/ui/CheckBox";
 import { pathList } from "../../../../routers/pathList";
@@ -29,7 +27,7 @@ export const RegistrationForm = ({
   watchFields,
 }: FormProps): JSX.Element => {
   return (
-    <AuthLayout titleText="Sign Up" img={layer2}>
+    <Wrapper>
       <Form onSubmit={onSubmit}>
         <Input
           type="text"
@@ -101,9 +99,16 @@ export const RegistrationForm = ({
         actionText="Sign In"
         path={pathList.auth.login}
       />
-    </AuthLayout>
+    </Wrapper>
   );
 };
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
 
 const Form = styled.form`
   max-width: 366px;

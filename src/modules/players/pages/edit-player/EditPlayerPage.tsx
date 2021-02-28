@@ -16,7 +16,6 @@ import { ContentTitle } from "../../../../components/ContentTitle";
 import { pathList } from "../../../../routers/pathList";
 import { usePlayerPositions } from "../../usePlayerPositions";
 import { LoadState } from "../../../../redux/loadState";
-import { Spinner } from "../../../../components/Spiner";
 import { LoadingBackdrop } from "../../../../components/LoadingBackdrop";
 import { useImageUpload } from "../../../../core/hooks/useImageUpload";
 
@@ -25,13 +24,9 @@ export const EditPlayerPage = () => {
   const { pathname } = useLocation();
   const { goBack } = useHistory();
   const { id } = useParams<{ id: string }>();
-  const {
-    player,
-    teamsFilter,
-    loadingTeamsFilter,
-    loadingPlayer,
-    loadingEditPlayer,
-  } = useSelector(playersSelector);
+  const { player, teamsFilter, loadingTeamsFilter, loading } = useSelector(
+    playersSelector
+  );
   const { optionsPositions } = usePlayerPositions();
   const {
     watch,
@@ -126,9 +121,7 @@ export const EditPlayerPage = () => {
           { label: "Edit player", pathname: pathname },
         ]}
       />
-      {loadingPlayer === LoadState.pending ? (
-        <Spinner />
-      ) : (
+      <LoadingBackdrop loading={loading === LoadState.pending}>
         <PlayerForm
           register={register}
           onSubmit={onSubmit}
@@ -144,8 +137,7 @@ export const EditPlayerPage = () => {
           loading={loadingTeamsFilter}
           goBackHandler={goBackHandler}
         />
-      )}
-      {loadingEditPlayer === LoadState.pending && <LoadingBackdrop />}
+      </LoadingBackdrop>
     </EditPlayerWrapper>
   );
 };

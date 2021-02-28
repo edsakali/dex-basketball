@@ -10,7 +10,6 @@ import { useAppDispatch } from "../../../../redux/store";
 import { teamsSelector } from "../../teamsSlice";
 import { ContentTitle } from "../../../../components/ContentTitle";
 import { LoadState } from "../../../../redux/loadState";
-import { Spinner } from "../../../../components/Spiner";
 import { LoadingBackdrop } from "../../../../components/LoadingBackdrop";
 import { useImageUpload } from "../../../../core/hooks/useImageUpload";
 
@@ -19,7 +18,7 @@ export const EditTeamPage = () => {
   const { pathname } = useLocation();
   const { goBack } = useHistory();
   const { id } = useParams<{ id: string }>();
-  const { team, loadingTeam, loadingPutTeam } = useSelector(teamsSelector);
+  const { team, loading } = useSelector(teamsSelector);
   const { watch, register, handleSubmit, setValue, errors } = useForm({
     mode: "onBlur",
   });
@@ -70,9 +69,7 @@ export const EditTeamPage = () => {
           { label: "Edit team", pathname: pathname },
         ]}
       />
-      {loadingTeam === LoadState.pending ? (
-        <Spinner />
-      ) : (
+      <LoadingBackdrop loading={loading === LoadState.pending}>
         <TeamForm
           errors={errors}
           onSubmit={onSubmit}
@@ -84,8 +81,7 @@ export const EditTeamPage = () => {
           }
           goBackHandler={goBackHandler}
         />
-      )}
-      {loadingPutTeam === LoadState.pending && <LoadingBackdrop />}
+      </LoadingBackdrop>
     </EditTeamWrapper>
   );
 };

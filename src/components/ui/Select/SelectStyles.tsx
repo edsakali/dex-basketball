@@ -73,6 +73,7 @@ export const SelectStyles = styled.div<{
   }
 
   .react-select__option {
+    cursor: pointer;
     border-bottom: 0.5px solid ${({ theme }) => theme.colors.lightestGrey};
     &:last-child {
       border-bottom: none;

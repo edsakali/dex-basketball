@@ -19,9 +19,6 @@ interface PlayersState {
   data: Array<PlayerParams>;
   teamsFilter: Array<TeamParams>;
   loadingTeamsFilter: LoadState;
-  loadingPlayer: LoadState;
-  loadingPostPlayer: LoadState;
-  loadingEditPlayer: LoadState;
   positions?: Array<string>;
   player?: Player;
   count?: number;
@@ -33,9 +30,6 @@ const initialState: PlayersState = {
   teamsFilter: [],
   loading: LoadState.needLoad,
   loadingTeamsFilter: LoadState.needLoad,
-  loadingPlayer: LoadState.needLoad,
-  loadingPostPlayer: LoadState.needLoad,
-  loadingEditPlayer: LoadState.needLoad,
 };
 
 const playersSlice = createSlice({
@@ -58,14 +52,14 @@ const playersSlice = createSlice({
     });
 
     builder.addCase(fetchPlayerId.pending, (state) => {
-      state.loadingPlayer = LoadState.pending;
+      state.loading = LoadState.pending;
     });
     builder.addCase(fetchPlayerId.fulfilled, (state, action) => {
-      state.loadingPlayer = LoadState.idle;
+      state.loading = LoadState.idle;
       state.player = action.payload;
     });
     builder.addCase(fetchPlayerId.rejected, (state) => {
-      state.loadingPlayer = LoadState.idle;
+      state.loading = LoadState.idle;
     });
     builder.addCase(fetchPositions.pending, (state) => {
       state.loading = LoadState.pending;
@@ -78,22 +72,22 @@ const playersSlice = createSlice({
       state.loading = LoadState.idle;
     });
     builder.addCase(fetchAddPlayer.pending, (state) => {
-      state.loadingPostPlayer = LoadState.pending;
+      state.loading = LoadState.pending;
     });
     builder.addCase(fetchAddPlayer.fulfilled, (state) => {
-      state.loadingPostPlayer = LoadState.idle;
+      state.loading = LoadState.idle;
     });
     builder.addCase(fetchAddPlayer.rejected, (state) => {
-      state.loadingPostPlayer = LoadState.idle;
+      state.loading = LoadState.idle;
     });
     builder.addCase(fetchEditPlayer.pending, (state) => {
-      state.loadingEditPlayer = LoadState.pending;
+      state.loading = LoadState.pending;
     });
     builder.addCase(fetchEditPlayer.fulfilled, (state) => {
-      state.loadingEditPlayer = LoadState.idle;
+      state.loading = LoadState.idle;
     });
     builder.addCase(fetchEditPlayer.rejected, (state) => {
-      state.loadingEditPlayer = LoadState.idle;
+      state.loading = LoadState.idle;
     });
     builder.addCase(fetchDeletePlayer.pending, (state) => {
       state.loading = LoadState.pending;

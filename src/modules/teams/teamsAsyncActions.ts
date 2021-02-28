@@ -62,7 +62,7 @@ export const fetchDeleteTeam = createAsyncThunk<
     return await teamsServices.deleteTeam(auth.user, params);
   } catch (err) {
     if (err instanceof CustomError) {
-      notification("error", err.text);
+      notification("error", err.text, { toastId: err.code });
     } else {
       notification("error", "Unknown error!");
     }
@@ -95,7 +95,7 @@ export const fetchAddTeam = createAsyncThunk<Team, TeamParams>(
       }
     } catch (err) {
       if (err instanceof CustomError) {
-        notification("error", err.text);
+        notification("error", err.text, { toastId: err.code });
       } else {
         notification("error", "Unknown error!");
       }

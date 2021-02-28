@@ -20,7 +20,7 @@ export const TeamViewPage = () => {
   const dispatch = useAppDispatch();
   const { pathname } = useLocation();
   const { id }: ParamsId = useParams();
-  const { team, teamPlayers, loadingTeam, loadingTeamPlayers } = useSelector(
+  const { team, teamPlayers, loading, loadingTeamPlayers } = useSelector(
     teamsSelector
   );
 
@@ -43,7 +43,7 @@ export const TeamViewPage = () => {
         pathEdit={pathList.content.editTeam + id}
         pathBack={pathList.content.teams}
       />
-      {loadingTeam === LoadState.pending ? (
+      {loading === LoadState.pending ? (
         <Spinner />
       ) : (
         <TeamProfile
